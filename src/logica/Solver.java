@@ -25,9 +25,11 @@ public class Solver {
 		}
 		
 		Solucion ret = new Solucion();
+		Solucion ret2 = new Solucion();
 		
 		Vertice mejorOpcion = ordenarVertices().get(0);
 		ret.agregar(mejorOpcion);
+		ret2.agregar(mejorOpcion);
 		
 		for (Vertice verticeVecino: ordenarVecinosPorPeso(mejorOpcion.obtenerVecinos())) {
 			if (vecinoDeTodos(verticeVecino, ret.obtener())) {
@@ -35,7 +37,13 @@ public class Solver {
 			}
 		}
 		
-		return ret;
+		for (Vertice verticeVecino: mejorOpcion.obtenerVecinos()) {
+			if (vecinoDeTodos(verticeVecino, ret2.obtener())) {
+				ret2.agregar(verticeVecino);
+			}
+		}
+		
+		return ret.peso() > ret2._peso ? ret : ret2;
 	}
 
 	private ArrayList<Vertice> ordenarVecinosPorPeso(Set<Vertice> vecinos){
