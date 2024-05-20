@@ -20,12 +20,16 @@ public class Solver {
 	
 	
 	public Solucion resolver() {
+		if(_grafo.tamano() == 0) {
+			return new Solucion();
+		}
+		
 		Solucion ret = new Solucion();
 		
 		Vertice mejorOpcion = ordenarVertices().get(0);
 		ret.agregar(mejorOpcion);
 		
-		for (Vertice verticeVecino: mejorOpcion.obtenerVecinos()) {
+		for (Vertice verticeVecino: ordenarVecinosPorPeso(mejorOpcion.obtenerVecinos())) {
 			if (vecinoDeTodos(verticeVecino, ret.obtener())) {
 				ret.agregar(verticeVecino);
 			}
@@ -34,6 +38,11 @@ public class Solver {
 		return ret;
 	}
 
+	private ArrayList<Vertice> ordenarVecinosPorPeso(Set<Vertice> vecinos){
+		ArrayList<Vertice> ret = new ArrayList<>(vecinos);
+		Collections.sort(ret, comparadorPorPeso());
+		return ret;
+	}
 	
 	private boolean vecinoDeTodos(Vertice vecino, Set<Vertice> clique) {
 		for (Vertice vertice: clique) {
@@ -49,6 +58,16 @@ public class Solver {
 		ArrayList<Vertice> ret = _grafo.getVertices();
 		Collections.sort(ret, _comparador);
 		return ret;
+	}
+	
+	public Comparator<Vertice> comparadorPorPeso(){
+		return new Comparator<Vertice>() {
+
+			@Override
+			public int compare(Vertice uno, Vertice otro) {
+				return -uno.getPeso() + otro.getPeso();
+			}
+		};
 	}
 	
 }

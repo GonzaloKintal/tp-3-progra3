@@ -18,7 +18,7 @@ public class Vertice {
 	
 	
 	private void verificarPeso(int peso) {
-		if (peso <= 0) {
+		if (peso < 0) {
 			throw new IllegalArgumentException("El peso del vértice debe ser positivo.");
 		}
 	}
@@ -66,6 +66,20 @@ public class Vertice {
 	
 	public boolean vecinoDe(Vertice vertice) {
 		return _vecinos.contains(vertice);
+	}
+	
+	public int getPesoVecinos() {
+		int aux = 0;
+		
+		for(Vertice vecino: _vecinos) {
+			aux += vecino._peso;
+		}
+		
+		return aux;
+	}
+	
+	public int getPesoTotalVecindario() {
+		return _peso + getPesoVecinos();
 	}
 	
 }
