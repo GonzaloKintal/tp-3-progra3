@@ -3,7 +3,6 @@ package logica;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.Set;
 
 public class Solver {
@@ -24,26 +23,28 @@ public class Solver {
 			return new Solucion();
 		}
 		
-		Solucion ret = new Solucion();
-		Solucion ret2 = new Solucion();
+		Solucion solucionOrdenandoVecinos = new Solucion();
+		Solucion solucionSinOrdenarVecinos = new Solucion();
 		
 		Vertice mejorOpcion = ordenarVertices().get(0);
-		ret.agregar(mejorOpcion);
-		ret2.agregar(mejorOpcion);
+		solucionOrdenandoVecinos.agregar(mejorOpcion);
+		solucionSinOrdenarVecinos.agregar(mejorOpcion);
 		
 		for (Vertice verticeVecino: ordenarVecinosPorPeso(mejorOpcion.obtenerVecinos())) {
-			if (vecinoDeTodos(verticeVecino, ret.obtener())) {
-				ret.agregar(verticeVecino);
+			if (vecinoDeTodos(verticeVecino, solucionOrdenandoVecinos.obtener())) {
+				solucionOrdenandoVecinos.agregar(verticeVecino);
 			}
 		}
 		
 		for (Vertice verticeVecino: mejorOpcion.obtenerVecinos()) {
-			if (vecinoDeTodos(verticeVecino, ret2.obtener())) {
-				ret2.agregar(verticeVecino);
+			if (vecinoDeTodos(verticeVecino, solucionSinOrdenarVecinos.obtener())) {
+				solucionSinOrdenarVecinos.agregar(verticeVecino);
 			}
 		}
-		
-		return ret.peso() > ret2._peso ? ret : ret2;
+		System.out.println(solucionOrdenandoVecinos.peso());
+		System.out.println("\n");
+		System.out.println(solucionSinOrdenarVecinos.peso());
+		return solucionOrdenandoVecinos.peso() > solucionSinOrdenarVecinos.peso() ? solucionOrdenandoVecinos : solucionSinOrdenarVecinos;
 	}
 
 	private ArrayList<Vertice> ordenarVecinosPorPeso(Set<Vertice> vecinos){

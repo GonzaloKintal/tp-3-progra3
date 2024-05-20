@@ -5,8 +5,8 @@ import java.util.Set;
 
 public class Solucion {
 
-	int _peso;
-	Set<Vertice> _vertices;
+	private int _peso;
+	private Set<Vertice> _vertices;
 	
 	public Solucion() {
 		_vertices = new HashSet<Vertice>();

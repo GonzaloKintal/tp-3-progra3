@@ -6,7 +6,7 @@ import java.util.Comparator;
 
 import org.junit.Test;
 
-public class SolverPorPesoDeLaListaDeVecinoTest {
+public class SolverPorPesoDeLaListaDeVecinosTest {
 
 	@Test
 	public void resolverCliqueListaDeVecinoTest() {
