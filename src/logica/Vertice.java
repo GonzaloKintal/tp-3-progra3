@@ -5,13 +5,14 @@ import java.util.Set;
 
 public class Vertice {
 	
-	Set<Integer> _vecinos;
+	Set<Vertice> _vecinos;
 	int _peso;
+	int _ID;
 
 	
 	public Vertice(int peso) {
 		verificarPeso(peso);
-		_vecinos = new HashSet<Integer>();
+		_vecinos = new HashSet<Vertice>();
 		_peso = peso;
 	}
 	
@@ -28,34 +29,43 @@ public class Vertice {
 	}
 	
 	
+	public int getID() {
+		return _ID;
+	}
+	
+	public void setID(int id) {
+		_ID = id;
+	}
+	
+	
 	public void actualizarPeso(int peso) {
 		verificarPeso(peso);
 		_peso = peso;
 	}
 	
 	
-	public Set<Integer> obtenerVecinos() {
+	public Set<Vertice> obtenerVecinos() {
 		return clonar(_vecinos);
 	}
 
 
-	private Set<Integer> clonar(Set<Integer> vecinos) {
-		HashSet<Integer> ret = new HashSet<>();
+	private Set<Vertice> clonar(Set<Vertice> vecinos) {
+		HashSet<Vertice> ret = new HashSet<>();
 		
-		for (Integer n: vecinos) {
-			ret.add(n);
+		for (Vertice v: vecinos) {
+			ret.add(v);
 		}
 		return ret;
 	}
 	
 	
-	public void agregarVecino(int indiceVertice) {
-		_vecinos.add(indiceVertice);
+	public void agregarVecino(Vertice vertice) {
+		_vecinos.add(vertice);
 	}
 	
 	
-	public boolean vecinoDe(int indiceVertice) {
-		return _vecinos.contains(indiceVertice);
+	public boolean vecinoDe(Vertice vertice) {
+		return _vecinos.contains(vertice);
 	}
 	
 }

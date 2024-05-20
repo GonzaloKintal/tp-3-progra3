@@ -12,6 +12,16 @@ public class Solucion {
 	public Solucion() {
 		_vertices = new HashSet<Vertice>();
 	}
+
+
+	public void agregar(Vertice vertice) {
+		_vertices.add(vertice);
+	}
+
 	
+	public Set<Vertice> obtener() {
+		return _vertices;
+	}
 	
+
 }

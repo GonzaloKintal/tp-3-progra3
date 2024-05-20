@@ -14,6 +14,7 @@ public class Grafo {
 	
 	public void agregarVertice(int peso) {
 		Vertice vertice = new Vertice(peso);
+		vertice.setID(tamano());
 		_vertices.add(vertice);
 	}
 	
@@ -21,8 +22,8 @@ public class Grafo {
 	public void agregarArista(int indiceVertice1, int indiceVertice2) {
 		verificarVertices(indiceVertice1, indiceVertice2);
 		
-		_vertices.get(indiceVertice1).agregarVecino(indiceVertice2);
-		_vertices.get(indiceVertice2).agregarVecino(indiceVertice1);
+		_vertices.get(indiceVertice1).agregarVecino(_vertices.get(indiceVertice2));
+		_vertices.get(indiceVertice2).agregarVecino(_vertices.get(indiceVertice1));
 	}
 	
 	
@@ -53,7 +54,7 @@ public class Grafo {
 	
 	
 	public boolean existeArista(int indiceVertice1, int indiceVertice2) {
-		return _vertices.get(indiceVertice1).vecinoDe(indiceVertice2);
+		return _vertices.get(indiceVertice1).vecinoDe(_vertices.get(indiceVertice2));
 	}
 
 
