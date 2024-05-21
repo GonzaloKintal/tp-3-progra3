@@ -20,30 +20,20 @@ public class Solver {
 			return new Solucion();
 		}
 
-		Solucion solucionOrdenandoVecinos = new Solucion();
-		Solucion solucionSinOrdenarVecinos = new Solucion();
+		Solucion solucion = new Solucion();
 
 		Vertice mejorOpcion = ordenarVertices().get(0);
-		solucionOrdenandoVecinos.agregar(mejorOpcion);
-		solucionSinOrdenarVecinos.agregar(mejorOpcion);
+		solucion.agregar(mejorOpcion);
 
 		for (Vertice verticeVecino : ordenarVecinosPorPeso(mejorOpcion.obtenerVecinos())) {
-			if (vecinoDeTodos(verticeVecino, solucionOrdenandoVecinos.obtener())) {
-				solucionOrdenandoVecinos.agregar(verticeVecino);
+			if (vecinoDeTodos(verticeVecino, solucion.obtener())) {
+				solucion.agregar(verticeVecino);
 			}
 		}
-
-		for (Vertice verticeVecino : mejorOpcion.obtenerVecinos()) {
-			if (vecinoDeTodos(verticeVecino, solucionSinOrdenarVecinos.obtener())) {
-				solucionSinOrdenarVecinos.agregar(verticeVecino);
-			}
-		}
+		
 		System.out.println("-------------------\n");
-		System.out.println("Solucion ordenada:" + solucionOrdenandoVecinos.peso());
-		System.out.println("\n");
-		System.out.println("Solucion Sin ordenar:" + solucionSinOrdenarVecinos.peso());
-		return solucionOrdenandoVecinos.peso() > solucionSinOrdenarVecinos.peso() ? solucionOrdenandoVecinos
-				: solucionSinOrdenarVecinos;
+		System.out.println("Peso de la solucion:" + solucion.peso());
+		return solucion;
 	}
 
 	private ArrayList<Vertice> ordenarVecinosPorPeso(Set<Vertice> vecinos) {
