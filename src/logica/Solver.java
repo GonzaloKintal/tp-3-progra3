@@ -3,6 +3,7 @@ package logica;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 public class Solver {
@@ -63,8 +64,8 @@ public class Solver {
 	}
 
 
-	public ArrayList<Vertice> ordenarVertices() {
-		ArrayList<Vertice> ret = _grafo.getVertices();
+	public List<Vertice> ordenarVertices() {
+		List<Vertice> ret = _grafo.getVertices();
 		Collections.sort(ret, _comparador);
 		return ret;
 	}

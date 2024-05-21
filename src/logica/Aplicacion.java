@@ -18,6 +18,7 @@ public class Aplicacion {
 	
 	
 	public Solucion dameClique() {
+		_soluciones.clear();
 		_soluciones.add(solverPorCantidadDeVecinos());
 		_soluciones.add(solverPorPesoDeLaListaDeVecinos());
 		_soluciones.add(solverPorPesoVecindario());
