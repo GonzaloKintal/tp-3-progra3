@@ -2,8 +2,6 @@ package logica;
 
 import static org.junit.Assert.*;
 
-import java.util.Comparator;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -27,9 +25,8 @@ public class SolverPorPesoVecindarioTest {
 		
 		grafo.agregarArista(0, 1);
 
-		Solver solver = porPesoVecindario(grafo);
-
-		Solucion solucion = solver.resolver();
+		Solucion solucion = new Solver(grafo, Comparadores.porPesoDelVecindario).resolver();
+		
 		assertEquals(100, solucion.peso());
 		assertEquals(1, solucion.cantidadVertices());
 	}
@@ -55,21 +52,9 @@ public class SolverPorPesoVecindarioTest {
 		
 		grafo.agregarArista(0, 4);
 		
-		Solver solver = porPesoVecindario(grafo);
+		Solucion solucion = new Solver(grafo, Comparadores.porPesoDelVecindario).resolver();
 		
-		Solucion solucion = solver.resolver();
 		assertEquals(150, solucion.peso());
 		assertEquals(4, solucion.cantidadVertices());
 	}
-	
-	public Solver porPesoVecindario(Grafo grafo) {
-		return new Solver(grafo, new Comparator<Vertice>() {
-
-			@Override
-			public int compare(Vertice uno, Vertice otro) {
-				return -uno.getPesoTotalVecindario() + otro.getPesoTotalVecindario();
-			}
-		});
-	}
-
 }

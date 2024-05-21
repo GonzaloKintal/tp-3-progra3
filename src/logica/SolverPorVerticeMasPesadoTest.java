@@ -2,8 +2,6 @@ package logica;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Comparator;
-
 import org.junit.Test;
 
 public class SolverPorVerticeMasPesadoTest {
@@ -26,9 +24,7 @@ public class SolverPorVerticeMasPesadoTest {
 
 		grafo.agregarArista(2, 3);
 
-		Solver solver = porVerticeMasPesado(grafo);
-
-		Solucion solucion = solver.resolver();
+		Solucion solucion = new Solver(grafo, Comparadores.porVerticeMasPesado).resolver();
 		assertEquals(solucion.peso(), 100);
 		assertEquals(solucion.cantidadVertices(), 4);
 	}
@@ -40,9 +36,7 @@ public class SolverPorVerticeMasPesadoTest {
 		grafo.agregarVertice(10);
 		grafo.agregarVertice(20);
 
-		Solver solver = porVerticeMasPesado(grafo);
-
-		Solucion solucion = solver.resolver();
+		Solucion solucion = new Solver(grafo, Comparadores.porVerticeMasPesado).resolver();
 		assertEquals(solucion.peso(), 20);
 		assertEquals(solucion.cantidadVertices(), 1);
 	}
@@ -61,29 +55,17 @@ public class SolverPorVerticeMasPesadoTest {
 		grafo.agregarArista(1, 3);
 		
 		
-		Solver solver = porVerticeMasPesado(grafo);
+		Solucion solucion = new Solver(grafo, Comparadores.porVerticeMasPesado).resolver();
 		
-		Solucion solucion = solver.resolver();
 		assertEquals(solucion.peso(), 44);
 		assertEquals(solucion.cantidadVertices(), 2);
 	}
 
 	@Test
 	public void resolverConGrafoVacio() {
-		Solver solver = porVerticeMasPesado(new Grafo());
-		Solucion solucion = solver.resolver();
+		Solucion solucion = new Solver(new Grafo(), Comparadores.porVerticeMasPesado).resolver();
 		assertEquals(solucion.peso(), 0);
 		assertEquals(solucion.cantidadVertices(), 0);
 	}
 	
-	public Solver porVerticeMasPesado(Grafo grafo) {
-		return new Solver(grafo, new Comparator<Vertice>() {
-
-			@Override
-			public int compare(Vertice uno, Vertice otro) {
-				return -uno.getPeso() + otro.getPeso();
-			}
-		});
-	}
-
 }

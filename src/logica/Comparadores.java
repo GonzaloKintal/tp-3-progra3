@@ -13,16 +13,6 @@ public class Comparadores {
 		}
 	};
 	
-	
-	public static Comparator<Vertice> porPesoDeLaListaDeVecinos = new Comparator<Vertice>() {
-
-		@Override
-		public int compare(Vertice uno, Vertice otro) {
-			return -uno.getPesoVecinos() + otro.getPesoVecinos();
-		}
-	};
-	
-	
 	public static Comparator<Vertice> porCantidadDeVecinos = new Comparator<Vertice>() {
 
 		@Override
@@ -30,7 +20,6 @@ public class Comparadores {
 			return -uno.obtenerVecinos().size() + otro.obtenerVecinos().size();
 		}
 	};
-	
 	
 	public static Comparator<Vertice> porVerticeMasPesado = new Comparator<Vertice>() {
 
@@ -40,6 +29,12 @@ public class Comparadores {
 		}
 	};
 	
-	
+	public static Comparator<Vertice> porPromedioVecindario = new Comparator<Vertice>() {
 
+		@Override
+		public int compare(Vertice uno, Vertice otro) {
+			return -uno.promedioVecindario() + otro.promedioVecindario();
+		}
+	};
+	
 }

@@ -31,8 +31,6 @@ public class Solver {
 			}
 		}
 		
-		System.out.println("-------------------\n");
-		System.out.println("Peso de la solucion:" + solucion.peso());
 		return solucion;
 	}
 
