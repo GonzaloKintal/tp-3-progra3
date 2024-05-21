@@ -7,13 +7,10 @@ public class Aplicacion {
 	
 	private Grafo _grafo;
 	private ArrayList<Solucion> _soluciones;
-	private Comparadores _comparadores;
-	
 	
 	public Aplicacion(Grafo grafo) {
 		_grafo = grafo;
 		_soluciones = new ArrayList<>();
-		_comparadores = new Comparadores();
 	}
 	
 	
@@ -40,25 +37,25 @@ public class Aplicacion {
 
 
 	private Solucion solverPorVerticeMasPesado() {
-		Solver solver = new Solver(_grafo, _comparadores.porVerticeMasPesado);
+		Solver solver = new Solver(_grafo, Comparadores.porVerticeMasPesado);
 		return solver.resolver();
 	}
 
 
 	private Solucion solverPorPesoVecindario() {
-		Solver solver = new Solver(_grafo, _comparadores.porPesoDelVecindario);
+		Solver solver = new Solver(_grafo, Comparadores.porPesoDelVecindario);
 		return solver.resolver();
 	}
 
 
 	private Solucion solverPorPesoDeLaListaDeVecinos() {
-		Solver solver = new Solver(_grafo, _comparadores.porPesoDeLaListaDeVecinos);
+		Solver solver = new Solver(_grafo, Comparadores.porPesoDeLaListaDeVecinos);
 		return solver.resolver();
 	}
 
 
 	private Solucion solverPorCantidadDeVecinos() {
-		Solver solver = new Solver(_grafo, _comparadores.porCantidadDeVecinos);
+		Solver solver = new Solver(_grafo, Comparadores.porCantidadDeVecinos);
 		return solver.resolver();
 	}
 	

@@ -5,7 +5,7 @@ import java.util.Comparator;
 public class Comparadores {
 	
 	
-	public Comparator<Vertice> porPesoDelVecindario = new Comparator<Vertice>() {
+	public static Comparator<Vertice> porPesoDelVecindario = new Comparator<Vertice>() {
 
 		@Override
 		public int compare(Vertice uno, Vertice otro) {
@@ -14,7 +14,7 @@ public class Comparadores {
 	};
 	
 	
-	public Comparator<Vertice> porPesoDeLaListaDeVecinos = new Comparator<Vertice>() {
+	public static Comparator<Vertice> porPesoDeLaListaDeVecinos = new Comparator<Vertice>() {
 
 		@Override
 		public int compare(Vertice uno, Vertice otro) {
@@ -23,7 +23,7 @@ public class Comparadores {
 	};
 	
 	
-	public Comparator<Vertice> porCantidadDeVecinos = new Comparator<Vertice>() {
+	public static Comparator<Vertice> porCantidadDeVecinos = new Comparator<Vertice>() {
 
 		@Override
 		public int compare(Vertice uno, Vertice otro) {
@@ -32,7 +32,7 @@ public class Comparadores {
 	};
 	
 	
-	public Comparator<Vertice> porVerticeMasPesado = new Comparator<Vertice>() {
+	public static Comparator<Vertice> porVerticeMasPesado = new Comparator<Vertice>() {
 
 		@Override
 		public int compare(Vertice uno, Vertice otro) {
