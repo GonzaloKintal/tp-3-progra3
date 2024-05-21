@@ -1,6 +1,7 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Grafo {
 
@@ -63,10 +64,10 @@ public class Grafo {
 	}
 	
 	
-	@SuppressWarnings("unchecked")
+
 	public ArrayList<Vertice> getVertices() {
-		return (ArrayList<Vertice>) _vertices.clone();
-	}
+        return new ArrayList<>(_vertices);
+    }
 	
 	
 }
