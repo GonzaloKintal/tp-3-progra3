@@ -1,6 +1,7 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Aplicacion {
 
@@ -12,7 +13,7 @@ public class Aplicacion {
 		_soluciones = new ArrayList<>();
 	}
 
-	public Solucion dameClique() {
+	public Solucion calcularClique() {
 		_soluciones.add(solverPorCantidadDeVecinos());
 		_soluciones.add(solverPorPesoVecindario());
 		_soluciones.add(solverPorVerticeMasPesado());
@@ -22,14 +23,7 @@ public class Aplicacion {
 	}
 
 	private Solucion elegirSolucionMasOptima() {
-		Solucion ret = new Solucion();
-
-		for (Solucion solucion : _soluciones) {
-			if (solucion.peso() > ret.peso()) {
-				ret = solucion;
-			}
-		}
-		return ret;
+		return _soluciones.stream().max(Comparator.comparingInt(Solucion::peso)).get();
 	}
 
 	private Solucion solverPorVerticeMasPesado() {
