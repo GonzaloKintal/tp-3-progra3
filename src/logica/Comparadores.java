@@ -37,4 +37,12 @@ public class Comparadores {
 		}
 	};
 	
+	public static Comparator<Vertice> porSumaPromedioVecindarioVecinos = new Comparator<Vertice>() {
+		
+		@Override
+		public int compare(Vertice uno, Vertice otro) {
+			return -uno.sumaPromedioVecindarioVecinos() + otro.sumaPromedioVecindarioVecinos();
+		}
+	};
+	
 }

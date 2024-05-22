@@ -81,6 +81,16 @@ public class Vertice {
 	public int promedioVecindario() {
 		return getPesoTotalVecindario() /  (_vecinos.size() + 1);
 	}
+	
+	public int sumaPromedioVecindarioVecinos() {
+		int aux = 0;
+		
+		for(Vertice vertice: _vecinos) {
+			aux+=vertice.promedioVecindario();
+		}
+		
+		return aux / (_vecinos.size() + 1);
+	}
 
 	@Override
 	public int hashCode() {

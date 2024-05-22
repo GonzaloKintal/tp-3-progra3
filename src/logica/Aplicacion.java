@@ -14,10 +14,11 @@ public class Aplicacion {
 	}
 
 	public Solucion calcularClique() {
-		_soluciones.add(solverPorCantidadDeVecinos());
-		_soluciones.add(solverPorPesoVecindario());
 		_soluciones.add(solverPorVerticeMasPesado());
+		_soluciones.add(solverPorPesoVecindario());
+		_soluciones.add(solverPorCantidadDeVecinos());
 		_soluciones.add(solverPorPromedioVecindario());
+		_soluciones.add(solverPorSumaPromedioVecindarioVecinos());
 
 		return elegirSolucionMasOptima();
 	}
@@ -43,6 +44,11 @@ public class Aplicacion {
 
 	private Solucion solverPorPromedioVecindario() {
 		Solver solver = new Solver(_grafo, Comparadores.porPromedioVecindario);
+		return solver.resolver();
+	}
+	
+	private Solucion solverPorSumaPromedioVecindarioVecinos() {
+		Solver solver = new Solver(_grafo, Comparadores.porSumaPromedioVecindarioVecinos);
 		return solver.resolver();
 	}
 
