@@ -1,7 +1,6 @@
 package logica;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Grafo {
 
@@ -55,7 +54,7 @@ public class Grafo {
 	
 	
 	public boolean existeArista(int indiceVertice1, int indiceVertice2) {
-		return _vertices.get(indiceVertice1).vecinoDe(_vertices.get(indiceVertice2));
+		return _vertices.get(indiceVertice1).tieneDeVecinoA(_vertices.get(indiceVertice2));
 	}
 
 

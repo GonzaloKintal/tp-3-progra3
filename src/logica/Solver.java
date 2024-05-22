@@ -25,7 +25,7 @@ public class Solver {
 		Vertice mejorOpcion = ordenarVertices().get(0);
 		solucion.agregar(mejorOpcion);
 
-		for (Vertice verticeVecino : ordenarVecinosPorPeso(mejorOpcion.obtenerVecinos())) {
+		for (Vertice verticeVecino: ordenarVecinosPorPeso(mejorOpcion.obtenerVecinos())) {
 			if (vecinoDeTodos(verticeVecino, solucion.obtener())) {
 				solucion.agregar(verticeVecino);
 			}
@@ -42,7 +42,7 @@ public class Solver {
 
 	private boolean vecinoDeTodos(Vertice vecino, Set<Vertice> clique) {
 		for (Vertice vertice : clique) {
-			if (!vertice.vecinoDe(vecino)) {
+			if (!vertice.tieneDeVecinoA(vecino)) {
 				return false;
 			}
 		}

@@ -2,59 +2,40 @@ package logica;
 
 import static org.junit.Assert.*;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class SolverPorPesoVecindarioTest {
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
 	@Test
-	public void resolverVecindarioMasPesadoDeUnSoloVerticeTest() {
-		Grafo grafo = new Grafo();
-
-		grafo.agregarVertice(10);
-		grafo.agregarVertice(10);
-		grafo.agregarVertice(10);
-		grafo.agregarVertice(10);
-		grafo.agregarVertice(10);
+	public void SolverPorPesoVecindarioTest_grafo1() {
+		Grafo grafo = new InstanciasGrafo().grafo_1();
 		
-		grafo.agregarVertice(100);
+		Solucion solucion = new Solver(grafo, Comparadores.porPesoDelVecindario).resolver();
 		
-		grafo.agregarArista(0, 1);
-
+		assertEquals(136, solucion.peso());
+		assertEquals(4, solucion.cantidadVertices());
+	}
+	
+	
+	@Test
+	public void SolverPorPesoVecindarioTest_grafo2() {
+		Grafo grafo = new InstanciasGrafo().grafo_2();
+		
 		Solucion solucion = new Solver(grafo, Comparadores.porPesoDelVecindario).resolver();
 		
 		assertEquals(100, solucion.peso());
-		assertEquals(1, solucion.cantidadVertices());
+		assertEquals(2, solucion.cantidadVertices());
 	}
 	
+	
 	@Test
-	public void resolverVecindarioMasPesadoTest() {
-		Grafo grafo = new Grafo();
-		
-		grafo.agregarVertice(60);
-		grafo.agregarVertice(30);
-		grafo.agregarVertice(30);
-		grafo.agregarVertice(30);
-		grafo.agregarVertice(50);
-		
-		grafo.agregarArista(0, 1);
-		grafo.agregarArista(0, 2);
-		grafo.agregarArista(0, 3);
-		
-		grafo.agregarArista(1, 2);
-		grafo.agregarArista(1, 3);
-		
-		grafo.agregarArista(2, 3);
-		
-		grafo.agregarArista(0, 4);
+	public void SolverPorPesoVecindarioTest_grafo3() {
+		Grafo grafo = new InstanciasGrafo().grafo_3();
 		
 		Solucion solucion = new Solver(grafo, Comparadores.porPesoDelVecindario).resolver();
 		
-		assertEquals(150, solucion.peso());
-		assertEquals(4, solucion.cantidadVertices());
+		assertEquals(70, solucion.peso());
+		assertEquals(3, solucion.cantidadVertices());
 	}
+	
 }

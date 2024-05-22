@@ -39,9 +39,6 @@ public class Vertice {
 		_peso = peso;
 	}
 
-	public Set<Vertice> obtenerVecinos() {
-		return clonar(_vecinos);
-	}
 
 	private Set<Vertice> clonar(Set<Vertice> vecinos) {
 		HashSet<Vertice> ret = new HashSet<>();
@@ -53,10 +50,17 @@ public class Vertice {
 	}
 
 	public void agregarVecino(Vertice vertice) {
+		if (vertice == null) 
+			throw new NullPointerException("El vértice no puede ser null.");
+		
 		_vecinos.add(vertice);
 	}
 
-	public boolean vecinoDe(Vertice vertice) {
+	public Set<Vertice> obtenerVecinos() {
+		return clonar(_vecinos);
+	}
+	
+	public boolean tieneDeVecinoA(Vertice vertice) {
 		return _vecinos.contains(vertice);
 	}
 

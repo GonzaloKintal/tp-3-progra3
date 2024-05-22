@@ -7,48 +7,35 @@ import org.junit.Test;
 public class SolverPorCantidadDeVecinosTest {
 
 	@Test
-	public void resolverPorCantidadDeVecinosTest() {
-		Grafo grafo = new Grafo();
-
-		grafo.agregarVertice(10);
-		grafo.agregarVertice(10);
-		grafo.agregarVertice(10);
-		grafo.agregarVertice(10);
-		grafo.agregarVertice(100);
-
-		grafo.agregarArista(0, 1);
-		grafo.agregarArista(0, 2);
-		grafo.agregarArista(0, 3);
-		grafo.agregarArista(0, 4);
-
-		grafo.agregarArista(1, 2);
-		grafo.agregarArista(1, 3);
-
-		grafo.agregarArista(2, 3);
-
+	public void SolverPorCantidadDeVecinosTest_grafo1() {
+		Grafo grafo = new InstanciasGrafo().grafo_1();
+		
 		Solucion solucion = new Solver(grafo, Comparadores.porCantidadDeVecinos).resolver();
-
-		assertEquals(solucion.peso(), 110);
-		assertEquals(solucion.cantidadVertices(), 2);
+		
+		assertEquals(53, solucion.peso());
+		assertEquals(3, solucion.cantidadVertices());
 	}
-
+	
+	
 	@Test
-	public void resolverPorMayorCantidadDeVecinosMenorPesoTest() {
-		Grafo grafo = new Grafo();
-
-		grafo.agregarVertice(50);
-		grafo.agregarVertice(5);
-		grafo.agregarVertice(5);
-		grafo.agregarVertice(5);
-
-		grafo.agregarArista(1, 2);
-		grafo.agregarArista(1, 3);
-
-		grafo.agregarArista(3, 2);
-
+	public void SolverPorCantidadDeVecinosTest_grafo2() {
+		Grafo grafo = new InstanciasGrafo().grafo_2();
+		
 		Solucion solucion = new Solver(grafo, Comparadores.porCantidadDeVecinos).resolver();
-
-		assertEquals(solucion.peso(), 15);
-		assertEquals(solucion.cantidadVertices(), 3);
+		
+		assertEquals(100, solucion.peso());
+		assertEquals(2, solucion.cantidadVertices());
 	}
+	
+	
+	@Test
+	public void SolverPorCantidadDeVecinosTest_grafo3() {
+		Grafo grafo = new InstanciasGrafo().grafo_3();
+		
+		Solucion solucion = new Solver(grafo, Comparadores.porCantidadDeVecinos).resolver();
+		
+		assertEquals(70, solucion.peso());
+		assertEquals(3, solucion.cantidadVertices());
+	}
+	
 }
