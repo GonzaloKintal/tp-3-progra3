@@ -2,6 +2,10 @@ package logica;
 
 public class InstanciasGrafo {
 
+	public Solucion mejorSolucionGrafo1 = new Solucion();
+	public Solucion mejorSolucionGrafo2 = new Solucion();
+	public Solucion mejorSolucionGrafo3 = new Solucion();
+	
 	public Grafo grafo_1() {
 		Grafo grafo = new Grafo();
 
@@ -41,6 +45,11 @@ public class InstanciasGrafo {
 
 		grafo.agregarArista(7, 8);
 
+		mejorSolucionGrafo1.agregar(grafo.get(5));
+		mejorSolucionGrafo1.agregar(grafo.get(6));
+		mejorSolucionGrafo1.agregar(grafo.get(7));
+		mejorSolucionGrafo1.agregar(grafo.get(8));
+		
 		return grafo;
 	}
 	
@@ -71,6 +80,9 @@ public class InstanciasGrafo {
 		grafo.agregarArista(4, 5);
 		
 		grafo.agregarArista(6, 8);
+		
+		mejorSolucionGrafo2.agregar(grafo.get(6));
+		mejorSolucionGrafo2.agregar(grafo.get(8));
 		
 		return grafo;
 	}
@@ -147,6 +159,10 @@ public class InstanciasGrafo {
 		grafo.agregarArista(13, 14);
 		
 		grafo.agregarArista(14, 15);
+		
+		mejorSolucionGrafo3.agregar(grafo.get(4));
+		mejorSolucionGrafo3.agregar(grafo.get(5));
+		mejorSolucionGrafo3.agregar(grafo.get(6));
 
 		return grafo;
 	}
