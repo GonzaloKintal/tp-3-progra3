@@ -6,10 +6,11 @@ import org.junit.Test;
 
 public class AplicacionTest {
 
+	private InstanciasGrafo grafos = new InstanciasGrafo();
+	
     @Test
     public void cliqueMayorPesoGrafo1Test() {
-        Grafo grafo = new InstanciasGrafo().grafo_1();
-        Solucion clique = new Aplicacion(grafo).dameClique();
+        Solucion clique = new Aplicacion(grafos.grafo_1()).calcularClique();
         
         assertEquals(136, clique.peso());
         assertEquals(4, clique.cantidadVertices());
@@ -17,8 +18,7 @@ public class AplicacionTest {
     
     @Test
     public void cliqueMayorPesoGrafo2Test() {
-    	Grafo grafo = new InstanciasGrafo().grafo_2();
-    	Solucion clique = new Aplicacion(grafo).dameClique();
+    	Solucion clique = new Aplicacion(grafos.grafo_2()).calcularClique();
     	
     	assertEquals(120, clique.peso());
     	assertEquals(2, clique.cantidadVertices());
@@ -26,8 +26,7 @@ public class AplicacionTest {
     
     @Test
     public void cliqueMayorPesoGrafo3Test() {
-    	Grafo grafo = new InstanciasGrafo().grafo_3();
-    	Solucion clique = new Aplicacion(grafo).dameClique();
+    	Solucion clique = new Aplicacion(grafos.grafo_3()).calcularClique();
     	
     	assertEquals(70, clique.peso());
     	assertEquals(3, clique.cantidadVertices());
