@@ -74,7 +74,6 @@ public class InstanciasGrafo {
 
 		grafo.agregarArista(2, 5);
 
-		grafo.agregarArista(3, 1);
 		grafo.agregarArista(3, 4);
 		grafo.agregarArista(3, 7);
 

@@ -9,6 +9,7 @@ public class Vertice {
 	Set<Vertice> _vecinos;
 	int _peso;
 	int _ID;
+	int _pesoVecinos;
 
 	public Vertice(int peso) {
 		verificarPeso(peso);
@@ -53,6 +54,7 @@ public class Vertice {
 		if (vertice == null) 
 			throw new NullPointerException("El vértice no puede ser null.");
 		
+		_pesoVecinos += vertice._peso;
 		_vecinos.add(vertice);
 	}
 
@@ -65,13 +67,7 @@ public class Vertice {
 	}
 
 	public int getPesoVecinos() {
-		int aux = 0;
-
-		for (Vertice vecino : _vecinos) {
-			aux += vecino._peso;
-		}
-
-		return aux;
+		return _pesoVecinos;
 	}
 
 	public int getPesoTotalVecindario() {
