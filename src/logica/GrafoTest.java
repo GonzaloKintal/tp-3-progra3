@@ -50,6 +50,19 @@ public class GrafoTest {
 		assertTrue(grafo.existeArista(0, 1));
 	}
 	
+	@Test
+	public void agregarAristaRepetidaTest() {
+		Grafo grafo = new Grafo();
+		
+		grafo.agregarVertice(10);
+		grafo.agregarVertice(20);
+		
+		grafo.agregarArista(0, 1);
+		grafo.agregarArista(0, 1);
+		
+		assertEquals(30, grafo.get(0).getPesoTotalVecindario());
+	}
+	
 	@Test (expected = IllegalArgumentException.class)
 	public void agregarAristaConSíMismoTest() {
 		Grafo grafo = new Grafo();

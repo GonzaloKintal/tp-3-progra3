@@ -51,6 +51,10 @@ public class Vertice {
 	}
 
 	public void agregarVecino(Vertice vertice) {
+		if(tieneDeVecinoA(vertice)) {
+			return;
+		}
+		
 		if (vertice == null) 
 			throw new NullPointerException("El vértice no puede ser null.");
 		
