@@ -29,6 +29,13 @@ public class AplicacionTest {
     	
     	assertClique(grafos.mejorSolucionGrafo3, clique);
     }
+    
+    @Test
+    public void cliqueMayorPesoGrafo4Test() {
+    	Solucion clique = new Aplicacion(grafos.grafo_4()).calcularClique();
+    	
+    	assertClique(grafos.mejorSolucionGrafo4, clique);
+    }
 
 	private void assertClique(Solucion mejorSolucion, Solucion clique) {
 		assertEquals(mejorSolucion.peso(), clique.peso());
