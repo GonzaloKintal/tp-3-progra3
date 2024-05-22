@@ -2,13 +2,11 @@ package logica;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class SolverPorPromedioDePromedios {
 
 	@Test
-	@Ignore
 	public void SolverPorVerticeMasPesadoTest_grafo4() {
 		Grafo grafo = new InstanciasGrafo().grafo_4();
 
@@ -19,7 +17,6 @@ public class SolverPorPromedioDePromedios {
 	}
 
 	@Test
-	@Ignore
 	public void StressTest() {
 		int[] CANTIDAD_VERTICES = { 1000, 10000, 20000, 80000 };
 
@@ -29,7 +26,7 @@ public class SolverPorPromedioDePromedios {
 			System.out.println("Grafo con " + cant + " vertices.");
 
 			long startTime = System.nanoTime();
-			Solucion solucion = new Solver(grafo, Comparadores.porSumaPromedioVecindarioVecinos).resolver();
+			new Solver(grafo, Comparadores.porSumaPromedioVecindarioVecinos).resolver();
 			long endTime = System.nanoTime();
 
 			long executionTime = (endTime - startTime) / 1000000;
