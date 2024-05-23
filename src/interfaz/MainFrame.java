@@ -1,9 +1,7 @@
 package interfaz;
 
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -150,25 +148,25 @@ public class MainFrame {
 	}
 
 	private void crearLabelsVertices() {
-		JLabel labelVertice1 = new JLabel("Vértice 1");
-		labelVertice1.setBounds(40, 81, 60, 60);
-		panel.add(labelVertice1);
+		JLabel labelVerticeOrigen = new JLabel("Vértice 1");
+		labelVerticeOrigen.setBounds(40, 81, 60, 60);
+		panel.add(labelVerticeOrigen);
 
-		JLabel labelVertice2 = new JLabel("Vértice 2");
-		labelVertice2.setBounds(150, 81, 60, 60);
-		panel.add(labelVertice2);
+		JLabel labelVerticeDestino = new JLabel("Vértice 2");
+		labelVerticeDestino.setBounds(150, 81, 60, 60);
+		panel.add(labelVerticeDestino);
 	}
 
 	private void crearInputsVerticesParaAgregarArista() {
-		JTextField inputVertice1 = new JTextField();
-		inputVertice1.setBounds(98, 100, 35, 23);
-		panel.add(inputVertice1);
-		listaInputs.put(NombreInputs.VERTICE1, inputVertice1);
+		JTextField inputVerticeOrigen = new JTextField();
+		inputVerticeOrigen.setBounds(98, 100, 35, 23);
+		panel.add(inputVerticeOrigen);
+		listaInputs.put(NombreInputs.VERTICE1, inputVerticeOrigen);
 
-		JTextField inputVertice2 = new JTextField();
-		inputVertice2.setBounds(208, 100, 35, 23);
-		panel.add(inputVertice2);
-		listaInputs.put(NombreInputs.VERTICE2, inputVertice1);
+		JTextField inputVerticeDestino = new JTextField();
+		inputVerticeDestino.setBounds(208, 100, 35, 23);
+		panel.add(inputVerticeDestino);
+		listaInputs.put(NombreInputs.VERTICE2, inputVerticeDestino);
 	}
 
 	private void crearBotonAgregarArista() {

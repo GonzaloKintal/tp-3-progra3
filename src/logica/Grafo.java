@@ -14,7 +14,6 @@ public class Grafo {
 		Vertice vertice = new Vertice(peso);
 		vertice.setID(tamano());
 		_vertices.add(vertice);
-		System.out.println("Se agrego el vertice " + vertice);
 	}
 	
 	public Vertice get(int indiceVertice) {
@@ -48,7 +47,7 @@ public class Grafo {
 		}
 
 		if (indiceVertice >= tamano()) {
-			throw new IllegalArgumentException("El índice está excedido.");
+			throw new IllegalArgumentException("El índice " + indiceVertice +  " está excedido.");
 		}
 	}
 
