@@ -60,7 +60,7 @@ public class MainFrame {
 
 		escucharSwitchVisualizarGrafo();
 
-		crearImagenOjo();
+//		crearImagenOjo();
 
 		crearLabelPeso();
 
@@ -74,6 +74,8 @@ public class MainFrame {
 
 		crearBotonAgregarArista();
 
+		crearBotonGenerarGrafoRandom();
+		
 		presenter.setComponentes(listaBotones, listaInputs);
 	}
 
@@ -82,7 +84,7 @@ public class MainFrame {
 		frame.setBounds(400, 80, 300, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
+
 	private void dibujarGrafo() {
 		// TODO
 	}
@@ -174,6 +176,13 @@ public class MainFrame {
 		botonAgregarArista.setBounds(28, 130, 230, 25);
 		listaBotones.put(NombreBotones.AGREGAR_ARISTA, botonAgregarArista);
 		panel.add(botonAgregarArista);
+	}
+
+	private void crearBotonGenerarGrafoRandom() {
+		JButton boton = BotonPredeteminado.crear("Generar Grafo Random");
+		boton.setBounds(28, 170, 230, 25);
+		listaBotones.put(NombreBotones.GENERAR_GRAFO_RANDOM, boton);
+		panel.add(boton);
 	}
 
 }

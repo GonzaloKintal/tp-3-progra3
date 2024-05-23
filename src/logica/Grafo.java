@@ -55,12 +55,17 @@ public class Grafo {
 		return _vertices.get(indiceVertice1).tieneDeVecinoA(_vertices.get(indiceVertice2));
 	}
 
-	int tamano() {
+	public int tamano() {
 		return _vertices.size();
 	}
 
 	public ArrayList<Vertice> getVertices() {
 		return new ArrayList<>(_vertices);
+	}
+
+	@Override
+	public String toString() {
+		return "Grafo [_vertices=" + _vertices + "]";
 	}
 
 }

@@ -40,7 +40,6 @@ public class Vertice {
 		_peso = peso;
 	}
 
-
 	private Set<Vertice> clonar(Set<Vertice> vecinos) {
 		HashSet<Vertice> ret = new HashSet<>();
 
@@ -51,13 +50,13 @@ public class Vertice {
 	}
 
 	public void agregarVecino(Vertice vertice) {
-		if(tieneDeVecinoA(vertice)) {
+		if (tieneDeVecinoA(vertice)) {
 			return;
 		}
-		
-		if (vertice == null) 
+
+		if (vertice == null)
 			throw new NullPointerException("El vértice no puede ser null.");
-		
+
 		_pesoVecinos += vertice._peso;
 		_vecinos.add(vertice);
 	}
@@ -65,7 +64,7 @@ public class Vertice {
 	public Set<Vertice> obtenerVecinos() {
 		return clonar(_vecinos);
 	}
-	
+
 	public boolean tieneDeVecinoA(Vertice vertice) {
 		return _vecinos.contains(vertice);
 	}
@@ -79,16 +78,16 @@ public class Vertice {
 	}
 
 	public int promedioVecindario() {
-		return getPesoTotalVecindario() /  (_vecinos.size() + 1);
+		return getPesoTotalVecindario() / (_vecinos.size() + 1);
 	}
-	
+
 	public int sumaPromedioVecindarioVecinos() {
 		int aux = 0;
-		
-		for(Vertice vertice: _vecinos) {
-			aux+=vertice.promedioVecindario();
+
+		for (Vertice vertice : _vecinos) {
+			aux += vertice.promedioVecindario();
 		}
-		
+
 		return aux / (_vecinos.size() + 1);
 	}
 
@@ -109,10 +108,25 @@ public class Vertice {
 		return _ID == other._ID;
 	}
 
+	// Metodo usado en el toString.
+	private String getIdVecinos() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("{");
+
+		for (Vertice vertice : _vecinos) {
+			sb.append(" ");
+			sb.append(vertice._ID);
+			sb.append(" ");
+		}
+		sb.append("}");
+
+		return sb.toString();
+	}
+
 	@Override
 	public String toString() {
-		return "Vertice [_vecinos=" + _vecinos + ", _peso=" + _peso + ", _ID=" + _ID + ", _pesoVecinos=" + _pesoVecinos
-				+ "]";
+		return "\nVertice [_peso=" + _peso + ", _ID=" + _ID + ", vecinosID= " + getIdVecinos() + ", _pesoVecinos="
+				+ _pesoVecinos + "]";
 	}
 
 }
