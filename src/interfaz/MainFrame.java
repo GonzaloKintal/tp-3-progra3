@@ -66,14 +66,33 @@ public class MainFrame {
 		crearBotonAgregarVertice();
 
 		JLabel labelVertice1 = new JLabel("Vértice 1");
-		labelVertice1.setBounds(20, 80, 60, 60);
+		labelVertice1.setBounds(40, 81, 60, 60);
 		panel.add(labelVertice1);
 
 		JLabel labelVertice2 = new JLabel("Vértice 2");
-		labelVertice2.setBounds(20, 110, 60, 60);
+		labelVertice2.setBounds(150, 81, 60, 60);
 		panel.add(labelVertice2);
 
 		new Presenter(listaBotones);
+
+		JTextField inputVertice1 = new JTextField();
+		inputVertice1.setBounds(98, 100, 35, 23);
+		panel.add(inputVertice1);
+
+		JTextField inputVertice2 = new JTextField();
+		inputVertice2.setBounds(208, 100, 35, 23);
+		panel.add(inputVertice2);
+
+		JButton botonAgregarArista = new JButton("Agregar arista");
+		botonAgregarArista.setBounds(28, 130, 230, 25);
+		botonAgregarArista.setFont(new Font("Arial", Font.BOLD, 14));
+		botonAgregarArista.setBorder(null);
+		botonAgregarArista.setBackground(new Color(23, 90, 115));
+		botonAgregarArista.setForeground(Color.WHITE);
+		botonAgregarArista.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		botonAgregarArista.setFocusPainted(false);
+		listaBotones.put(NombreBotones.AGREGAR_ARISTA, botonAgregarArista);
+		panel.add(botonAgregarArista);
 	}
 
 	private void crearFrame() {
@@ -92,9 +111,8 @@ public class MainFrame {
 
 	private void crearSwitchVisualizarGrafo() {
 		switchVisualizarGrafo = new JToggleButton();
-		switchVisualizarGrafo.setBounds(10, 10, 30, 20);
+		switchVisualizarGrafo.setBounds(3, 5, 30, 20);
 		switchVisualizarGrafo.setContentAreaFilled(false);
-		switchVisualizarGrafo.setOpaque(true);
 		switchVisualizarGrafo.setOpaque(false);
 		switchVisualizarGrafo.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		switchVisualizarGrafo.setBorder(null);
@@ -118,7 +136,7 @@ public class MainFrame {
 		Image imageOjo = new ImageIcon(this.getClass().getResource("/ojo2.png")).getImage();
 		JLabel ojoLabel = new JLabel();
 		ojoLabel.setIcon(new ImageIcon(imageOjo));
-		ojoLabel.setBounds(10, 5, 30, 30);
+		ojoLabel.setBounds(3, 0, 30, 30);
 		ojoLabel.setToolTipText("Ir al repositorio de GitHub");
 		panel.add(ojoLabel);
 	}
