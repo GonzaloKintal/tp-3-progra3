@@ -14,6 +14,7 @@ public class Grafo {
 		Vertice vertice = new Vertice(peso);
 		vertice.setID(tamano());
 		_vertices.add(vertice);
+		System.out.println("Se agrego el vertice " + vertice);
 	}
 	
 	public Vertice get(int indiceVertice) {

@@ -109,4 +109,10 @@ public class Vertice {
 		return _ID == other._ID;
 	}
 
+	@Override
+	public String toString() {
+		return "Vertice [_vecinos=" + _vecinos + ", _peso=" + _peso + ", _ID=" + _ID + ", _pesoVecinos=" + _pesoVecinos
+				+ "]";
+	}
+
 }

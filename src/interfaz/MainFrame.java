@@ -30,6 +30,7 @@ public class MainFrame {
 
 	private HashMap<NombreBotones, JButton> listaBotones;
 	private HashMap<NombreInputs, JTextField> listaInputs;
+	private Presenter presenter;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -45,6 +46,7 @@ public class MainFrame {
 	}
 
 	public MainFrame() {
+		presenter = new Presenter();
 		listaBotones = new HashMap<>();
 		listaInputs = new HashMap<>();
 		initialize();
@@ -74,13 +76,17 @@ public class MainFrame {
 
 		crearBotonAgregarArista();
 
-		new Presenter(listaBotones, listaInputs);
+		presenter.setComponentes(listaBotones, listaInputs);
 	}
 
 	private void crearFrame() {
 		frame = new JFrame();
 		frame.setBounds(400, 80, 300, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	private void dibujarGrafo() {
+		// TODO
 	}
 
 	private void crearPanel() {
