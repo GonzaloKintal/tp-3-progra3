@@ -137,14 +137,8 @@ public class MainFrame {
 	}
 
 	private void crearBotonAgregarVertice() {
-		JButton botonAgregarVertice = new JButton("Agregar vértice");
+		JButton botonAgregarVertice = BotonPredeteminado.crear("Agregar Vertice");
 		botonAgregarVertice.setBounds(90, 50, 150, 25);
-		botonAgregarVertice.setFont(new Font("Arial", Font.BOLD, 14));
-		botonAgregarVertice.setBorder(null);
-		botonAgregarVertice.setBackground(Config.COLOR_BOTON);
-		botonAgregarVertice.setForeground(Color.WHITE);
-		botonAgregarVertice.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		botonAgregarVertice.setFocusPainted(false);
 		listaBotones.put(NombreBotones.AGREGAR_VERTICE, botonAgregarVertice);
 		panel.add(botonAgregarVertice);
 	}
@@ -172,14 +166,8 @@ public class MainFrame {
 	}
 
 	private void crearBotonAgregarArista() {
-		JButton botonAgregarArista = new JButton("Agregar arista");
+		JButton botonAgregarArista = BotonPredeteminado.crear("Agregar Arista");
 		botonAgregarArista.setBounds(28, 130, 230, 25);
-		botonAgregarArista.setFont(new Font("Arial", Font.BOLD, 14));
-		botonAgregarArista.setBorder(null);
-		botonAgregarArista.setBackground(new Color(23, 90, 115));
-		botonAgregarArista.setForeground(Color.WHITE);
-		botonAgregarArista.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		botonAgregarArista.setFocusPainted(false);
 		listaBotones.put(NombreBotones.AGREGAR_ARISTA, botonAgregarArista);
 		panel.add(botonAgregarArista);
 	}
