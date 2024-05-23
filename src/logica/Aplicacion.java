@@ -22,7 +22,7 @@ public class Aplicacion {
 
 		return elegirSolucionMasOptima();
 	}
-
+	
 	private Solucion elegirSolucionMasOptima() {
 		return _soluciones.stream().max(Comparator.comparingInt(Solucion::peso)).get();
 	}
