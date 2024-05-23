@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
+import util.Config;
 import util.NombreBotones;
 
 public class MainFrame {
@@ -57,7 +58,7 @@ public class MainFrame {
 
 		escucharSwitchVisualizarGrafo();
 
-		crearImagenOjo();
+//		crearImagenOjo();
 
 		crearLabelPeso();
 
@@ -87,7 +88,7 @@ public class MainFrame {
 		botonAgregarArista.setBounds(28, 130, 230, 25);
 		botonAgregarArista.setFont(new Font("Arial", Font.BOLD, 14));
 		botonAgregarArista.setBorder(null);
-		botonAgregarArista.setBackground(new Color(23, 90, 115));
+		botonAgregarArista.setBackground(Config.COLOR_BOTON);
 		botonAgregarArista.setForeground(Color.WHITE);
 		botonAgregarArista.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		botonAgregarArista.setFocusPainted(false);
@@ -104,7 +105,7 @@ public class MainFrame {
 	private void crearPanel() {
 		panel = new JPanel();
 		panel.setBounds(0, 20, 300, 500);
-		panel.setBackground(new Color(200, 241, 254));
+		panel.setBackground(Config.COLOR_PANEL);
 		panel.setLayout(null);
 		frame.getContentPane().add(panel);
 	}
@@ -158,7 +159,7 @@ public class MainFrame {
 		botonAgregarVertice.setBounds(90, 50, 150, 25);
 		botonAgregarVertice.setFont(new Font("Arial", Font.BOLD, 14));
 		botonAgregarVertice.setBorder(null);
-		botonAgregarVertice.setBackground(new Color(23, 90, 115));
+		botonAgregarVertice.setBackground(Config.COLOR_BOTON);
 		botonAgregarVertice.setForeground(Color.WHITE);
 		botonAgregarVertice.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		botonAgregarVertice.setFocusPainted(false);
