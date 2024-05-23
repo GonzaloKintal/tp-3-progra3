@@ -60,7 +60,7 @@ public class MainFrame {
 
 		escucharSwitchVisualizarGrafo();
 
-//		crearImagenOjo();
+		crearImagenOjo();
 
 		crearLabelPeso();
 
