@@ -51,7 +51,7 @@ public class Vertice {
 
 	public void agregarVecino(Vertice vertice) {
 		if (tieneDeVecinoA(vertice)) {
-			throw new NullPointerException("Arista ya existente");
+			throw new IllegalArgumentException("Arista ya existente");
 		}
 
 		if (vertice == null)

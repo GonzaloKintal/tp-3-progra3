@@ -12,8 +12,8 @@ public class Grafo {
 
 	public void agregarVertice(int peso) {
 		Vertice vertice = new Vertice(peso);
-		vertice.setID(tamano());
 		_vertices.add(vertice);
+		vertice.setID(tamano());
 	}
 	
 	public Vertice get(int indiceVertice) {

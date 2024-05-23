@@ -8,6 +8,7 @@ import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
+import logica.Aplicacion;
 import logica.Grafo;
 import util.MensajeWarning;
 import util.NombreBotones;
@@ -69,6 +70,16 @@ public class Presenter {
 			}
 		});
 	}
+	
+	public void agregarDameCliqueMaximaListener() {
+		_botones.get(NombreBotones.DAME_CLIQUE_MAXIMA).addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(Aplicacion.calcularClique(_grafo));
+			}
+		});
+	}
 
 	public void setComponentes(HashMap<NombreBotones, JButton> listaBotones, HashMap<NombreInputs, JTextField> inputs) {
 		this._botones = listaBotones;
@@ -77,6 +88,7 @@ public class Presenter {
 		agregarVerticeListener();
 		agregarAristaListener();
 		agregarGenerarRandomListener();
+		agregarDameCliqueMaximaListener();
 	}
 
 	public int parsearInputText(NombreInputs nombre) {

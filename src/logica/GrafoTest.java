@@ -50,7 +50,7 @@ public class GrafoTest {
 		assertTrue(grafo.existeArista(0, 1));
 	}
 	
-	@Test
+	@Test (expected = IllegalArgumentException.class)
 	public void agregarAristaRepetidaTest() {
 		Grafo grafo = new Grafo();
 		
@@ -59,8 +59,6 @@ public class GrafoTest {
 		
 		grafo.agregarArista(0, 1);
 		grafo.agregarArista(0, 1);
-		
-		assertEquals(30, grafo.get(0).getPesoTotalVecindario());
 	}
 	
 	@Test (expected = IllegalArgumentException.class)

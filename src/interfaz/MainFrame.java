@@ -2,6 +2,7 @@ package interfaz;
 
 import java.awt.Cursor;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,37 +58,38 @@ public class MainFrame {
 		crearPanel();
 
 		crearSwitchVisualizarGrafo();
-
 		escucharSwitchVisualizarGrafo();
-
 		crearImagenOjo();
 
 		crearLabelPeso();
-
 		crearInputPesoVertice();
-
 		crearBotonAgregarVertice();
 
 		crearLabelsVertices();
-
 		crearInputsVerticesParaAgregarArista();
-
 		crearBotonAgregarArista();
 
 		crearBotonGenerarGrafoRandom();
-		
+
+		crearBotonDameCliqueMaxima();
+
+		crearBotonSalir();
+		escucharBotonSalir();
+
 		presenter.setComponentes(listaBotones, listaInputs);
 	}
 
 	private void crearFrame() {
 		frame = new JFrame();
+		frame.setTitle("Clique máxima");
 		frame.setBounds(400, 80, 300, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setIconImage(new ImageIcon(getClass().getResource("/prueba.png")).getImage());
 	}
 
-	private void dibujarGrafo() {
-		// TODO
-	}
+//	private void dibujarGrafo() {
+//		// TODO
+//	}
 
 	private void crearPanel() {
 		panel = new JPanel();
@@ -99,7 +101,7 @@ public class MainFrame {
 
 	private void crearSwitchVisualizarGrafo() {
 		switchVisualizarGrafo = new JToggleButton();
-		switchVisualizarGrafo.setBounds(3, 5, 30, 20);
+		switchVisualizarGrafo.setBounds(5, 5, 30, 20);
 		switchVisualizarGrafo.setContentAreaFilled(false);
 		switchVisualizarGrafo.setOpaque(false);
 		switchVisualizarGrafo.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -121,10 +123,10 @@ public class MainFrame {
 	}
 
 	private void crearImagenOjo() {
-		Image imageOjo = new ImageIcon(this.getClass().getResource("/ojo2.png")).getImage();
+		Image imageOjo = new ImageIcon(this.getClass().getResource("/ojo.png")).getImage();
 		JLabel ojoLabel = new JLabel();
 		ojoLabel.setIcon(new ImageIcon(imageOjo));
-		ojoLabel.setBounds(3, 0, 30, 30);
+		ojoLabel.setBounds(5, 0, 30, 30);
 		ojoLabel.setToolTipText("Ir al repositorio de GitHub");
 		panel.add(ojoLabel);
 	}
@@ -179,10 +181,37 @@ public class MainFrame {
 	}
 
 	private void crearBotonGenerarGrafoRandom() {
-		JButton boton = BotonPredeteminado.crear("Generar Grafo Random");
-		boton.setBounds(28, 170, 230, 25);
-		listaBotones.put(NombreBotones.GENERAR_GRAFO_RANDOM, boton);
-		panel.add(boton);
+		JButton botonGenerarGrafoRandom = BotonPredeteminado.crear("Generar Grafo Random");
+		botonGenerarGrafoRandom.setBounds(28, 170, 230, 25);
+		listaBotones.put(NombreBotones.GENERAR_GRAFO_RANDOM, botonGenerarGrafoRandom);
+		panel.add(botonGenerarGrafoRandom);
+	}
+
+	private void crearBotonDameCliqueMaxima() {
+		JButton botonDameCliqueMaxima = BotonPredeteminado.crear("Dame clique máxima");
+		botonDameCliqueMaxima.setBounds(28, 210, 230, 25);
+		listaBotones.put(NombreBotones.DAME_CLIQUE_MAXIMA, botonDameCliqueMaxima);
+		panel.add(botonDameCliqueMaxima);
+	}
+
+	private void crearBotonSalir() {
+		JButton botonSalir = BotonPredeteminado.crear("Salir");
+		botonSalir.setFont(new Font("Arial", Font.BOLD, 16));
+		botonSalir.setBounds(28, 520, 230, 30);
+		botonSalir.setBackground(Config.COLOR_BOTON_SALIR);
+		listaBotones.put(NombreBotones.SALIR, botonSalir);
+		panel.add(botonSalir);
+	}
+
+	private void escucharBotonSalir() {
+		listaBotones.get(NombreBotones.SALIR).addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+			}
+
+		});
 	}
 
 }

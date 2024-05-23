@@ -11,28 +11,28 @@ public class AplicacionTest {
 	
     @Test
     public void cliqueMayorPesoGrafo1Test() {
-        Solucion clique = new Aplicacion(grafos.grafo_1()).calcularClique();
+        Solucion clique = Aplicacion.calcularClique(grafos.grafo_1());
         
         assertClique(grafos.mejorSolucionGrafo1, clique);
     }
     
     @Test
     public void cliqueMayorPesoGrafo2Test() {
-    	Solucion clique = new Aplicacion(grafos.grafo_2()).calcularClique();
+    	Solucion clique = Aplicacion.calcularClique(grafos.grafo_2());
     	
     	assertClique(grafos.mejorSolucionGrafo2, clique);
     }
     
     @Test
     public void cliqueMayorPesoGrafo3Test() {
-    	Solucion clique = new Aplicacion(grafos.grafo_3()).calcularClique();
+    	Solucion clique = Aplicacion.calcularClique(grafos.grafo_3());
     	
     	assertClique(grafos.mejorSolucionGrafo3, clique);
     }
     
     @Test
     public void cliqueMayorPesoGrafo4Test() {
-    	Solucion clique = new Aplicacion(grafos.grafo_4()).calcularClique();
+    	Solucion clique = Aplicacion.calcularClique(grafos.grafo_4());
     	
     	assertClique(grafos.mejorSolucionGrafo4, clique);
     }

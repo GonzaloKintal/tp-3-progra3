@@ -47,10 +47,14 @@ public class VerticeTest {
 	@Test
 	public void obtenerVecinosTest() {
 		Vertice vertice = new Vertice(5);
+		vertice.setID(0);
 		
 		Vertice vecino1 = new Vertice(10);
+		vecino1.setID(1);
 		Vertice vecino2 = new Vertice(15);
+		vecino2.setID(2);
 		Vertice vecino3 = new Vertice(20);
+		vecino3.setID(3);
 		
 		vertice.agregarVecino(vecino1);
 		vertice.agregarVecino(vecino2);
