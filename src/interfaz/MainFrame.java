@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
+import util.NombreBotones;
+
 public class MainFrame {
 
 	private JFrame frame;
@@ -25,7 +27,7 @@ public class MainFrame {
 	private JToggleButton switchVisualizarGrafo;
 	private JTextField inputPesoVertice;
 
-	private HashMap<String, JButton> listaBotones;
+	private HashMap<NombreBotones, JButton> listaBotones;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -71,6 +73,7 @@ public class MainFrame {
 		labelVertice2.setBounds(20, 110, 60, 60);
 		panel.add(labelVertice2);
 
+		new Presenter(listaBotones);
 	}
 
 	private void crearFrame() {
@@ -141,7 +144,7 @@ public class MainFrame {
 		botonAgregarVertice.setForeground(Color.WHITE);
 		botonAgregarVertice.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		botonAgregarVertice.setFocusPainted(false);
-		listaBotones.put("agregarVertice", botonAgregarVertice);
+		listaBotones.put(NombreBotones.AGREGAR_VERTICE, botonAgregarVertice);
 		panel.add(botonAgregarVertice);
 	}
 

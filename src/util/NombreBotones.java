@@ -1,0 +1,9 @@
+package util;
+
+public enum NombreBotones {
+	AGREGAR_ARISTA,
+	AGREGAR_VERTICE,
+	ENCONTRAR_CLIQUE,
+	REINICIAR_GRAFO,
+	GENERAR_GRAFO_RANDOM
+}
