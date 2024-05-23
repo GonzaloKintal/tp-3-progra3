@@ -31,6 +31,8 @@ public class Presenter {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					_grafo.agregarVertice(parsearInputText(NombreInputs.PESO_VERTICE));
+					_inputs.get(NombreInputs.PESO_VERTICE).setText(null);
+					
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -48,7 +50,9 @@ public class Presenter {
 					int verticeDestino = parsearInputText(NombreInputs.VERTICE2);
 
 					_grafo.agregarArista(verticeOrigen, verticeDestino);
-
+					
+					_inputs.get(NombreInputs.VERTICE1).setText(null);
+					_inputs.get(NombreInputs.VERTICE2).setText(null);
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
