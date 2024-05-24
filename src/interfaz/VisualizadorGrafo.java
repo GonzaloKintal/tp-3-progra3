@@ -61,5 +61,9 @@ public class VisualizadorGrafo{
 			node.setAttribute("ui.selected", true);
 		}
 	}
+	public void reinciar(Grafo grafo) {
+		this._grafo=grafo;
+		actualizar();
+	}
 
 }

@@ -26,7 +26,7 @@ public class Presenter{
 	private VisualizadorGrafo _visualizadorGrafo;
 
 	public Presenter() {
-		this._grafo = generarGrafoRandom(100);
+		this._grafo = new Grafo();
 		this._visualizadorGrafo = new VisualizadorGrafo(_grafo);
 	}
 
@@ -91,6 +91,17 @@ public class Presenter{
 			}
 		});
 	}
+	
+	public void reiniciarListener() {
+		_botones.get(NombreBotones.REINICIAR_GRAFO).addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				_grafo=new Grafo();
+				_visualizadorGrafo.reinciar(_grafo);
+			}
+		});
+		
+	}
 
 	public void setComponentes(HashMap<NombreBotones, JButton> listaBotones, HashMap<NombreInputs, JTextField> inputs) {
 		this._botones = listaBotones;
@@ -100,6 +111,7 @@ public class Presenter{
 		agregarAristaListener();
 		agregarGenerarRandomListener();
 		agregarDameCliqueMaximaListener();
+		reiniciarListener();
 		_visualizadorGrafo.actualizar();
 	}
 

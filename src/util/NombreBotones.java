@@ -7,5 +7,5 @@ public enum NombreBotones {
 	REINICIAR_GRAFO,
 	GENERAR_GRAFO_RANDOM,
 	DAME_CLIQUE_MAXIMA,
-	SALIR
+	SALIR, 
 }

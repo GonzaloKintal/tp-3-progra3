@@ -73,6 +73,8 @@ public class MainFrame {
 		crearBotonGenerarGrafoRandom();
 
 		crearBotonDameCliqueMaxima();
+		
+		crearBotonReiniciar();
 
 		crearBotonSalir();
 
@@ -189,6 +191,14 @@ public class MainFrame {
 		botonDameCliqueMaxima.setBounds(28, 210, 230, 25);
 		listaBotones.put(NombreBotones.DAME_CLIQUE_MAXIMA, botonDameCliqueMaxima);
 		panelInteractivo.add(botonDameCliqueMaxima);
+	}
+	
+	private void crearBotonReiniciar() {
+		JButton botonReiniciar = BotonPredeteminado.crear("Reiniciar Grafo");
+	    botonReiniciar.setFont(new Font("Arial", Font.BOLD, 16));
+		botonReiniciar.setBounds(28, 250, 230, 25);
+		panelInteractivo.add(botonReiniciar);	
+		listaBotones.put(NombreBotones.REINICIAR_GRAFO, botonReiniciar);
 	}
 
 	private void crearBotonSalir() {
