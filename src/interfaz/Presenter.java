@@ -8,14 +8,8 @@ import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-import org.graphstream.graph.Graph;
-import org.graphstream.graph.Node;
-import org.graphstream.graph.implementations.SingleGraph;
-
 import logica.Aplicacion;
 import logica.Grafo;
-import logica.Vertice;
-import util.Config;
 import util.MensajeWarning;
 import util.NombreBotones;
 import util.NombreInputs;
@@ -28,11 +22,11 @@ public class Presenter{
 	private HashMap<NombreBotones, JButton> _botones;
 	private HashMap<NombreInputs, JTextField> _inputs;
 	private Grafo _grafo;
-	private Graph _vistaGrafo;
+	private VisualizadorGrafo _visualizadorGrafo;
 
 	public Presenter() {
 		this._grafo = new Grafo();
-		configurarVisorGrafo();
+		this._visualizadorGrafo = new VisualizadorGrafo(_grafo);
 	}
 
 	public Grafo getGrafo() {
@@ -47,7 +41,7 @@ public class Presenter{
 				try {
 					_grafo.agregarVertice(parsearInputText(NombreInputs.PESO_VERTICE));
 					_inputs.get(NombreInputs.PESO_VERTICE).setText(null);
-					actualizarGrafo();
+					_visualizadorGrafo.actualizar();
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -68,7 +62,7 @@ public class Presenter{
 					
 					_inputs.get(NombreInputs.VERTICE1).setText(null);
 					_inputs.get(NombreInputs.VERTICE2).setText(null);
-					actualizarGrafo();
+					_visualizadorGrafo.actualizar();
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -104,7 +98,7 @@ public class Presenter{
 		agregarAristaListener();
 		agregarGenerarRandomListener();
 		agregarDameCliqueMaximaListener();
-		actualizarGrafo();
+		_visualizadorGrafo.actualizar();
 	}
 
 	public int parsearInputText(NombreInputs nombre) {
@@ -115,38 +109,13 @@ public class Presenter{
 
 		return Integer.parseInt(valor);
 	}
-
-	private void configurarVisorGrafo() {
-		System.setProperty("org.graphstream.ui", "swing");
-		_vistaGrafo = new SingleGraph("Grafo");
-		asignarAtributosVisor();
-		_vistaGrafo.display();
-	}
-
-	private void asignarAtributosVisor() {
-		_vistaGrafo.clear();
-		_vistaGrafo.setAttribute("ui.layout.force", true);
-		_vistaGrafo.setAttribute("layout.force", 0.0);
-		_vistaGrafo.setAttribute("ui.layout", "linlog");
-		_vistaGrafo.setAttribute("layout.weight", 1);
-		_vistaGrafo.setAttribute("ui.stylesheet", Config.ESTILOS_GRAPHSTREAM);
-	}
 	
-	private void actualizarGrafo() {
-		asignarAtributosVisor();
-
-		for (Vertice vertice : _grafo.getVertices()) {
-			Node node = _vistaGrafo.addNode(String.valueOf(vertice.getID()));
-			node.setAttribute("ui.label", vertice.getText());
-		}
-
-		for (Vertice vertice : _grafo.getVertices()) {
-			for (Vertice vecino : vertice.getVecinos()) {
-				String edgeId = vertice.getID() + "-" + vecino.getID();
-				if (_vistaGrafo.getEdge(edgeId) == null && _vistaGrafo.getEdge(vecino.getID() + "-" + vertice.getID()) == null) {
-					_vistaGrafo.addEdge(edgeId, String.valueOf(vertice.getID()), String.valueOf(vecino.getID()));
-				}
-			}
-		}
+	public void visualizar() {
+		_visualizadorGrafo.visualizar();
 	}
+
+	public void ocultar() {
+		_visualizadorGrafo.ocultar();
+	}
+
 }

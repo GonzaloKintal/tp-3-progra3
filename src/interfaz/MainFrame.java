@@ -59,6 +59,8 @@ public class MainFrame {
 		crearPanelInteractivo();
 		
 		crearSwitchVisualizarGrafo();
+		crearImagenOjo();
+		escucharSwitchVisualizarGrafo();
 
 		crearLabelPeso();
 		crearInputPesoVertice();
@@ -101,9 +103,6 @@ public class MainFrame {
 		switchVisualizarGrafo.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		switchVisualizarGrafo.setBorder(null);
 		
-		escucharSwitchVisualizarGrafo();
-		crearImagenOjo();
-		
 		panelInteractivo.add(switchVisualizarGrafo);
 	}
 
@@ -112,9 +111,9 @@ public class MainFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (switchVisualizarGrafo.isSelected()) {
-					frame.setSize(700, 600);
+					presenter.visualizar();
 				} else {
-					frame.setSize(300, 600);
+					presenter.ocultar();
 				}
 			}
 		});
