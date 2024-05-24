@@ -59,7 +59,7 @@ public class MainFrame {
 		crearPanelInteractivo();
 		
 		crearSwitchVisualizarGrafo();
-//		crearImagenOjo();
+		crearImagenOjo();
 		escucharSwitchVisualizarGrafo();
 
 		crearLabelPeso();
@@ -84,7 +84,7 @@ public class MainFrame {
 		frame.setTitle("Clique máxima");
 		frame.setBounds(400, 80, 300, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		frame.setIconImage(new ImageIcon(getClass().getResource("/prueba.png")).getImage());
+		frame.setIconImage(new ImageIcon(getClass().getResource("/prueba.png")).getImage());
 	}
 
 	private void crearPanelInteractivo() {
