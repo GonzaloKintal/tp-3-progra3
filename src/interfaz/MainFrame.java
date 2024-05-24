@@ -6,8 +6,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 
 import javax.swing.ImageIcon;
@@ -15,7 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
@@ -26,9 +23,7 @@ import util.NombreInputs;
 public class MainFrame {
 
 	private JFrame frame;
-	private JSplitPane panelDivido;
 	private JPanel panelInteractivo;
-	private JPanel panelGrafo;
 
 	private JToggleButton switchVisualizarGrafo;
 
@@ -62,9 +57,6 @@ public class MainFrame {
 		crearFrame();
 
 		crearPanelInteractivo();
-		crearPanelGrafo();
-		
-		dividirPantalla();
 		
 		crearSwitchVisualizarGrafo();
 
@@ -100,22 +92,6 @@ public class MainFrame {
 		panelInteractivo.setLayout(null);
 		frame.getContentPane().add(panelInteractivo);
 	}
-	
-	private void crearPanelGrafo() {
-		panelGrafo = new JPanel();
-		panelGrafo.setBounds(0, 20, 300, 500);
-		panelGrafo.setBackground(Config.COLOR_BOTON_SALIR);
-		panelGrafo.setLayout(null);
-		frame.getContentPane().add(panelGrafo);
-	}
-	
-	private void dividirPantalla() {
-	    JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelInteractivo, panelGrafo);
-	    panelInteractivo.setLayout(null);
-	    splitPane.setResizeWeight(0);
-	    splitPane.setDividerSize(0);
-	    frame.getContentPane().add(splitPane);
-	  }
 
 	private void crearSwitchVisualizarGrafo() {
 		switchVisualizarGrafo = new JToggleButton();

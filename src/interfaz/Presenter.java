@@ -61,8 +61,8 @@ public class Presenter{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					int verticeOrigen = parsearInputText(NombreInputs.VERTICE1);
-					int verticeDestino = parsearInputText(NombreInputs.VERTICE2);
+					int verticeOrigen = parsearInputText(NombreInputs.VERTICE1) - 1;
+					int verticeDestino = parsearInputText(NombreInputs.VERTICE2) - 1;
 
 					_grafo.agregarArista(verticeOrigen, verticeDestino);
 					

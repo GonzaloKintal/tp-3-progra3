@@ -137,11 +137,11 @@ public class Vertice {
 	
 	public String getText() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("P:");
-		sb.append(getPeso());
-		sb.append("\n  ");
 		sb.append("V:");
 		sb.append(getID());
+		sb.append("\n  ");
+		sb.append("P:");
+		sb.append(getPeso());
 		
 		return sb.toString();
 	}
