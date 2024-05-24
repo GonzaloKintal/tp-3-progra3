@@ -2,7 +2,6 @@ package interfaz;
 
 import java.awt.Cursor;
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -77,6 +76,11 @@ public class MainFrame {
 		crearBotonReiniciar();
 
 		crearBotonSalir();
+
+		//Agregar botones al panel
+		listaBotones.values().stream().forEach(boton -> {
+			panelInteractivo.add(boton);
+		});
 
 		presenter.setComponentes(listaBotones, listaInputs);
 	}
@@ -175,32 +179,27 @@ public class MainFrame {
 	private void crearBotonAgregarArista() {
 		JButton boton = new BotonPredeterminado("Agregar Arista", 28, 130);
 		listaBotones.put(NombreBotones.AGREGAR_ARISTA, boton);
-		panelInteractivo.add(boton);
 	}
 
 	private void crearBotonGenerarGrafoRandom() {
 		JButton boton = new BotonPredeterminado("Generar Grafo Random", 28, 170);
 		listaBotones.put(NombreBotones.GENERAR_GRAFO_RANDOM, boton);
-		panelInteractivo.add(boton);
 	}
 
 	private void crearBotonDameCliqueMaxima() {
 		JButton boton = new BotonPredeterminado("Dame clique máxima", 28, 210);
 		listaBotones.put(NombreBotones.DAME_CLIQUE_MAXIMA, boton);
-		panelInteractivo.add(boton);
 	}
 	
 	private void crearBotonReiniciar() {
 		JButton boton = new BotonPredeterminado("Reiniciar Grafo", 28, 250);
 		listaBotones.put(NombreBotones.REINICIAR_GRAFO, boton);
-		panelInteractivo.add(boton);	
 	}
 
 	private void crearBotonSalir() {
 		JButton boton = new BotonPredeterminado("Salir", 28, 520);
 		boton.setBackground(Config.COLOR_BOTON_SALIR);
 		listaBotones.put(NombreBotones.SALIR, boton);
-		panelInteractivo.add(boton);
 		escucharBotonSalir();
 	}
 
@@ -211,8 +210,6 @@ public class MainFrame {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 			}
-
 		});
 	}
-
 }
