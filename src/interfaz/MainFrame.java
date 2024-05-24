@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 
 import javax.swing.ImageIcon;
@@ -13,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
@@ -23,7 +26,9 @@ import util.NombreInputs;
 public class MainFrame {
 
 	private JFrame frame;
-	private JPanel panel;
+	private JSplitPane panelDivido;
+	private JPanel panelInteractivo;
+	private JPanel panelGrafo;
 
 	private JToggleButton switchVisualizarGrafo;
 
@@ -56,11 +61,12 @@ public class MainFrame {
 
 		crearFrame();
 
-		crearPanel();
-
+		crearPanelInteractivo();
+		crearPanelGrafo();
+		
+		dividirPantalla();
+		
 		crearSwitchVisualizarGrafo();
-		escucharSwitchVisualizarGrafo();
-		crearImagenOjo();
 
 		crearLabelPeso();
 		crearInputPesoVertice();
@@ -75,7 +81,6 @@ public class MainFrame {
 		crearBotonDameCliqueMaxima();
 
 		crearBotonSalir();
-		escucharBotonSalir();
 
 		presenter.setComponentes(listaBotones, listaInputs);
 	}
@@ -88,13 +93,29 @@ public class MainFrame {
 		frame.setIconImage(new ImageIcon(getClass().getResource("/prueba.png")).getImage());
 	}
 
-	private void crearPanel() {
-		panel = new JPanel();
-		panel.setBounds(0, 20, 300, 500);
-		panel.setBackground(Config.COLOR_PANEL);
-		panel.setLayout(null);
-		frame.getContentPane().add(panel);
+	private void crearPanelInteractivo() {
+		panelInteractivo = new JPanel();
+		panelInteractivo.setBounds(0, 20, 300, 500);
+		panelInteractivo.setBackground(Config.COLOR_PANEL);
+		panelInteractivo.setLayout(null);
+		frame.getContentPane().add(panelInteractivo);
 	}
+	
+	private void crearPanelGrafo() {
+		panelGrafo = new JPanel();
+		panelGrafo.setBounds(0, 20, 300, 500);
+		panelGrafo.setBackground(Config.COLOR_BOTON_SALIR);
+		panelGrafo.setLayout(null);
+		frame.getContentPane().add(panelGrafo);
+	}
+	
+	private void dividirPantalla() {
+	    JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelInteractivo, panelGrafo);
+	    panelInteractivo.setLayout(null);
+	    splitPane.setResizeWeight(0);
+	    splitPane.setDividerSize(0);
+	    frame.getContentPane().add(splitPane);
+	  }
 
 	private void crearSwitchVisualizarGrafo() {
 		switchVisualizarGrafo = new JToggleButton();
@@ -103,7 +124,11 @@ public class MainFrame {
 		switchVisualizarGrafo.setOpaque(false);
 		switchVisualizarGrafo.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		switchVisualizarGrafo.setBorder(null);
-		panel.add(switchVisualizarGrafo);
+		
+		escucharSwitchVisualizarGrafo();
+		crearImagenOjo();
+		
+		panelInteractivo.add(switchVisualizarGrafo);
 	}
 
 	private void escucharSwitchVisualizarGrafo() {
@@ -125,19 +150,19 @@ public class MainFrame {
 		ojoLabel.setIcon(new ImageIcon(imageOjo));
 		ojoLabel.setBounds(5, 0, 30, 30);
 		ojoLabel.setToolTipText("Ir al repositorio de GitHub");
-		panel.add(ojoLabel);
+		panelInteractivo.add(ojoLabel);
 	}
 
 	private void crearLabelPeso() {
 		JLabel labelPeso = new JLabel("Peso");
 		labelPeso.setBounds(45, 30, 40, 25);
-		panel.add(labelPeso);
+		panelInteractivo.add(labelPeso);
 	}
 
 	private void crearInputPesoVertice() {
 		JTextField inputPesoVertice = new JTextField();
 		inputPesoVertice.setBounds(40, 51, 40, 25);
-		panel.add(inputPesoVertice);
+		panelInteractivo.add(inputPesoVertice);
 		listaInputs.put(NombreInputs.PESO_VERTICE, inputPesoVertice);
 	}
 
@@ -145,28 +170,28 @@ public class MainFrame {
 		JButton botonAgregarVertice = BotonPredeteminado.crear("Agregar Vertice");
 		botonAgregarVertice.setBounds(90, 50, 150, 25);
 		listaBotones.put(NombreBotones.AGREGAR_VERTICE, botonAgregarVertice);
-		panel.add(botonAgregarVertice);
+		panelInteractivo.add(botonAgregarVertice);
 	}
 
 	private void crearLabelsVertices() {
 		JLabel labelVerticeOrigen = new JLabel("Vértice 1");
 		labelVerticeOrigen.setBounds(40, 81, 60, 60);
-		panel.add(labelVerticeOrigen);
+		panelInteractivo.add(labelVerticeOrigen);
 
 		JLabel labelVerticeDestino = new JLabel("Vértice 2");
 		labelVerticeDestino.setBounds(150, 81, 60, 60);
-		panel.add(labelVerticeDestino);
+		panelInteractivo.add(labelVerticeDestino);
 	}
 
 	private void crearInputsVerticesParaAgregarArista() {
 		JTextField inputVerticeOrigen = new JTextField();
 		inputVerticeOrigen.setBounds(98, 100, 35, 23);
-		panel.add(inputVerticeOrigen);
+		panelInteractivo.add(inputVerticeOrigen);
 		listaInputs.put(NombreInputs.VERTICE1, inputVerticeOrigen);
 
 		JTextField inputVerticeDestino = new JTextField();
 		inputVerticeDestino.setBounds(208, 100, 35, 23);
-		panel.add(inputVerticeDestino);
+		panelInteractivo.add(inputVerticeDestino);
 		listaInputs.put(NombreInputs.VERTICE2, inputVerticeDestino);
 	}
 
@@ -174,21 +199,21 @@ public class MainFrame {
 		JButton botonAgregarArista = BotonPredeteminado.crear("Agregar Arista");
 		botonAgregarArista.setBounds(28, 130, 230, 25);
 		listaBotones.put(NombreBotones.AGREGAR_ARISTA, botonAgregarArista);
-		panel.add(botonAgregarArista);
+		panelInteractivo.add(botonAgregarArista);
 	}
 
 	private void crearBotonGenerarGrafoRandom() {
 		JButton botonGenerarGrafoRandom = BotonPredeteminado.crear("Generar Grafo Random");
 		botonGenerarGrafoRandom.setBounds(28, 170, 230, 25);
 		listaBotones.put(NombreBotones.GENERAR_GRAFO_RANDOM, botonGenerarGrafoRandom);
-		panel.add(botonGenerarGrafoRandom);
+		panelInteractivo.add(botonGenerarGrafoRandom);
 	}
 
 	private void crearBotonDameCliqueMaxima() {
 		JButton botonDameCliqueMaxima = BotonPredeteminado.crear("Dame clique máxima");
 		botonDameCliqueMaxima.setBounds(28, 210, 230, 25);
 		listaBotones.put(NombreBotones.DAME_CLIQUE_MAXIMA, botonDameCliqueMaxima);
-		panel.add(botonDameCliqueMaxima);
+		panelInteractivo.add(botonDameCliqueMaxima);
 	}
 
 	private void crearBotonSalir() {
@@ -197,7 +222,8 @@ public class MainFrame {
 		botonSalir.setBounds(28, 520, 230, 30);
 		botonSalir.setBackground(Config.COLOR_BOTON_SALIR);
 		listaBotones.put(NombreBotones.SALIR, botonSalir);
-		panel.add(botonSalir);
+		panelInteractivo.add(botonSalir);
+		escucharBotonSalir();
 	}
 
 	private void escucharBotonSalir() {
