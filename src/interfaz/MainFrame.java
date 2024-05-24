@@ -88,7 +88,7 @@ public class MainFrame {
 	private void crearFrame() {
 		frame = new JFrame();
 		frame.setTitle("Clique máxima");
-		frame.setBounds(400, 80, 300, 600);
+		frame.setBounds(100, 80, 300, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setIconImage(new ImageIcon(getClass().getResource("/prueba.png")).getImage());
 	}

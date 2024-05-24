@@ -1,10 +1,17 @@
 package interfaz;
 
+import java.awt.Component;
+import java.awt.Point;
+import java.awt.Window;
 import java.util.Set;
+
+import javax.swing.SwingUtilities;
 
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.ui.view.View;
+import org.graphstream.ui.view.Viewer;
 
 import logica.Grafo;
 import logica.Vertice;
@@ -18,7 +25,16 @@ public class VisualizadorGrafo{
 		System.setProperty("org.graphstream.ui", "swing");
 		_vistaGrafo = new SingleGraph("Grafo");
 		asignarAtributosVisor();
-		_vistaGrafo.display();
+        Viewer viewer = _vistaGrafo.display();
+        moverVista(viewer);
+	}
+
+	private void moverVista(Viewer viewer) {
+		SwingUtilities.invokeLater(() -> {
+            View view = viewer.getDefaultView();
+            Window window = SwingUtilities.windowForComponent((Component) view);
+            window.setLocation(new Point(390, 80));
+        });
 	}
 	
 	private void asignarAtributosVisor() {
