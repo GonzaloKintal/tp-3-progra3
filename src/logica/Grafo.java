@@ -36,11 +36,6 @@ public class Grafo{
 		verificarVertice(indiceVertice2);
 	}
 
-	// HAY QUE VER SI LO VAMOS A NECESITAR
-//	boolean existeVertice(int indiceVertice) {
-//		return indiceVertice > 0 && indiceVertice < _vertices.size();
-//	}
-
 	private void verificarVertice(int indiceVertice) {
 		if (indiceVertice < 0) {
 			throw new IllegalArgumentException("El índice no puede ser negativo.");

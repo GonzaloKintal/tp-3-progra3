@@ -1,6 +1,9 @@
 
 package interfaz;
 
+import static util.EsNumero.esNumero;
+import static util.GeneradorGrafoRandom.generarGrafoRandom;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -10,12 +13,10 @@ import javax.swing.JTextField;
 
 import logica.Aplicacion;
 import logica.Grafo;
+import logica.Solucion;
 import util.MensajeWarning;
 import util.NombreBotones;
 import util.NombreInputs;
-
-import static util.GeneradorGrafoRandom.generarGrafoRandom;
-import static util.EsNumero.esNumero;
 
 public class Presenter{
 
@@ -25,7 +26,7 @@ public class Presenter{
 	private VisualizadorGrafo _visualizadorGrafo;
 
 	public Presenter() {
-		this._grafo = new Grafo();
+		this._grafo = generarGrafoRandom(100);
 		this._visualizadorGrafo = new VisualizadorGrafo(_grafo);
 	}
 
@@ -85,7 +86,8 @@ public class Presenter{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(Aplicacion.calcularClique(_grafo));
+				Solucion solucion = Aplicacion.calcularClique(_grafo);
+				_visualizadorGrafo.resaltarVerticesClique(solucion.obtener());
 			}
 		});
 	}
@@ -109,13 +111,4 @@ public class Presenter{
 
 		return Integer.parseInt(valor);
 	}
-	
-	public void visualizar() {
-		_visualizadorGrafo.visualizar();
-	}
-
-	public void ocultar() {
-		_visualizadorGrafo.ocultar();
-	}
-
 }

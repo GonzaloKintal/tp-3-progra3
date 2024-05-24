@@ -1,6 +1,6 @@
 package interfaz;
 
-import javax.swing.JFrame;
+import java.util.Set;
 
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
@@ -10,45 +10,22 @@ import logica.Grafo;
 import logica.Vertice;
 import util.Config;
 
-@SuppressWarnings("serial")
-public class VisualizadorGrafo extends JFrame {
-
+public class VisualizadorGrafo{
 	
-//	private JFrame _frameVistaGrafo;
 	private Grafo _grafo;
 	private Graph _vistaGrafo;
 	
 	
 	public VisualizadorGrafo(Grafo grafo) {
 		_grafo = grafo;
-		crearFrameVistaGrafo();
 		configurarVisorGrafo();
 	}
-
-
-	private void crearFrameVistaGrafo() {
-		this.setSize(600, 600);
-		this.setLocation(670, 80);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setLayout(null);
-	}
-
 
 	private void configurarVisorGrafo() {
 		System.setProperty("org.graphstream.ui", "swing");
 		_vistaGrafo = new SingleGraph("Grafo");
 		asignarAtributosVisor();
-//		_vistaGrafo.display();
-	}
-	
-	public void visualizar() {
-//		_vistaGrafo.display();
-		this.setVisible(true);
-	}
-	
-	public void ocultar() {
-//		_vistaGrafo.close();
-		this.setVisible(false);
+		_vistaGrafo.display();
 	}
 	
 	private void asignarAtributosVisor() {
@@ -78,5 +55,11 @@ public class VisualizadorGrafo extends JFrame {
 		}
 	}
 
+	public void resaltarVerticesClique(Set<Vertice> vertices) {
+		for (Vertice vertice : vertices) {
+			Node node = _vistaGrafo.getNode(vertice.getID() - 1);
+			node.setAttribute("ui.selected", true);
+		}
+	}
 
 }
