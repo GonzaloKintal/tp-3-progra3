@@ -16,15 +16,15 @@ public class Config {
 				text-color: #111;
 				text-size: 14px;
 				text-style: bold-italic;
-				size: 50px, 50px;
+				size: 40px, 40px;
 				fill-mode:gradient-diagonal1 ;
 				fill-color: rgb(106, 226, 246), rgb(156, 255, 255);
 				
 				text-offset: 0px, 40px;
 				
-				text-background-color:  rgb(86, 206, 226);
+				text-background-color: rgb(86, 206, 226);
 				text-background-mode: rounded-box;
-				text-padding: 8px;
+				text-padding: 4px;
 				
 				stroke-color: rgb(86, 206, 226);
 				stroke-width: 3px;
@@ -35,8 +35,11 @@ public class Config {
 				fill-color: rgb(66, 186, 206);
 			}
 			
+			node:selected {
+				fill-color: red;
+			}
+			
 			edge{
-				shape:cubic-curve;
 				fill-color: rgb(66, 186, 206);
 				size: 2px;
 			}
