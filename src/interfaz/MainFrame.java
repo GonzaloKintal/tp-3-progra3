@@ -16,12 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
-import org.graphstream.graph.Graph;
-import org.graphstream.graph.Node;
-import org.graphstream.graph.implementations.SingleGraph;
-
-import logica.Grafo;
-import logica.Vertice;
 import util.Config;
 import util.NombreBotones;
 import util.NombreInputs;

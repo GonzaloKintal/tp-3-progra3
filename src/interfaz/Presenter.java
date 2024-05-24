@@ -21,6 +21,7 @@ import util.NombreBotones;
 import util.NombreInputs;
 
 import static util.GeneradorGrafoRandom.generarGrafoRandom;
+import static util.EsNumero.esNumero;
 
 public class Presenter{
 
@@ -113,10 +114,6 @@ public class Presenter{
 		}
 
 		return Integer.parseInt(valor);
-	}
-
-	private boolean esNumero(String valor) {
-		return valor.matches("^-?\\d+(\\.\\d+)?$");
 	}
 
 	private void configurarVisorGrafo() {
