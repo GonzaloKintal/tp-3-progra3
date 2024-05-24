@@ -30,10 +30,8 @@ public class Presenter{
 	private Graph _vistaGrafo;
 
 	public Presenter() {
-		System.setProperty("org.graphstream.ui", "swing");
 		this._grafo = new Grafo();
-		this._vistaGrafo = new SingleGraph("Grafo");
-		_vistaGrafo.display();
+		configurarVisorGrafo();
 	}
 
 	public Grafo getGrafo() {
@@ -48,7 +46,7 @@ public class Presenter{
 				try {
 					_grafo.agregarVertice(parsearInputText(NombreInputs.PESO_VERTICE));
 					_inputs.get(NombreInputs.PESO_VERTICE).setText(null);
-					visualizarGrafo();
+					actualizarGrafo();
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -69,7 +67,7 @@ public class Presenter{
 					
 					_inputs.get(NombreInputs.VERTICE1).setText(null);
 					_inputs.get(NombreInputs.VERTICE2).setText(null);
-					visualizarGrafo();
+					actualizarGrafo();
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -105,7 +103,7 @@ public class Presenter{
 		agregarAristaListener();
 		agregarGenerarRandomListener();
 		agregarDameCliqueMaximaListener();
-		visualizarGrafo();
+		actualizarGrafo();
 	}
 
 	public int parsearInputText(NombreInputs nombre) {
@@ -121,13 +119,24 @@ public class Presenter{
 		return valor.matches("^-?\\d+(\\.\\d+)?$");
 	}
 
-	public void visualizarGrafo() {
+	private void configurarVisorGrafo() {
+		System.setProperty("org.graphstream.ui", "swing");
+		_vistaGrafo = new SingleGraph("Grafo");
+		asignarAtributosVisor();
+		_vistaGrafo.display();
+	}
+
+	private void asignarAtributosVisor() {
 		_vistaGrafo.clear();
 		_vistaGrafo.setAttribute("ui.layout.force", true);
 		_vistaGrafo.setAttribute("layout.force", 0.0);
 		_vistaGrafo.setAttribute("ui.layout", "linlog");
 		_vistaGrafo.setAttribute("layout.weight", 1);
 		_vistaGrafo.setAttribute("ui.stylesheet", Config.ESTILOS_GRAPHSTREAM);
+	}
+	
+	private void actualizarGrafo() {
+		asignarAtributosVisor();
 
 		for (Vertice vertice : _grafo.getVertices()) {
 			Node node = _vistaGrafo.addNode(String.valueOf(vertice.getID()));
