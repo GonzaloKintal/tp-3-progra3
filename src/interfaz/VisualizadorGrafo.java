@@ -30,7 +30,6 @@ public class VisualizadorGrafo {
 		asignarAtributosVisor();
 		Viewer viewer = _vistaGrafo.display();
 		moverVista(viewer);
-		cambiarTituloVentana(viewer, "Visualizador del grafo");
 		cambiarIconoVentana(viewer, "/icono.png");
 	}
 
@@ -41,6 +40,7 @@ public class VisualizadorGrafo {
 		_vistaGrafo.setAttribute("layout.stabilization-limit", 0.9);
 		_vistaGrafo.setAttribute("layout.force", 0.1);
 		_vistaGrafo.setAttribute("ui.stylesheet", Config.ESTILOS_GRAPHSTREAM);
+		_vistaGrafo.setAttribute("ui.default.title", "Visualizador del grafo");
 	}
 
 	public void actualizar(Grafo grafo) {
@@ -99,16 +99,6 @@ public class VisualizadorGrafo {
 			View view = viewer.getDefaultView();
 			Window window = SwingUtilities.windowForComponent((Component) view);
 			window.setLocation(new Point(390, 80));
-		});
-	}
-
-	private void cambiarTituloVentana(Viewer viewer, String string) {
-		SwingUtilities.invokeLater(() -> {
-			View view = viewer.getDefaultView();
-			JFrame frame = (JFrame) SwingUtilities.windowForComponent((Component) view);
-			if (frame != null) {
-				frame.setTitle(string);
-			}
 		});
 	}
 
