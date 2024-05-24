@@ -26,7 +26,6 @@ public class GeneradorGrafoRandom {
 				}
 			}
 		}
-		System.out.println(grafo);
 		return grafo;
 	}
 }

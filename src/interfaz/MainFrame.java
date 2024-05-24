@@ -32,7 +32,7 @@ public class MainFrame {
 	private HashMap<NombreBotones, JButton> listaBotones;
 	private HashMap<NombreInputs, JTextField> listaInputs;
 	private Presenter presenter;
-	
+
 	private JList infoJList;
 	private JScrollPane scrollPane;
 
@@ -62,7 +62,7 @@ public class MainFrame {
 		crearFrame();
 
 		crearPanelInteractivo();
-		
+
 		crearSwitchVisualizarGrafo();
 		crearImagenOjo();
 		escucharSwitchVisualizarGrafo();
@@ -78,19 +78,19 @@ public class MainFrame {
 		crearBotonGenerarGrafoRandom();
 
 		crearBotonDameCliqueMaxima();
-		
+
 		crearBotonReiniciar();
 
 		crearBotonSalir();
 
-		//Agregar botones al panel
+		// Agregar botones al panel
 		listaBotones.values().stream().forEach(boton -> {
 			panelInteractivo.add(boton);
 		});
-		
+
 		crearJList();
 		crearScrollPane();
-		
+
 		presenter.setComponentes(listaBotones, listaInputs);
 	}
 
@@ -117,7 +117,7 @@ public class MainFrame {
 		switchVisualizarGrafo.setOpaque(false);
 		switchVisualizarGrafo.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		switchVisualizarGrafo.setBorder(null);
-		
+
 		panelInteractivo.add(switchVisualizarGrafo);
 	}
 
@@ -153,7 +153,7 @@ public class MainFrame {
 	}
 
 	private void crearBotonAgregarVertice() {
-		JButton boton =  new BotonPredeterminado("Agregar Vertice");
+		JButton boton = new BotonPredeterminado("Agregar Vertice");
 		boton.setBounds(90, 50, 150, 25);
 		listaBotones.put(NombreBotones.AGREGAR_VERTICE, boton);
 		panelInteractivo.add(boton);
@@ -195,7 +195,7 @@ public class MainFrame {
 		JButton boton = new BotonPredeterminado("Dame clique máxima", 28, 210);
 		listaBotones.put(NombreBotones.DAME_CLIQUE_MAXIMA, boton);
 	}
-	
+
 	private void crearBotonReiniciar() {
 		JButton boton = new BotonPredeterminado("Reiniciar Grafo", 28, 250);
 		listaBotones.put(NombreBotones.REINICIAR_GRAFO, boton);
@@ -217,21 +217,21 @@ public class MainFrame {
 			}
 		});
 	}
-	
-	private void crearJList() {
-	    infoJList = new JList<String>();
-	    infoJList.setBackground(Color.WHITE);
-	    infoJList.setForeground(Color.WHITE);
-	    infoJList.setBounds(0, 0, 200, 200);
-	    panelInteractivo.add(infoJList);
-	  }
 
-	  private void crearScrollPane() {
-	    scrollPane = new JScrollPane(infoJList);
-	    scrollPane.setBounds(30, 300, 230, 200);
-	    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-	    scrollPane.setBorder(null);
-	    scrollPane.setVisible(false);
-	    panelInteractivo.add(scrollPane);
-	  }
+	private void crearJList() {
+		infoJList = new JList<String>();
+		infoJList.setBackground(Color.WHITE);
+		infoJList.setForeground(Color.WHITE);
+		infoJList.setBounds(0, 0, 200, 200);
+		panelInteractivo.add(infoJList);
+	}
+
+	private void crearScrollPane() {
+		scrollPane = new JScrollPane(infoJList);
+		scrollPane.setBounds(30, 300, 230, 200);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBorder(null);
+		scrollPane.setVisible(false);
+		panelInteractivo.add(scrollPane);
+	}
 }

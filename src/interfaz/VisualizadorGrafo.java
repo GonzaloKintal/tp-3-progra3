@@ -13,6 +13,9 @@ import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants;
+import org.graphstream.ui.spriteManager.Sprite;
+import org.graphstream.ui.spriteManager.SpriteManager;
 import org.graphstream.ui.view.View;
 import org.graphstream.ui.view.Viewer;
 
@@ -39,18 +42,27 @@ public class VisualizadorGrafo {
 		_vistaGrafo.setAttribute("layout.quality", 4);
 		_vistaGrafo.setAttribute("layout.stabilization-limit", 0.9);
 		_vistaGrafo.setAttribute("layout.force", 0.1);
-		_vistaGrafo.setAttribute("ui.stylesheet", Config.ESTILOS_GRAPHSTREAM);
 		_vistaGrafo.setAttribute("ui.default.title", "Visualizador del grafo");
+		_vistaGrafo.setAttribute("ui.stylesheet", Config.ESTILOS_GRAPHSTREAM);
 	}
 
 	public void actualizar(Grafo grafo) {
 		asignarAtributosVisor();
+		SpriteManager spriteManager = new SpriteManager(_vistaGrafo);
 
+		// Dibuja vertice con dos textos
 		for (Vertice vertice : grafo.getVertices()) {
-			Node node = _vistaGrafo.addNode(String.valueOf(vertice.getID()));
+			String id = String.valueOf(vertice.getID());
+			
+			Node node = _vistaGrafo.addNode(id);
 			node.setAttribute("ui.label", vertice.getText());
+			
+			Sprite aSprite = spriteManager.addSprite(id);
+			aSprite.attachToNode(id);
+			aSprite.setAttribute("ui.label", id);
 		}
 
+		// Draw edges
 		for (Vertice vertice : grafo.getVertices()) {
 			for (Vertice vecino : vertice.getVecinos()) {
 				String edgeId = vertice.getID() + "-" + vecino.getID();
@@ -60,6 +72,7 @@ public class VisualizadorGrafo {
 				}
 			}
 		}
+
 	}
 
 	public void resaltarVerticesClique(Set<Vertice> vertices) {
@@ -68,29 +81,29 @@ public class VisualizadorGrafo {
 			Node node = _vistaGrafo.getNode(vertice.getID() - 1);
 			node.setAttribute("ui.class", "clique");
 		}
-		
+
 		// Resaltar Arista
 		for (Vertice vertice : vertices) {
-			for(Vertice vecino: vertice.getVecinos()) {
+			for (Vertice vecino : vertice.getVecinos()) {
 				Edge arista = obtenerArista(vertice.getID(), vecino.getID());
-				if(arista != null && vertices.contains(vecino)) {
-					arista.setAttribute("ui.class","clique");
+				if (arista != null && vertices.contains(vecino)) {
+					arista.setAttribute("ui.class", "clique");
 				}
 			}
 		}
 	}
-	
+
 	public Edge obtenerArista(int verticeOrigen, int verticeDestino) {
-		// 5-8
-		if(_vistaGrafo.getEdge(verticeOrigen + "-" + verticeDestino) != null) {
+		// Arista Ejemplo: 3-5
+		if (_vistaGrafo.getEdge(verticeOrigen + "-" + verticeDestino) != null) {
 			return _vistaGrafo.getEdge(verticeOrigen + "-" + verticeDestino);
 		}
-		
-		// 8-5
-		if(_vistaGrafo.getEdge(verticeDestino + "-" + verticeOrigen) != null) {
+
+		// Arista Ejemplo: 5-3
+		if (_vistaGrafo.getEdge(verticeDestino + "-" + verticeOrigen) != null) {
 			return _vistaGrafo.getEdge(verticeDestino + "-" + verticeOrigen);
 		}
-		
+
 		return null;
 	}
 

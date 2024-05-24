@@ -18,7 +18,7 @@ public class Config {
 				text-color: #111;
 				text-size: 14px;
 				text-style: bold-italic;
-				size: 20px, 20px;
+				size: 25px, 25px;
 				fill-mode:gradient-diagonal1 ;
 				fill-color: rgb(106, 226, 246), rgb(156, 255, 255);
 				
@@ -52,6 +52,14 @@ public class Config {
 			edge.clique{
 				fill-color: #5ce56c;
 				size: 4px;
+			}
+			
+			sprite {
+				text-color: #111;
+				text-size: 14px;
+				text-style: bold-italic;
+				size: 0px, 0px;
+				text-offset: 0px, -3px;
 			}
 			""";
 	
