@@ -1,7 +1,5 @@
 package interfaz;
 
-import static util.GeneradorGrafoRandom.generarGrafoRandom;
-
 import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -43,7 +41,7 @@ public class MainFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					
+
 					MainFrame window = new MainFrame();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -86,7 +84,7 @@ public class MainFrame {
 		escucharBotonSalir();
 
 		visualizarGrafo();
-		
+
 		presenter.setComponentes(listaBotones, listaInputs);
 	}
 
@@ -220,43 +218,34 @@ public class MainFrame {
 
 		});
 	}
-	
+
 	public void visualizarGrafo() {
-        System.setProperty("org.graphstream.ui", "swing");
+		Grafo grafo = presenter.getGrafo();
 
-        Graph graph = new SingleGraph("Grafo");
-        
-        Grafo grafo = generarGrafoRandom(10);
-        
-        graph.setAttribute("ui.stylesheet","graph { fill-color: rgb(200, 241, 254);}" + 
-        		"node{\n" +
-        		"    text-color: #111;\n" +
-        		"    text-size: 14px;\n" +
-        		"    text-style: bold;\n" +
-                "    size: 50px, 50px;\n" +
-                "    fill-color: rgb(106, 226, 246);\n" +
-                "    text-mode: normal; \n" +
-                "}");
-        graph.setAttribute("ui.layout.force", true);
-        graph.setAttribute("layout.force", 0.0);
-        graph.setAttribute("ui.layout", "linlog");
-        graph.setAttribute("layout.weight", 1);
-        
-        for (Vertice vertice : grafo.getVertices()) {
-            Node node = graph.addNode(String.valueOf(vertice.getID()));
-            node.setAttribute("ui.label", vertice.getText());
-        }
+		System.setProperty("org.graphstream.ui", "swing");
 
-        for (Vertice vertice : grafo.getVertices()) {
-            for (Vertice vecino : vertice.getVecinos()) {
-                String edgeId = vertice.getID() + "-" + vecino.getID();
-                if (graph.getEdge(edgeId) == null && graph.getEdge(vecino.getID() + "-" + vertice.getID()) == null) {
-                    graph.addEdge(edgeId, String.valueOf(vertice.getID()), String.valueOf(vecino.getID()));
-                }
-            }
-        }
+		Graph graph = new SingleGraph("Grafo");
+		graph.setAttribute("ui.layout.force", true);
+		graph.setAttribute("layout.force", 0.0);
+		graph.setAttribute("ui.layout", "linlog");
+		graph.setAttribute("layout.weight", 1);
+		graph.setAttribute("ui.stylesheet", Config.ESTILOS_GRAPHSTREAM);
 
-        graph.display();
-    }
+		for (Vertice vertice : grafo.getVertices()) {
+			Node node = graph.addNode(String.valueOf(vertice.getID()));
+			node.setAttribute("ui.label", vertice.getText());
+		}
+
+		for (Vertice vertice : grafo.getVertices()) {
+			for (Vertice vecino : vertice.getVecinos()) {
+				String edgeId = vertice.getID() + "-" + vecino.getID();
+				if (graph.getEdge(edgeId) == null && graph.getEdge(vecino.getID() + "-" + vertice.getID()) == null) {
+					graph.addEdge(edgeId, String.valueOf(vertice.getID()), String.valueOf(vecino.getID()));
+				}
+			}
+		}
+
+		graph.display();
+	}
 
 }
