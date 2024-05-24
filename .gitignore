@@ -13,3 +13,5 @@ JMapViewer_src.jar
 tools
 findbugs-jmapviewer.xml
 gson-2.10.1.jar
+gs-core-2.0.jar
+gs-ui-swing-2.0.jar

@@ -25,6 +25,10 @@ public class Presenter {
 		this._grafo = new Grafo();
 	}
 
+	public Grafo getGrafo() {
+		return _grafo;
+	}
+
 	public void agregarVerticeListener() {
 		_botones.get(NombreBotones.AGREGAR_VERTICE).addActionListener(new ActionListener() {
 

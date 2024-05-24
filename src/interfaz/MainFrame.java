@@ -1,5 +1,7 @@
 package interfaz;
 
+import static util.GeneradorGrafoRandom.generarGrafoRandom;
+
 import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -16,6 +18,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
+import org.graphstream.graph.Graph;
+import org.graphstream.graph.Node;
+import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.ui.view.Viewer;
+
+import logica.Grafo;
+import logica.Vertice;
 import util.Config;
 import util.NombreBotones;
 import util.NombreInputs;
@@ -35,6 +44,7 @@ public class MainFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					MainFrame window = new MainFrame();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -59,7 +69,7 @@ public class MainFrame {
 
 		crearSwitchVisualizarGrafo();
 		escucharSwitchVisualizarGrafo();
-		crearImagenOjo();
+//		crearImagenOjo();
 
 		crearLabelPeso();
 		crearInputPesoVertice();
@@ -76,6 +86,8 @@ public class MainFrame {
 		crearBotonSalir();
 		escucharBotonSalir();
 
+		visualizarGrafo();
+		
 		presenter.setComponentes(listaBotones, listaInputs);
 	}
 
@@ -84,12 +96,8 @@ public class MainFrame {
 		frame.setTitle("Clique máxima");
 		frame.setBounds(400, 80, 300, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setIconImage(new ImageIcon(getClass().getResource("/prueba.png")).getImage());
+//		frame.setIconImage(new ImageIcon(getClass().getResource("/prueba.png")).getImage());
 	}
-
-//	private void dibujarGrafo() {
-//		// TODO
-//	}
 
 	private void crearPanel() {
 		panel = new JPanel();
@@ -213,5 +221,39 @@ public class MainFrame {
 
 		});
 	}
+	
+	public void visualizarGrafo() {
+        System.setProperty("org.graphstream.ui", "swing");
+
+        Graph graph = new SingleGraph("Grafo");
+        
+        Grafo grafo = generarGrafoRandom(50);
+        
+        graph.setAttribute("ui.stylesheet","graph { fill-color: rgb(200, 241, 254);}" + 
+        		"node{\n" +
+        		"    text-color: #111;\n" +
+        		"    text-size: 14px;\n" +
+        		"    text-style: bold;\n" +
+                "    size: 50px, 50px;\n" +
+                "    fill-color: rgb(106, 226, 246);\n" +
+                "    text-mode: normal; \n" +
+                "}");
+        
+        for (Vertice vertice : grafo.getVertices()) {
+            Node node = graph.addNode(String.valueOf(vertice.getID()));
+            node.setAttribute("ui.label", vertice.getText());
+        }
+
+        for (Vertice vertice : grafo.getVertices()) {
+            for (Vertice vecino : vertice.getVecinos()) {
+                String edgeId = vertice.getID() + "-" + vecino.getID();
+                if (graph.getEdge(edgeId) == null && graph.getEdge(vecino.getID() + "-" + vertice.getID()) == null) {
+                    graph.addEdge(edgeId, String.valueOf(vertice.getID()), String.valueOf(vecino.getID()));
+                }
+            }
+        }
+
+        graph.display();
+    }
 
 }
