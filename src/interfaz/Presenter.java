@@ -14,18 +14,21 @@ import javax.swing.JTextField;
 import logica.Aplicacion;
 import logica.Grafo;
 import logica.Solucion;
+import logica.Vertice;
 import util.MensajeWarning;
 import util.NombreBotones;
 import util.NombreInputs;
 
 public class Presenter{
 
+	private MainFrame _mainFrame;
 	private HashMap<NombreBotones, JButton> _botones;
 	private HashMap<NombreInputs, JTextField> _inputs;
 	private Grafo _grafo;
 	private VisualizadorGrafo _visualizadorGrafo;
 
-	public Presenter() {
+	public Presenter(MainFrame mainFrame) {
+		_mainFrame = mainFrame;
 		this._grafo = new Grafo();
 		this._visualizadorGrafo = new VisualizadorGrafo();
 	}
@@ -43,6 +46,7 @@ public class Presenter{
 					_grafo.agregarVertice(parsearInputText(NombreInputs.PESO_VERTICE));
 					_inputs.get(NombreInputs.PESO_VERTICE).setText(null);
 					_visualizadorGrafo.actualizar(_grafo);
+					_mainFrame.actualizarInfo();
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -64,6 +68,7 @@ public class Presenter{
 					_inputs.get(NombreInputs.VERTICE1).setText(null);
 					_inputs.get(NombreInputs.VERTICE2).setText(null);
 					_visualizadorGrafo.actualizar(_grafo);
+					_mainFrame.actualizarInfo();
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -78,6 +83,7 @@ public class Presenter{
 			public void actionPerformed(ActionEvent e) {
 				_grafo = generarGrafoRandom(10);
 				_visualizadorGrafo.actualizar(_grafo);
+				_mainFrame.actualizarInfo();
 			}
 		});
 	}
@@ -99,10 +105,31 @@ public class Presenter{
 			public void actionPerformed(ActionEvent e) {
 				_grafo=new Grafo();
 				_visualizadorGrafo.actualizar(_grafo);
+				_mainFrame.actualizarInfo();
 			}
 		});
 		
 	}
+	
+	public String obtenerInformacionGrafo() {
+        StringBuilder informacion = new StringBuilder();
+        informacion.append("Vértices:\n");
+
+        for (Vertice vertice : _grafo.getVertices()) {
+            informacion.append(vertice.getID()).append(" - Peso: ").append(vertice.getPeso()).append("\n");
+        }
+        
+        informacion.append("\n\n\n\n");
+
+        informacion.append("Aristas:\n");
+        for (Vertice vertice : _grafo.getVertices()) {
+            for (Vertice vecino : vertice.getVecinos()) {
+                informacion.append("(").append(vertice.getID()).append(", ").append(vecino.getID()).append(")").append("\n");
+            }
+        }
+
+        return informacion.toString();
+    }
 
 	public void setComponentes(HashMap<NombreBotones, JButton> listaBotones, HashMap<NombreInputs, JTextField> inputs) {
 		this._botones = listaBotones;

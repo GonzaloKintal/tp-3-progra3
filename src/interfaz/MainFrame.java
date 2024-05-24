@@ -3,7 +3,9 @@ package interfaz;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Image;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -17,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import util.Config;
 import util.NombreBotones;
@@ -33,7 +36,7 @@ public class MainFrame {
 	private HashMap<NombreInputs, JTextField> listaInputs;
 	private Presenter presenter;
 
-	private JList infoJList;
+	private JList<String> infoJList;
 	private JScrollPane scrollPane;
 
 	public static void main(String[] args) {
@@ -51,7 +54,7 @@ public class MainFrame {
 	}
 
 	public MainFrame() {
-		presenter = new Presenter();
+		presenter = new Presenter(this);
 		listaBotones = new HashMap<>();
 		listaInputs = new HashMap<>();
 		initialize();
@@ -90,6 +93,8 @@ public class MainFrame {
 
 		crearJList();
 		crearScrollPane();
+		
+		actualizarInfo();
 
 		presenter.setComponentes(listaBotones, listaInputs);
 	}
@@ -213,7 +218,9 @@ public class MainFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
+				for (Window window : Window.getWindows()) {
+	                window.dispose();
+	            }
 			}
 		});
 	}
@@ -221,8 +228,9 @@ public class MainFrame {
 	private void crearJList() {
 		infoJList = new JList<String>();
 		infoJList.setBackground(Color.WHITE);
-		infoJList.setForeground(Color.WHITE);
+        infoJList.setForeground(Color.BLACK);
 		infoJList.setBounds(0, 0, 200, 200);
+		infoJList.setFont(new Font("Roboto", Font.BOLD, 14));
 		panelInteractivo.add(infoJList);
 	}
 
@@ -232,6 +240,29 @@ public class MainFrame {
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBorder(null);
 		scrollPane.setVisible(false);
+		scrollPane.getVerticalScrollBar().setBackground(Config.COLOR_BOTON);
+	    scrollPane.getVerticalScrollBar().setCursor(new Cursor(Cursor.HAND_CURSOR));
+	    scrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());;
 		panelInteractivo.add(scrollPane);
 	}
+	
+	public void actualizarInfo() {
+		String informacion = presenter.obtenerInformacionGrafo();
+	    String[] info = informacion.split("\n");
+	    infoJList.setListData(info);
+	  }
+	
+	
+	// Clase interna para modificar el scroll
+	private class CustomScrollBarUI extends BasicScrollBarUI {
+	    @Override
+	    protected void configureScrollBarColors() {
+	        thumbColor = new Color(86, 206, 226);
+	        trackColor = Config.COLOR_BOTON;
+	        thumbDarkShadowColor = Config.COLOR_BOTON;
+	        thumbLightShadowColor = Config.COLOR_BOTON;
+	    }
+	}
+	
 }
+

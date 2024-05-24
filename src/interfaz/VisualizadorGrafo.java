@@ -13,7 +13,6 @@ import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
-import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants;
 import org.graphstream.ui.spriteManager.Sprite;
 import org.graphstream.ui.spriteManager.SpriteManager;
 import org.graphstream.ui.view.View;
@@ -109,10 +108,14 @@ public class VisualizadorGrafo {
 
 	private void moverVista(Viewer viewer) {
 		SwingUtilities.invokeLater(() -> {
-			View view = viewer.getDefaultView();
-			Window window = SwingUtilities.windowForComponent((Component) view);
-			window.setLocation(new Point(390, 80));
-		});
+	        View view = viewer.getDefaultView();
+	        Window window = SwingUtilities.windowForComponent((Component) view);
+	        if (window instanceof JFrame) {
+	            JFrame frame = (JFrame) window;
+	            frame.setLocation(new Point(390, 80));
+	            frame.setResizable(false);
+	        }
+	    });
 	}
 
 	private void cambiarIconoVentana(Viewer viewer, String iconPath) {
