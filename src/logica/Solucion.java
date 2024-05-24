@@ -33,12 +33,13 @@ public class Solucion {
 	@Override
 	public String toString() {
         StringBuilder ret = new StringBuilder();
-        ret.append("Solucion:");
+        ret.append("Clique máxima:");
         ret.append("\n");
         for (Vertice v : vertices) {
         	ret.append("Vertice: ");
             ret.append(v.getID());
-            ret.append(" Peso:");
+            ret.append(" - ");
+            ret.append(" Peso: ");
             ret.append(v.getPeso());
             ret.append("\n");
         }

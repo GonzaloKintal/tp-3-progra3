@@ -61,7 +61,7 @@ public class VisualizadorGrafo {
 			aSprite.setAttribute("ui.label", id);
 		}
 
-		// Draw edges
+		// Dibuja aristas
 		for (Vertice vertice : grafo.getVertices()) {
 			for (Vertice vecino : vertice.getVecinos()) {
 				String edgeId = vertice.getID() + "-" + vecino.getID();

@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 import javax.swing.JButton;
+import javax.swing.JList;
 import javax.swing.JTextField;
 
 import logica.Aplicacion;
@@ -21,14 +22,13 @@ import util.NombreInputs;
 
 public class Presenter{
 
-	private MainFrame _mainFrame;
 	private HashMap<NombreBotones, JButton> _botones;
 	private HashMap<NombreInputs, JTextField> _inputs;
 	private Grafo _grafo;
 	private VisualizadorGrafo _visualizadorGrafo;
+	private JList<String> _info;
 
-	public Presenter(MainFrame mainFrame) {
-		_mainFrame = mainFrame;
+	public Presenter() {
 		this._grafo = new Grafo();
 		this._visualizadorGrafo = new VisualizadorGrafo();
 	}
@@ -46,7 +46,7 @@ public class Presenter{
 					_grafo.agregarVertice(parsearInputText(NombreInputs.PESO_VERTICE));
 					_inputs.get(NombreInputs.PESO_VERTICE).setText(null);
 					_visualizadorGrafo.actualizar(_grafo);
-					_mainFrame.actualizarInfo();
+					actualizarInfo();
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -68,7 +68,7 @@ public class Presenter{
 					_inputs.get(NombreInputs.VERTICE1).setText(null);
 					_inputs.get(NombreInputs.VERTICE2).setText(null);
 					_visualizadorGrafo.actualizar(_grafo);
-					_mainFrame.actualizarInfo();
+					actualizarInfo();
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -83,7 +83,7 @@ public class Presenter{
 			public void actionPerformed(ActionEvent e) {
 				_grafo = generarGrafoRandom(10);
 				_visualizadorGrafo.actualizar(_grafo);
-				_mainFrame.actualizarInfo();
+				actualizarInfo();
 			}
 		});
 	}
@@ -95,6 +95,7 @@ public class Presenter{
 			public void actionPerformed(ActionEvent e) {
 				Solucion solucion = Aplicacion.calcularClique(_grafo);
 				_visualizadorGrafo.resaltarVerticesClique(solucion.obtener());
+				actualizarInfoClique(solucion.toString());
 			}
 		});
 	}
@@ -105,7 +106,7 @@ public class Presenter{
 			public void actionPerformed(ActionEvent e) {
 				_grafo=new Grafo();
 				_visualizadorGrafo.actualizar(_grafo);
-				_mainFrame.actualizarInfo();
+				actualizarInfo();
 			}
 		});
 		
@@ -130,6 +131,17 @@ public class Presenter{
 
         return informacion.toString();
     }
+	
+	public void actualizarInfo() {
+		String informacion = obtenerInformacionGrafo();
+	    String[] infoString = informacion.split("\n");
+	    _info.setListData(infoString);
+	}
+	
+	public void actualizarInfoClique(String info) {
+		String[] infoString = info.split("\n");
+	    _info.setListData(infoString);
+	}
 
 	public void setComponentes(HashMap<NombreBotones, JButton> listaBotones, HashMap<NombreInputs, JTextField> inputs) {
 		this._botones = listaBotones;
@@ -141,6 +153,11 @@ public class Presenter{
 		agregarDameCliqueMaximaListener();
 		reiniciarListener();
 		_visualizadorGrafo.actualizar(_grafo);
+	}
+	
+	public void setearList(JList<String> info) {
+		_info = info;
+		actualizarInfo();
 	}
 
 	public int parsearInputText(NombreInputs nombre) {

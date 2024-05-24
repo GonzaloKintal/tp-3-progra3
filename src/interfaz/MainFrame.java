@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
+import util.BotonPredeterminado;
 import util.Config;
 import util.NombreBotones;
 import util.NombreInputs;
@@ -54,7 +55,7 @@ public class MainFrame {
 	}
 
 	public MainFrame() {
-		presenter = new Presenter(this);
+		presenter = new Presenter();
 		listaBotones = new HashMap<>();
 		listaInputs = new HashMap<>();
 		initialize();
@@ -94,9 +95,8 @@ public class MainFrame {
 		crearJList();
 		crearScrollPane();
 		
-		actualizarInfo();
-
 		presenter.setComponentes(listaBotones, listaInputs);
+		presenter.setearList(infoJList);
 	}
 
 	private void crearFrame() {
@@ -245,12 +245,6 @@ public class MainFrame {
 	    scrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());;
 		panelInteractivo.add(scrollPane);
 	}
-	
-	public void actualizarInfo() {
-		String informacion = presenter.obtenerInformacionGrafo();
-	    String[] info = informacion.split("\n");
-	    infoJList.setListData(info);
-	  }
 	
 	
 	// Clase interna para modificar el scroll

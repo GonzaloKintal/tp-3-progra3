@@ -1,12 +1,10 @@
-package interfaz;
+package util;
 
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 
 import javax.swing.JButton;
-
-import util.Config;
 
 @SuppressWarnings("serial")
 public class BotonPredeterminado extends JButton {
@@ -30,4 +28,5 @@ public class BotonPredeterminado extends JButton {
 		this.setFocusPainted(false);
 		this.setBounds(x, y, Config.WIDTH_BOTON, Config.HEIGHT_BOTON);
 	}
+	
 }
