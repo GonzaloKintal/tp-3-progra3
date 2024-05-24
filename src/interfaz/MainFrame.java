@@ -83,8 +83,6 @@ public class MainFrame {
 		crearBotonSalir();
 		escucharBotonSalir();
 
-		visualizarGrafo();
-
 		presenter.setComponentes(listaBotones, listaInputs);
 	}
 
@@ -217,35 +215,6 @@ public class MainFrame {
 			}
 
 		});
-	}
-
-	public void visualizarGrafo() {
-		Grafo grafo = presenter.getGrafo();
-
-		System.setProperty("org.graphstream.ui", "swing");
-
-		Graph graph = new SingleGraph("Grafo");
-		graph.setAttribute("ui.layout.force", true);
-		graph.setAttribute("layout.force", 0.0);
-		graph.setAttribute("ui.layout", "linlog");
-		graph.setAttribute("layout.weight", 1);
-		graph.setAttribute("ui.stylesheet", Config.ESTILOS_GRAPHSTREAM);
-
-		for (Vertice vertice : grafo.getVertices()) {
-			Node node = graph.addNode(String.valueOf(vertice.getID()));
-			node.setAttribute("ui.label", vertice.getText());
-		}
-
-		for (Vertice vertice : grafo.getVertices()) {
-			for (Vertice vecino : vertice.getVecinos()) {
-				String edgeId = vertice.getID() + "-" + vecino.getID();
-				if (graph.getEdge(edgeId) == null && graph.getEdge(vecino.getID() + "-" + vertice.getID()) == null) {
-					graph.addEdge(edgeId, String.valueOf(vertice.getID()), String.valueOf(vecino.getID()));
-				}
-			}
-		}
-
-		graph.display();
 	}
 
 }

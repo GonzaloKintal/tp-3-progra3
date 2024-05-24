@@ -2,7 +2,7 @@ package logica;
 
 import java.util.ArrayList;
 
-public class Grafo {
+public class Grafo{
 
 	private ArrayList<Vertice> _vertices;
 
@@ -67,5 +67,7 @@ public class Grafo {
 	public String toString() {
 		return "Grafo [_vertices=" + _vertices + "]";
 	}
+
+	
 
 }
