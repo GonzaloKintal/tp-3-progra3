@@ -15,7 +15,6 @@ import javax.swing.JTextField;
 import logica.Aplicacion;
 import logica.Grafo;
 import logica.Solucion;
-import logica.Vertice;
 import util.MensajeWarning;
 import util.NombreBotones;
 import util.NombreInputs;
@@ -113,23 +112,7 @@ public class Presenter{
 	}
 	
 	public String obtenerInformacionGrafo() {
-        StringBuilder informacion = new StringBuilder();
-        informacion.append("Vértices:\n");
-
-        for (Vertice vertice : _grafo.getVertices()) {
-            informacion.append(vertice.getID()).append(" - Peso: ").append(vertice.getPeso()).append("\n");
-        }
-        
-        informacion.append("\n\n\n\n");
-
-        informacion.append("Aristas:\n");
-        for (Vertice vertice : _grafo.getVertices()) {
-            for (Vertice vecino : vertice.getVecinos()) {
-                informacion.append("(").append(vertice.getID()).append(", ").append(vecino.getID()).append(")").append("\n");
-            }
-        }
-
-        return informacion.toString();
+        return _grafo.toString();
     }
 	
 	public void actualizarInfo() {
@@ -168,4 +151,13 @@ public class Presenter{
 
 		return Integer.parseInt(valor);
 	}
+
+	public void ver() {
+		_visualizadorGrafo.ver();
+	}
+	
+	public void ocultar() {
+		_visualizadorGrafo.ocultar();
+	}
+	
 }

@@ -24,6 +24,7 @@ import util.Config;
 
 public class VisualizadorGrafo {
 
+	private JFrame frame;
 	private Graph _vistaGrafo;
 
 	public VisualizadorGrafo() {
@@ -111,11 +112,20 @@ public class VisualizadorGrafo {
 	        View view = viewer.getDefaultView();
 	        Window window = SwingUtilities.windowForComponent((Component) view);
 	        if (window instanceof JFrame) {
-	            JFrame frame = (JFrame) window;
+	            frame = (JFrame) window;
 	            frame.setLocation(new Point(390, 80));
 	            frame.setResizable(false);
+	            frame.setVisible(false);
 	        }
 	    });
+	}
+	
+	public void ver() {
+		frame.setVisible(true);
+	}
+	
+	public void ocultar() {
+		frame.setVisible(false);
 	}
 
 	private void cambiarIconoVentana(Viewer viewer, String iconPath) {

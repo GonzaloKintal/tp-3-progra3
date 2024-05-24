@@ -60,7 +60,23 @@ public class Grafo{
 
 	@Override
 	public String toString() {
-		return "Grafo [_vertices=" + _vertices + "]";
+		StringBuilder informacion = new StringBuilder();
+        informacion.append("Vértices:\n");
+
+        for (Vertice vertice : this.getVertices()) {
+            informacion.append(vertice.getID()).append(" - Peso: ").append(vertice.getPeso()).append("\n");
+        }
+        
+        informacion.append("\n\n\n\n");
+
+        informacion.append("Aristas:\n");
+        for (Vertice vertice : this.getVertices()) {
+            for (Vertice vecino : vertice.getVecinos()) {
+                informacion.append("(").append(vertice.getID()).append(", ").append(vecino.getID()).append(")").append("\n");
+            }
+        }
+
+        return informacion.toString();
 	}
 
 	

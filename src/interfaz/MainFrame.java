@@ -87,16 +87,19 @@ public class MainFrame {
 
 		crearBotonSalir();
 
-		// Agregar botones al panel
-		listaBotones.values().stream().forEach(boton -> {
-			panelInteractivo.add(boton);
-		});
+		agregarBotonesAlPanel();
 
 		crearJList();
 		crearScrollPane();
 		
 		presenter.setComponentes(listaBotones, listaInputs);
 		presenter.setearList(infoJList);
+	}
+
+	private void agregarBotonesAlPanel() {
+		listaBotones.values().stream().forEach(boton -> {
+			panelInteractivo.add(boton);
+		});
 	}
 
 	private void crearFrame() {
@@ -117,7 +120,7 @@ public class MainFrame {
 
 	private void crearSwitchVisualizarGrafo() {
 		switchVisualizarGrafo = new JToggleButton();
-		switchVisualizarGrafo.setBounds(253, 6, 25, 28);
+		switchVisualizarGrafo.setBounds(248, 6, 25, 28);
 		switchVisualizarGrafo.setContentAreaFilled(false);
 		switchVisualizarGrafo.setOpaque(false);
 		switchVisualizarGrafo.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -130,16 +133,20 @@ public class MainFrame {
 		switchVisualizarGrafo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				scrollPane.setVisible(!scrollPane.isVisible());
+				if (switchVisualizarGrafo.isSelected()) {
+					presenter.ver();
+				} else {
+					presenter.ocultar();
+				}
 			}
 		});
 	}
 
 	private void crearImagenOjo() {
-		Image imageInfo = new ImageIcon(this.getClass().getResource("/info.png")).getImage();
+		Image imageInfo = new ImageIcon(this.getClass().getResource("/ojo.png")).getImage();
 		JLabel infoLabel = new JLabel();
 		infoLabel.setIcon(new ImageIcon(imageInfo));
-		infoLabel.setBounds(250, 5, 30, 30);
+		infoLabel.setBounds(245, 5, 30, 30);
 		infoLabel.setToolTipText("Ver información");
 		panelInteractivo.add(infoLabel);
 	}
@@ -239,7 +246,6 @@ public class MainFrame {
 		scrollPane.setBounds(30, 300, 230, 200);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBorder(null);
-		scrollPane.setVisible(false);
 		scrollPane.getVerticalScrollBar().setBackground(Config.COLOR_BOTON);
 	    scrollPane.getVerticalScrollBar().setCursor(new Cursor(Cursor.HAND_CURSOR));
 	    scrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());;
