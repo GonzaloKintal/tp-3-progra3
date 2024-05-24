@@ -36,7 +36,7 @@ public class VisualizadorGrafo{
 		_vistaGrafo.setAttribute("layout.weight", 1);
 		_vistaGrafo.setAttribute("ui.stylesheet", Config.ESTILOS_GRAPHSTREAM);
 	}
-	
+ 
 	public void actualizar() {
 		asignarAtributosVisor();
 

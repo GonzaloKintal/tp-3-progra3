@@ -144,10 +144,10 @@ public class MainFrame {
 	}
 
 	private void crearBotonAgregarVertice() {
-		JButton botonAgregarVertice = BotonPredeteminado.crear("Agregar Vertice");
-		botonAgregarVertice.setBounds(90, 50, 150, 25);
-		listaBotones.put(NombreBotones.AGREGAR_VERTICE, botonAgregarVertice);
-		panelInteractivo.add(botonAgregarVertice);
+		JButton boton =  new BotonPredeterminado("Agregar Vertice");
+		boton.setBounds(90, 50, 150, 25);
+		listaBotones.put(NombreBotones.AGREGAR_VERTICE, boton);
+		panelInteractivo.add(boton);
 	}
 
 	private void crearLabelsVertices() {
@@ -173,41 +173,34 @@ public class MainFrame {
 	}
 
 	private void crearBotonAgregarArista() {
-		JButton botonAgregarArista = BotonPredeteminado.crear("Agregar Arista");
-		botonAgregarArista.setBounds(28, 130, 230, 25);
-		listaBotones.put(NombreBotones.AGREGAR_ARISTA, botonAgregarArista);
-		panelInteractivo.add(botonAgregarArista);
+		JButton boton = new BotonPredeterminado("Agregar Arista", 28, 130);
+		listaBotones.put(NombreBotones.AGREGAR_ARISTA, boton);
+		panelInteractivo.add(boton);
 	}
 
 	private void crearBotonGenerarGrafoRandom() {
-		JButton botonGenerarGrafoRandom = BotonPredeteminado.crear("Generar Grafo Random");
-		botonGenerarGrafoRandom.setBounds(28, 170, 230, 25);
-		listaBotones.put(NombreBotones.GENERAR_GRAFO_RANDOM, botonGenerarGrafoRandom);
-		panelInteractivo.add(botonGenerarGrafoRandom);
+		JButton boton = new BotonPredeterminado("Generar Grafo Random", 28, 170);
+		listaBotones.put(NombreBotones.GENERAR_GRAFO_RANDOM, boton);
+		panelInteractivo.add(boton);
 	}
 
 	private void crearBotonDameCliqueMaxima() {
-		JButton botonDameCliqueMaxima = BotonPredeteminado.crear("Dame clique máxima");
-		botonDameCliqueMaxima.setBounds(28, 210, 230, 25);
-		listaBotones.put(NombreBotones.DAME_CLIQUE_MAXIMA, botonDameCliqueMaxima);
-		panelInteractivo.add(botonDameCliqueMaxima);
+		JButton boton = new BotonPredeterminado("Dame clique máxima", 28, 210);
+		listaBotones.put(NombreBotones.DAME_CLIQUE_MAXIMA, boton);
+		panelInteractivo.add(boton);
 	}
 	
 	private void crearBotonReiniciar() {
-		JButton botonReiniciar = BotonPredeteminado.crear("Reiniciar Grafo");
-	    botonReiniciar.setFont(new Font("Arial", Font.BOLD, 16));
-		botonReiniciar.setBounds(28, 250, 230, 25);
-		panelInteractivo.add(botonReiniciar);	
-		listaBotones.put(NombreBotones.REINICIAR_GRAFO, botonReiniciar);
+		JButton boton = new BotonPredeterminado("Reiniciar Grafo", 28, 250);
+		listaBotones.put(NombreBotones.REINICIAR_GRAFO, boton);
+		panelInteractivo.add(boton);	
 	}
 
 	private void crearBotonSalir() {
-		JButton botonSalir = BotonPredeteminado.crear("Salir");
-		botonSalir.setFont(new Font("Arial", Font.BOLD, 16));
-		botonSalir.setBounds(28, 520, 230, 30);
-		botonSalir.setBackground(Config.COLOR_BOTON_SALIR);
-		listaBotones.put(NombreBotones.SALIR, botonSalir);
-		panelInteractivo.add(botonSalir);
+		JButton boton = new BotonPredeterminado("Salir", 28, 520);
+		boton.setBackground(Config.COLOR_BOTON_SALIR);
+		listaBotones.put(NombreBotones.SALIR, boton);
+		panelInteractivo.add(boton);
 		escucharBotonSalir();
 	}
 
