@@ -18,15 +18,15 @@ public class Config {
 				text-color: #111;
 				text-size: 14px;
 				text-style: bold-italic;
-				size: 40px, 40px;
+				size: 20px, 20px;
 				fill-mode:gradient-diagonal1 ;
 				fill-color: rgb(106, 226, 246), rgb(156, 255, 255);
 				
-				text-offset: 0px, 40px;
+				text-offset: 0px, 20px;
 				
 				text-background-color: rgb(86, 206, 226);
 				text-background-mode: rounded-box;
-				text-padding: 4px;
+				text-padding: 2px, 4px;
 				
 				stroke-color: rgb(86, 206, 226);
 				stroke-width: 3px;
@@ -38,7 +38,10 @@ public class Config {
 			}
 			
 			node.clique {
-				fill-color: red;
+				fill-color: #5ce56c;
+				stroke-color: #5ce56c;
+				stroke-width: 3px;
+				stroke-mode: plain;
 			}
 			
 			edge{

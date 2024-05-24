@@ -90,7 +90,7 @@ public class MainFrame {
 		frame.setTitle("Clique máxima");
 		frame.setBounds(100, 80, 300, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setIconImage(new ImageIcon(getClass().getResource("/prueba.png")).getImage());
+		frame.setIconImage(new ImageIcon(getClass().getResource("/icono.png")).getImage());
 	}
 
 	private void crearPanelInteractivo() {
@@ -103,7 +103,7 @@ public class MainFrame {
 
 	private void crearSwitchVisualizarGrafo() {
 		switchVisualizarGrafo = new JToggleButton();
-		switchVisualizarGrafo.setBounds(5, 5, 30, 20);
+		switchVisualizarGrafo.setBounds(253, 6, 25, 28);
 		switchVisualizarGrafo.setContentAreaFilled(false);
 		switchVisualizarGrafo.setOpaque(false);
 		switchVisualizarGrafo.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -116,20 +116,16 @@ public class MainFrame {
 		switchVisualizarGrafo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				if (switchVisualizarGrafo.isSelected()) {
-//					presenter.visualizar();
-//				} else {
-//					presenter.ocultar();
-//				}
+				// TODO
 			}
 		});
 	}
 
 	private void crearImagenOjo() {
-		Image imageOjo = new ImageIcon(this.getClass().getResource("/ojo.png")).getImage();
+		Image imageOjo = new ImageIcon(this.getClass().getResource("/info.png")).getImage();
 		JLabel ojoLabel = new JLabel();
 		ojoLabel.setIcon(new ImageIcon(imageOjo));
-		ojoLabel.setBounds(5, 0, 30, 30);
+		ojoLabel.setBounds(250, 5, 30, 30);
 		ojoLabel.setToolTipText("Ir al repositorio de GitHub");
 		panelInteractivo.add(ojoLabel);
 	}

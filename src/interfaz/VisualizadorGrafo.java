@@ -5,6 +5,8 @@ import java.awt.Point;
 import java.awt.Window;
 import java.util.Set;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import org.graphstream.graph.Graph;
@@ -27,22 +29,18 @@ public class VisualizadorGrafo{
 		asignarAtributosVisor();
         Viewer viewer = _vistaGrafo.display();
         moverVista(viewer);
+        cambiarTituloVentana(viewer, "Visualizador del grafo");
+        cambiarIconoVentana(viewer, "/icono.png");
 	}
 
-	private void moverVista(Viewer viewer) {
-		SwingUtilities.invokeLater(() -> {
-            View view = viewer.getDefaultView();
-            Window window = SwingUtilities.windowForComponent((Component) view);
-            window.setLocation(new Point(390, 80));
-        });
-	}
+
 	
 	private void asignarAtributosVisor() {
 		_vistaGrafo.clear();
-		_vistaGrafo.setAttribute("ui.layout.force", true);
+		_vistaGrafo.setAttribute("ui.layout", "springbox");
+		_vistaGrafo.setAttribute("layout.quality", 4);
+		_vistaGrafo.setAttribute("layout.stabilization-limit", 0.9);
 		_vistaGrafo.setAttribute("layout.force", 0.5);
-		_vistaGrafo.setAttribute("ui.layout", "linlog");
-		_vistaGrafo.setAttribute("layout.weight", 1);
 		_vistaGrafo.setAttribute("ui.stylesheet", Config.ESTILOS_GRAPHSTREAM);
 	}
  
@@ -70,4 +68,38 @@ public class VisualizadorGrafo{
 			node.setAttribute("ui.class", "clique");
 		}
 	}
+	
+	private void moverVista(Viewer viewer) {
+		SwingUtilities.invokeLater(() -> {
+			View view = viewer.getDefaultView();
+			Window window = SwingUtilities.windowForComponent((Component) view);
+			window.setLocation(new Point(390, 80));
+		});
+	}
+	
+	private void cambiarTituloVentana(Viewer viewer, String string) {
+		SwingUtilities.invokeLater(() -> {
+			View view = viewer.getDefaultView();
+			JFrame frame = (JFrame) SwingUtilities.windowForComponent((Component) view);
+			if (frame != null) {
+				frame.setTitle(string);
+			}
+		});
+	}
+	
+	private void cambiarIconoVentana(Viewer viewer, String iconPath) {
+		SwingUtilities.invokeLater(() -> {
+	        View view = viewer.getDefaultView();
+	        JFrame frame = (JFrame) SwingUtilities.windowForComponent((Component) view);
+	        if (frame != null) {
+	            ImageIcon icon = new ImageIcon(getClass().getResource(iconPath));
+	            if (icon.getImageLoadStatus() == java.awt.MediaTracker.COMPLETE) {
+	                frame.setIconImage(icon.getImage());
+	            } else {
+	                System.err.println("No se pudo cargar el ícono: " + iconPath);
+	            }
+	        }
+	    });
+    }
+	
 }
