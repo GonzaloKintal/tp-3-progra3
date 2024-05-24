@@ -50,7 +50,7 @@ public class Config {
 			}
 			
 			edge.clique{
-				fill-color: rgb(26, 126, 226);
+				fill-color: #5ce56c;
 				size: 4px;
 			}
 			""";

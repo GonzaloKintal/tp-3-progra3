@@ -39,7 +39,7 @@ public class VisualizadorGrafo {
 		_vistaGrafo.setAttribute("ui.layout", "springbox");
 		_vistaGrafo.setAttribute("layout.quality", 4);
 		_vistaGrafo.setAttribute("layout.stabilization-limit", 0.9);
-		_vistaGrafo.setAttribute("layout.force", 0.5);
+		_vistaGrafo.setAttribute("layout.force", 0.1);
 		_vistaGrafo.setAttribute("ui.stylesheet", Config.ESTILOS_GRAPHSTREAM);
 	}
 
@@ -72,12 +72,26 @@ public class VisualizadorGrafo {
 		// Resaltar Arista
 		for (Vertice vertice : vertices) {
 			for(Vertice vecino: vertice.getVecinos()) {
-				Edge arista = _vistaGrafo.getEdge(vertice.getID() + vecino.getID());
-				if(arista != null) {
-					arista.setAttribute("ui.class", "clique");
+				Edge arista = obtenerArista(vertice.getID(), vecino.getID());
+				if(arista != null && vertices.contains(vecino)) {
+					arista.setAttribute("ui.class","clique");
 				}
 			}
 		}
+	}
+	
+	public Edge obtenerArista(int verticeOrigen, int verticeDestino) {
+		// 5-8
+		if(_vistaGrafo.getEdge(verticeOrigen + "-" + verticeDestino) != null) {
+			return _vistaGrafo.getEdge(verticeOrigen + "-" + verticeDestino);
+		}
+		
+		// 8-5
+		if(_vistaGrafo.getEdge(verticeDestino + "-" + verticeOrigen) != null) {
+			return _vistaGrafo.getEdge(verticeDestino + "-" + verticeOrigen);
+		}
+		
+		return null;
 	}
 
 	private void moverVista(Viewer viewer) {
