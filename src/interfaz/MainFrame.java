@@ -1,5 +1,6 @@
 package interfaz;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Image;
@@ -11,7 +12,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
@@ -29,6 +32,9 @@ public class MainFrame {
 	private HashMap<NombreBotones, JButton> listaBotones;
 	private HashMap<NombreInputs, JTextField> listaInputs;
 	private Presenter presenter;
+	
+	private JList infoJList;
+	private JScrollPane scrollPane;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -81,7 +87,10 @@ public class MainFrame {
 		listaBotones.values().stream().forEach(boton -> {
 			panelInteractivo.add(boton);
 		});
-
+		
+		crearJList();
+		crearScrollPane();
+		
 		presenter.setComponentes(listaBotones, listaInputs);
 	}
 
@@ -116,18 +125,18 @@ public class MainFrame {
 		switchVisualizarGrafo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO
+				scrollPane.setVisible(!scrollPane.isVisible());
 			}
 		});
 	}
 
 	private void crearImagenOjo() {
-		Image imageOjo = new ImageIcon(this.getClass().getResource("/info.png")).getImage();
-		JLabel ojoLabel = new JLabel();
-		ojoLabel.setIcon(new ImageIcon(imageOjo));
-		ojoLabel.setBounds(250, 5, 30, 30);
-		ojoLabel.setToolTipText("Ir al repositorio de GitHub");
-		panelInteractivo.add(ojoLabel);
+		Image imageInfo = new ImageIcon(this.getClass().getResource("/info.png")).getImage();
+		JLabel infoLabel = new JLabel();
+		infoLabel.setIcon(new ImageIcon(imageInfo));
+		infoLabel.setBounds(250, 5, 30, 30);
+		infoLabel.setToolTipText("Ver información");
+		panelInteractivo.add(infoLabel);
 	}
 
 	private void crearLabelPeso() {
@@ -208,4 +217,21 @@ public class MainFrame {
 			}
 		});
 	}
+	
+	private void crearJList() {
+	    infoJList = new JList<String>();
+	    infoJList.setBackground(Color.WHITE);
+	    infoJList.setForeground(Color.WHITE);
+	    infoJList.setBounds(0, 0, 200, 200);
+	    panelInteractivo.add(infoJList);
+	  }
+
+	  private void crearScrollPane() {
+	    scrollPane = new JScrollPane(infoJList);
+	    scrollPane.setBounds(30, 300, 230, 200);
+	    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+	    scrollPane.setBorder(null);
+	    scrollPane.setVisible(false);
+	    panelInteractivo.add(scrollPane);
+	  }
 }

@@ -54,4 +54,5 @@ public class Config {
 				size: 4px;
 			}
 			""";
+	
 }
