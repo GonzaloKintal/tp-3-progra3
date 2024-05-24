@@ -11,7 +11,7 @@ public class GeneradorGrafoRandom {
 	public static Grafo generarGrafoRandom(int cantidadVertices) {
 		Grafo grafo = new Grafo();
 		int PESO_MAXIMO_POSIBLE = 10; 
-		double PROBABILIDAD_ARISTA = 0.9;
+		double PROBABILIDAD_ARISTA = 0.7;
 
 		// Creacion vertices
 		for (int i = 0; i < cantidadVertices; i++) {

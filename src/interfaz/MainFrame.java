@@ -21,7 +21,6 @@ import javax.swing.JToggleButton;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
-import org.graphstream.ui.view.Viewer;
 
 import logica.Grafo;
 import logica.Vertice;
@@ -69,7 +68,7 @@ public class MainFrame {
 
 		crearSwitchVisualizarGrafo();
 		escucharSwitchVisualizarGrafo();
-//		crearImagenOjo();
+		crearImagenOjo();
 
 		crearLabelPeso();
 		crearInputPesoVertice();
@@ -96,7 +95,7 @@ public class MainFrame {
 		frame.setTitle("Clique máxima");
 		frame.setBounds(400, 80, 300, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		frame.setIconImage(new ImageIcon(getClass().getResource("/prueba.png")).getImage());
+		frame.setIconImage(new ImageIcon(getClass().getResource("/prueba.png")).getImage());
 	}
 
 	private void crearPanel() {
@@ -227,7 +226,7 @@ public class MainFrame {
 
         Graph graph = new SingleGraph("Grafo");
         
-        Grafo grafo = generarGrafoRandom(50);
+        Grafo grafo = generarGrafoRandom(10);
         
         graph.setAttribute("ui.stylesheet","graph { fill-color: rgb(200, 241, 254);}" + 
         		"node{\n" +
@@ -238,6 +237,10 @@ public class MainFrame {
                 "    fill-color: rgb(106, 226, 246);\n" +
                 "    text-mode: normal; \n" +
                 "}");
+        graph.setAttribute("ui.layout.force", true);
+        graph.setAttribute("layout.force", 0.0);
+        graph.setAttribute("ui.layout", "linlog");
+        graph.setAttribute("layout.weight", 1);
         
         for (Vertice vertice : grafo.getVertices()) {
             Node node = graph.addNode(String.valueOf(vertice.getID()));
