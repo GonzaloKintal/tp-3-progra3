@@ -40,7 +40,7 @@ public class VisualizadorGrafo{
 	private void asignarAtributosVisor() {
 		_vistaGrafo.clear();
 		_vistaGrafo.setAttribute("ui.layout.force", true);
-		_vistaGrafo.setAttribute("layout.force", 0.0);
+		_vistaGrafo.setAttribute("layout.force", 0.5);
 		_vistaGrafo.setAttribute("ui.layout", "linlog");
 		_vistaGrafo.setAttribute("layout.weight", 1);
 		_vistaGrafo.setAttribute("ui.stylesheet", Config.ESTILOS_GRAPHSTREAM);
@@ -67,7 +67,7 @@ public class VisualizadorGrafo{
 	public void resaltarVerticesClique(Set<Vertice> vertices) {
 		for (Vertice vertice : vertices) {
 			Node node = _vistaGrafo.getNode(vertice.getID() - 1);
-			node.setAttribute("ui.selected", true);
+			node.setAttribute("ui.class", "clique");
 		}
 	}
 }

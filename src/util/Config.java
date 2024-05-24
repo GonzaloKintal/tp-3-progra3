@@ -37,7 +37,7 @@ public class Config {
 				fill-color: rgb(66, 186, 206);
 			}
 			
-			node:selected {
+			node.clique {
 				fill-color: red;
 			}
 			
