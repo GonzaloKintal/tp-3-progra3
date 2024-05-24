@@ -6,8 +6,6 @@ import java.util.Set;
 
 public class Vertice {
 
-
-
 	Set<Vertice> _vecinos;
 	int _peso;
 	int _ID;
@@ -24,7 +22,7 @@ public class Vertice {
 			throw new IllegalArgumentException("El peso del vértice debe ser positivo.");
 		}
 	}
-	
+
 	public Set<Vertice> getVecinos() {
 		return _vecinos;
 	}
@@ -134,7 +132,7 @@ public class Vertice {
 		return "\nVertice [_peso=" + _peso + ", _ID=" + _ID + ", vecinosID= " + getIdVecinos() + ", _pesoVecinos="
 				+ _pesoVecinos + "]";
 	}
-	
+
 	public String getText() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("V:");
@@ -142,7 +140,7 @@ public class Vertice {
 		sb.append("\n  ");
 		sb.append("P:");
 		sb.append(getPeso());
-		
+
 		return sb.toString();
 	}
 

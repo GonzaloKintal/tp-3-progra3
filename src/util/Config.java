@@ -48,5 +48,10 @@ public class Config {
 				fill-color: rgb(66, 186, 206);
 				size: 2px;
 			}
+			
+			edge.clique{
+				fill-color: rgb(26, 126, 226);
+				size: 4px;
+			}
 			""";
 }
