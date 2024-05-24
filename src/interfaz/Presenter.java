@@ -27,7 +27,7 @@ public class Presenter{
 
 	public Presenter() {
 		this._grafo = new Grafo();
-		this._visualizadorGrafo = new VisualizadorGrafo(_grafo);
+		this._visualizadorGrafo = new VisualizadorGrafo();
 	}
 
 	public Grafo getGrafo() {
@@ -42,7 +42,7 @@ public class Presenter{
 				try {
 					_grafo.agregarVertice(parsearInputText(NombreInputs.PESO_VERTICE));
 					_inputs.get(NombreInputs.PESO_VERTICE).setText(null);
-					_visualizadorGrafo.actualizar();
+					_visualizadorGrafo.actualizar(_grafo);
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -63,7 +63,7 @@ public class Presenter{
 					
 					_inputs.get(NombreInputs.VERTICE1).setText(null);
 					_inputs.get(NombreInputs.VERTICE2).setText(null);
-					_visualizadorGrafo.actualizar();
+					_visualizadorGrafo.actualizar(_grafo);
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -77,6 +77,7 @@ public class Presenter{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				_grafo = generarGrafoRandom(10);
+				_visualizadorGrafo.actualizar(_grafo);
 			}
 		});
 	}
@@ -97,7 +98,7 @@ public class Presenter{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				_grafo=new Grafo();
-				_visualizadorGrafo.reinciar(_grafo);
+				_visualizadorGrafo.actualizar(_grafo);
 			}
 		});
 		
@@ -112,7 +113,7 @@ public class Presenter{
 		agregarGenerarRandomListener();
 		agregarDameCliqueMaximaListener();
 		reiniciarListener();
-		_visualizadorGrafo.actualizar();
+		_visualizadorGrafo.actualizar(_grafo);
 	}
 
 	public int parsearInputText(NombreInputs nombre) {

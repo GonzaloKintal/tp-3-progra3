@@ -12,16 +12,9 @@ import util.Config;
 
 public class VisualizadorGrafo{
 	
-	private Grafo _grafo;
 	private Graph _vistaGrafo;
 	
-	
-	public VisualizadorGrafo(Grafo grafo) {
-		_grafo = grafo;
-		configurarVisorGrafo();
-	}
-
-	private void configurarVisorGrafo() {
+	public VisualizadorGrafo() {
 		System.setProperty("org.graphstream.ui", "swing");
 		_vistaGrafo = new SingleGraph("Grafo");
 		asignarAtributosVisor();
@@ -37,15 +30,15 @@ public class VisualizadorGrafo{
 		_vistaGrafo.setAttribute("ui.stylesheet", Config.ESTILOS_GRAPHSTREAM);
 	}
  
-	public void actualizar() {
+	public void actualizar(Grafo grafo) {
 		asignarAtributosVisor();
 
-		for (Vertice vertice : _grafo.getVertices()) {
+		for (Vertice vertice : grafo.getVertices()) {
 			Node node = _vistaGrafo.addNode(String.valueOf(vertice.getID()));
 			node.setAttribute("ui.label", vertice.getText());
 		}
 
-		for (Vertice vertice : _grafo.getVertices()) {
+		for (Vertice vertice : grafo.getVertices()) {
 			for (Vertice vecino : vertice.getVecinos()) {
 				String edgeId = vertice.getID() + "-" + vecino.getID();
 				if (_vistaGrafo.getEdge(edgeId) == null && _vistaGrafo.getEdge(vecino.getID() + "-" + vertice.getID()) == null) {
@@ -61,9 +54,4 @@ public class VisualizadorGrafo{
 			node.setAttribute("ui.selected", true);
 		}
 	}
-	public void reinciar(Grafo grafo) {
-		this._grafo=grafo;
-		actualizar();
-	}
-
 }
