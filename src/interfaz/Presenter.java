@@ -7,6 +7,7 @@ import static util.EsNumero.esNumero;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JButton;
@@ -119,6 +120,18 @@ public class Presenter {
 			}
 		});
 	}
+	
+	public void agregarGenerarVariasCliquesListener() {
+		_botones.get(NombreBotones.GENERAR_VARIAS_CLIQUES).addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<Solucion> soluciones = Aplicacion.calcularVariasCliques(_grafo);
+				_visualizadorGrafo.resaltarTodasLasCliques(soluciones);
+//				actualizarInfoClique();
+			}
+		});
+	}
 
 	public void reiniciarListener() {
 		_botones.get(NombreBotones.REINICIAR_GRAFO).addActionListener(new ActionListener() {
@@ -157,6 +170,7 @@ public class Presenter {
 		agregarDameCliqueMaximaListener();
 		reiniciarListener();
 		agregarAristaRandomListener();
+		agregarGenerarVariasCliquesListener();
 		_visualizadorGrafo.actualizar(_grafo);
 	}
 

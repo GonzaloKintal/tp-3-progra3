@@ -34,7 +34,7 @@ public class VisualizadorGrafo {
 		_vistaGrafo = new SingleGraph("Grafo");
 		asignarAtributosVisor();
 		Viewer viewer = _vistaGrafo.display();
-		moverVista(viewer);
+//		moverVista(viewer);
 		cambiarIconoVentana(viewer, "/icono.png");
 	}
 
@@ -95,12 +95,11 @@ public class VisualizadorGrafo {
 		}
 	}
 
-	public void resaltarTodasLasCliques(Set<Solucion> soluciones) {
-		String[] clasesCSS = {"primera","segunda","tercera","cuarta","quinta"};
-		ArrayList<Solucion> listaSoluciones = new ArrayList<>(soluciones);
-		
-		for(int i = 0; i < soluciones.size(); i ++) {
-			resaltarVerticesClique(listaSoluciones.get(i).obtener(), clasesCSS[i]);
+	public void resaltarTodasLasCliques(ArrayList<Solucion> soluciones) {
+		// Lo reccore de manera inversa asi se asegura que el ultimo
+		// estilo css en aplicarse es al de la clique de mayor peso
+		for (int i = soluciones.size() - 1; i >= 0; i--) {
+			resaltarVerticesClique(soluciones.get(i).obtener(), Config.CLASES_CSS[i]);
 		}
 	}
 

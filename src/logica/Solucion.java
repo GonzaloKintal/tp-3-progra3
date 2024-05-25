@@ -64,7 +64,10 @@ public class Solucion {
 		if (getClass() != obj.getClass())
 			return false;
 		Solucion other = (Solucion) obj;
-		return peso == other.peso && Objects.equals(vertices, other.vertices);
+		
+		boolean mismosVertices = vertices.equals(other.vertices);
+		
+		return peso == other.peso && mismosVertices;
 	}
     
     

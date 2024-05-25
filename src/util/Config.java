@@ -8,7 +8,7 @@ public class Config {
 	public static Color COLOR_PANEL = new Color(200, 241, 254);
 	public static Color COLOR_BOTON = new Color(23, 90, 115);
 	public static Color COLOR_BOTON_SALIR = new Color(179, 0, 0);
-
+	public static String[] CLASES_CSS = { "primera", "segunda", "tercera", "cuarta", "quinta" };
 	public static String ESTILOS_GRAPHSTREAM = """
 			graph {
 				fill-color: rgb(200, 241, 254);
@@ -40,22 +40,21 @@ public class Config {
 			node.clique {
 				fill-color: #5ce56c;
 				stroke-color: #5ce56c;
-				stroke-width: 3px;
-				stroke-mode: plain;
 			}
 
 			node.primera {
 				fill-color: #5ce56c;
 				stroke-color: #5ce56c;
-				stroke-width: 3px;
-				stroke-mode: plain;
 			}
 
 			node.segunda {
-				fill-color: #fff;
-				stroke-color: #fff;
-				stroke-width: 3px;
-				stroke-mode: plain;
+				fill-color: blue;
+				stroke-color: blue;
+			}
+			
+			node.tercera {
+				fill-color: red;
+				stroke-color: red;
 			}
 
 			edge{
@@ -70,12 +69,14 @@ public class Config {
 
 			edge.primera{
 				fill-color: #5ce56c;
-				size: 4px;
 			}
 
 			edge.segunda{
-				fill-color: #fff;
-				size: 4px;
+				fill-color: blue;
+			}
+			
+			edge.tercera{
+				fill-color: red;
 			}
 
 			sprite {

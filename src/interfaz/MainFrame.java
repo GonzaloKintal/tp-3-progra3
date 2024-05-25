@@ -88,6 +88,8 @@ public class MainFrame {
 		crearBotonSalir();
 		
 		crearBotonAristaRandom();
+		
+		crearBotonGenerarVariasCliques();
 
 		agregarBotonesAlPanel();
 
@@ -218,6 +220,11 @@ public class MainFrame {
 	private void crearBotonAristaRandom() {
 		JButton boton = new BotonPredeterminado("Crear Arista random", 28, 290);
 		listaBotones.put(NombreBotones.GENERAR_ARISTA_RANDOM, boton);
+	}
+	
+	private void crearBotonGenerarVariasCliques() {
+		JButton boton = new BotonPredeterminado("Generar Varias Cliques", 28, 330);
+		listaBotones.put(NombreBotones.GENERAR_VARIAS_CLIQUES, boton);
 	}
 
 	private void crearBotonSalir() {
