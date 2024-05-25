@@ -12,11 +12,12 @@ public class Aplicacion {
 	public static Solucion calcularClique(Grafo grafo) {
 		ArrayList<Solucion> _soluciones = new ArrayList<>();
 		
-		_soluciones.add(solverPorVerticeMasPesado(grafo));
-		_soluciones.add(solverPorPesoVecindario(grafo));
-		_soluciones.add(solverPorCantidadDeVecinos(grafo));
-		_soluciones.add(solverPorPromedioVecindario(grafo));
-		_soluciones.add(solverPorSumaPromedioVecindarioVecinos(grafo));
+		_soluciones.add(resolverYMedirTiempo(grafo, Comparadores.porVerticeMasPesado));
+        _soluciones.add(resolverYMedirTiempo(grafo, Comparadores.porPesoDelVecindario));
+        _soluciones.add(resolverYMedirTiempo(grafo, Comparadores.porCantidadDeVecinos));
+        _soluciones.add(resolverYMedirTiempo(grafo, Comparadores.porPromedioVecindario));
+        _soluciones.add(resolverYMedirTiempo(grafo, Comparadores.porSumaPromedioVecindarioVecinos));
+		
 
 		return _soluciones.stream().max(Comparator.comparingInt(Solucion::peso)).get();
 	}
@@ -24,11 +25,12 @@ public class Aplicacion {
 	public static ArrayList<Solucion> calcularVariasCliques(Grafo grafo) {
 		Set<Solucion> _soluciones = new HashSet<>();
 
-		_soluciones.add(solverPorVerticeMasPesado(grafo));
-		_soluciones.add(solverPorPesoVecindario(grafo));
-		_soluciones.add(solverPorCantidadDeVecinos(grafo));
-		_soluciones.add(solverPorPromedioVecindario(grafo));
-		_soluciones.add(solverPorSumaPromedioVecindarioVecinos(grafo));
+		_soluciones.add(resolverYMedirTiempo(grafo, Comparadores.porVerticeMasPesado));
+        _soluciones.add(resolverYMedirTiempo(grafo, Comparadores.porPesoDelVecindario));
+        _soluciones.add(resolverYMedirTiempo(grafo, Comparadores.porCantidadDeVecinos));
+        _soluciones.add(resolverYMedirTiempo(grafo, Comparadores.porPromedioVecindario));
+        _soluciones.add(resolverYMedirTiempo(grafo, Comparadores.porSumaPromedioVecindarioVecinos));
+		
 
 		List<Solucion> solucionesOrdeanadasPorPeso = _soluciones.stream().sorted((o1, o2) -> -o1.peso() + o2.peso())
 				.collect(Collectors.toList());
@@ -36,29 +38,14 @@ public class Aplicacion {
 		return new ArrayList<>(solucionesOrdeanadasPorPeso);
 	}
 
-	private static Solucion solverPorVerticeMasPesado(Grafo grafo) {
-		Solver solver = new Solver(grafo, Comparadores.porVerticeMasPesado);
-		return solver.resolver();
-	}
-
-	private static Solucion solverPorPesoVecindario(Grafo grafo) {
-		Solver solver = new Solver(grafo, Comparadores.porPesoDelVecindario);
-		return solver.resolver();
-	}
-
-	private static Solucion solverPorCantidadDeVecinos(Grafo grafo) {
-		Solver solver = new Solver(grafo, Comparadores.porCantidadDeVecinos);
-		return solver.resolver();
-	}
-
-	private static Solucion solverPorPromedioVecindario(Grafo grafo) {
-		Solver solver = new Solver(grafo, Comparadores.porPromedioVecindario);
-		return solver.resolver();
-	}
-
-	private static Solucion solverPorSumaPromedioVecindarioVecinos(Grafo grafo) {
-		Solver solver = new Solver(grafo, Comparadores.porSumaPromedioVecindarioVecinos);
-		return solver.resolver();
-	}
-
+	private static Solucion resolverYMedirTiempo(Grafo grafo, Comparator<Vertice> comparador) {
+		Solver solver = new Solver(grafo, comparador);
+        long inicio = System.nanoTime();
+        Solucion solucion = solver.resolver();
+        long fin = System.nanoTime();
+        long tiempoEjecucionMs = (fin - inicio) / 1000; // Convertir nanosegundos a milisegundos
+        solucion.setTiempoEjecucion(tiempoEjecucionMs);
+        return solucion;
+    }
+	
 }

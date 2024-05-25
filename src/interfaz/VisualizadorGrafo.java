@@ -126,6 +126,7 @@ public class VisualizadorGrafo {
 				frame.setLocation(new Point(390, 80));
 				frame.setSize(800, 650);
 				frame.setResizable(false);
+				frame.setVisible(false);
 			}
 		});
 	}
