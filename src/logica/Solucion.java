@@ -35,6 +35,9 @@ public class Solucion {
         StringBuilder ret = new StringBuilder();
         ret.append("Clique máxima:");
         ret.append("\n");
+        ret.append("Peso: ");
+        ret.append(peso);
+        ret.append("\n");
         for (Vertice v : vertices) {
         	ret.append("Vertice: ");
             ret.append(v.getID());

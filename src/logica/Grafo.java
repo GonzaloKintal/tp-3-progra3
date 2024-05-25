@@ -68,17 +68,27 @@ public class Grafo{
         }
         
         informacion.append("\n\n\n\n");
-
+        
         informacion.append("Aristas:\n");
         for (Vertice vertice : this.getVertices()) {
             for (Vertice vecino : vertice.getVecinos()) {
-                informacion.append("(").append(vertice.getID()).append(", ").append(vecino.getID()).append(")").append("\n");
+            	if(!informacion.toString().contains("(" + vecino.getID() + ", " + vertice.getID() + ")")) {
+            		informacion.append("(").append(vertice.getID()).append(", ").append(vecino.getID()).append(")").append("\n");
+            	}
             }
         }
 
         return informacion.toString();
 	}
 
+	public boolean estaCompleto() {
+		for(Vertice vertice: _vertices) {
+			if(vertice.getVecinos().size() != tamano() - 1) {
+				return false;
+			}
+		}
+		return true;
+	}
 	
-
+	
 }

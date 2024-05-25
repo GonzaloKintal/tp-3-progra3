@@ -1,8 +1,9 @@
 
 package interfaz;
 
+import static logica.GeneradorGrafoRandom.agregarAristaRandom;
+import static logica.GeneradorGrafoRandom.generarGrafoRandom;
 import static util.EsNumero.esNumero;
-import static util.GeneradorGrafoRandom.generarGrafoRandom;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,13 +14,15 @@ import javax.swing.JList;
 import javax.swing.JTextField;
 
 import logica.Aplicacion;
+import logica.GeneradorGrafoRandom;
+import logica.GeneradorRandom;
 import logica.Grafo;
 import logica.Solucion;
 import util.MensajeWarning;
 import util.NombreBotones;
 import util.NombreInputs;
 
-public class Presenter{
+public class Presenter {
 
 	private HashMap<NombreBotones, JButton> _botones;
 	private HashMap<NombreInputs, JTextField> _inputs;
@@ -30,6 +33,7 @@ public class Presenter{
 	public Presenter() {
 		this._grafo = new Grafo();
 		this._visualizadorGrafo = new VisualizadorGrafo();
+		GeneradorGrafoRandom.setGenerador(new GeneradorRandom());
 	}
 
 	public Grafo getGrafo() {
@@ -63,7 +67,7 @@ public class Presenter{
 					int verticeDestino = parsearInputText(NombreInputs.VERTICE2) - 1;
 
 					_grafo.agregarArista(verticeOrigen, verticeDestino);
-					
+
 					_inputs.get(NombreInputs.VERTICE1).setText(null);
 					_inputs.get(NombreInputs.VERTICE2).setText(null);
 					_visualizadorGrafo.actualizar(_grafo);
@@ -86,10 +90,27 @@ public class Presenter{
 			}
 		});
 	}
-	
+
+	public void agregarAristaRandomListener() {
+		_botones.get(NombreBotones.GENERAR_ARISTA_RANDOM).addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					agregarAristaRandom(_grafo);
+					_visualizadorGrafo.actualizar(_grafo);
+					actualizarInfo();
+				} catch (Exception e2) {
+					new MensajeWarning(e2);
+				}
+				
+			}
+		});
+	}
+
 	public void agregarDameCliqueMaximaListener() {
 		_botones.get(NombreBotones.DAME_CLIQUE_MAXIMA).addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Solucion solucion = Aplicacion.calcularClique(_grafo);
@@ -98,32 +119,32 @@ public class Presenter{
 			}
 		});
 	}
-	
+
 	public void reiniciarListener() {
 		_botones.get(NombreBotones.REINICIAR_GRAFO).addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				_grafo=new Grafo();
+				_grafo = new Grafo();
 				_visualizadorGrafo.actualizar(_grafo);
 				actualizarInfo();
 			}
 		});
-		
+
 	}
-	
+
 	public String obtenerInformacionGrafo() {
-        return _grafo.toString();
-    }
-	
+		return _grafo.toString();
+	}
+
 	public void actualizarInfo() {
 		String informacion = obtenerInformacionGrafo();
-	    String[] infoString = informacion.split("\n");
-	    _info.setListData(infoString);
+		String[] infoString = informacion.split("\n");
+		_info.setListData(infoString);
 	}
-	
+
 	public void actualizarInfoClique(String info) {
 		String[] infoString = info.split("\n");
-	    _info.setListData(infoString);
+		_info.setListData(infoString);
 	}
 
 	public void setComponentes(HashMap<NombreBotones, JButton> listaBotones, HashMap<NombreInputs, JTextField> inputs) {
@@ -135,9 +156,10 @@ public class Presenter{
 		agregarGenerarRandomListener();
 		agregarDameCliqueMaximaListener();
 		reiniciarListener();
+		agregarAristaRandomListener();
 		_visualizadorGrafo.actualizar(_grafo);
 	}
-	
+
 	public void setearList(JList<String> info) {
 		_info = info;
 		actualizarInfo();
@@ -155,9 +177,9 @@ public class Presenter{
 	public void ver() {
 		_visualizadorGrafo.ver();
 	}
-	
+
 	public void ocultar() {
 		_visualizadorGrafo.ocultar();
 	}
-	
+
 }

@@ -86,6 +86,8 @@ public class MainFrame {
 		crearBotonReiniciar();
 
 		crearBotonSalir();
+		
+		crearBotonAristaRandom();
 
 		agregarBotonesAlPanel();
 
@@ -211,6 +213,11 @@ public class MainFrame {
 	private void crearBotonReiniciar() {
 		JButton boton = new BotonPredeterminado("Reiniciar Grafo", 28, 250);
 		listaBotones.put(NombreBotones.REINICIAR_GRAFO, boton);
+	}
+	
+	private void crearBotonAristaRandom() {
+		JButton boton = new BotonPredeterminado("Crear Arista random", 28, 290);
+		listaBotones.put(NombreBotones.GENERAR_ARISTA_RANDOM, boton);
 	}
 
 	private void crearBotonSalir() {
