@@ -1,5 +1,6 @@
 package logica;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -17,7 +18,7 @@ public class Aplicacion {
 	}
 
 
-	public static HashSet<Solucion> calcularVariasCliques(Grafo grafo) {
+	public static ArrayList<Solucion> calcularVariasCliques(Grafo grafo) {
 		Set<Solucion> _soluciones = new HashSet<>();
 
 		resolverHeurísticas(grafo, _soluciones);
@@ -25,7 +26,7 @@ public class Aplicacion {
 		List<Solucion> solucionesOrdeanadasPorPeso = _soluciones.stream().sorted((o1, o2) -> -o1.peso() + o2.peso())
 				.collect(Collectors.toList());
 
-		return new HashSet<Solucion>(solucionesOrdeanadasPorPeso);
+		return new ArrayList<>(solucionesOrdeanadasPorPeso);
 	}
 
 	private static void resolverHeurísticas(Grafo grafo, Set<Solucion> _soluciones) {

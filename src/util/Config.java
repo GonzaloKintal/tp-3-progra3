@@ -48,8 +48,8 @@ public class Config {
 			}
 
 			node.segunda {
-				fill-color: blue;
-				stroke-color: blue;
+				fill-color: #f485f0;
+				stroke-color: #f485f0;
 			}
 			
 			node.tercera {
@@ -72,7 +72,7 @@ public class Config {
 			}
 
 			edge.segunda{
-				fill-color: blue;
+				fill-color: #f485f0;
 			}
 			
 			edge.tercera{
