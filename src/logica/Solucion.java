@@ -1,6 +1,7 @@
 package logica;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class Solucion {
@@ -48,6 +49,23 @@ public class Solucion {
         }
         return ret.toString();
     }
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(peso, vertices);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Solucion other = (Solucion) obj;
+		return peso == other.peso && Objects.equals(vertices, other.vertices);
+	}
     
     
 }

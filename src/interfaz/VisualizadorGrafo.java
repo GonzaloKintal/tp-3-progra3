@@ -3,6 +3,7 @@ package interfaz;
 import java.awt.Component;
 import java.awt.Point;
 import java.awt.Window;
+import java.util.ArrayList;
 import java.util.Set;
 
 import javax.swing.ImageIcon;
@@ -19,6 +20,7 @@ import org.graphstream.ui.view.View;
 import org.graphstream.ui.view.Viewer;
 
 import logica.Grafo;
+import logica.Solucion;
 import logica.Vertice;
 import util.Config;
 
@@ -53,10 +55,10 @@ public class VisualizadorGrafo {
 		// Dibuja vertice con dos textos
 		for (Vertice vertice : grafo.getVertices()) {
 			String id = String.valueOf(vertice.getID());
-			
+
 			Node node = _vistaGrafo.addNode(id);
 			node.setAttribute("ui.label", vertice.getText());
-			
+
 			Sprite aSprite = spriteManager.addSprite(id);
 			aSprite.attachToNode(id);
 			aSprite.setAttribute("ui.label", id);
@@ -75,11 +77,11 @@ public class VisualizadorGrafo {
 
 	}
 
-	public void resaltarVerticesClique(Set<Vertice> vertices) {
+	public void resaltarVerticesClique(Set<Vertice> vertices, String clase) {
 		// Resaltar vertice
 		for (Vertice vertice : vertices) {
 			Node node = _vistaGrafo.getNode(vertice.getID() - 1);
-			node.setAttribute("ui.class", "clique");
+			node.setAttribute("ui.class", clase);
 		}
 
 		// Resaltar Arista
@@ -87,13 +89,22 @@ public class VisualizadorGrafo {
 			for (Vertice vecino : vertice.getVecinos()) {
 				Edge arista = obtenerArista(vertice.getID(), vecino.getID());
 				if (arista != null && vertices.contains(vecino)) {
-					arista.setAttribute("ui.class", "clique");
+					arista.setAttribute("ui.class", clase);
 				}
 			}
 		}
 	}
 
-	public Edge obtenerArista(int verticeOrigen, int verticeDestino) {
+	public void resaltarTodasLasCliques(Set<Solucion> soluciones) {
+		String[] clasesCSS = {"primera","segunda","tercera","cuarta","quinta"};
+		ArrayList<Solucion> listaSoluciones = new ArrayList<>(soluciones);
+		
+		for(int i = 0; i < soluciones.size(); i ++) {
+			resaltarVerticesClique(listaSoluciones.get(i).obtener(), clasesCSS[i]);
+		}
+	}
+
+	private Edge obtenerArista(int verticeOrigen, int verticeDestino) {
 		// Arista Ejemplo: 3-5
 		if (_vistaGrafo.getEdge(verticeOrigen + "-" + verticeDestino) != null) {
 			return _vistaGrafo.getEdge(verticeOrigen + "-" + verticeDestino);
@@ -109,21 +120,21 @@ public class VisualizadorGrafo {
 
 	private void moverVista(Viewer viewer) {
 		SwingUtilities.invokeLater(() -> {
-	        View view = viewer.getDefaultView();
-	        Window window = SwingUtilities.windowForComponent((Component) view);
-	        if (window instanceof JFrame) {
-	            frame = (JFrame) window;
-	            frame.setLocation(new Point(390, 80));
-	            frame.setResizable(false);
-	            frame.setVisible(false);
-	        }
-	    });
+			View view = viewer.getDefaultView();
+			Window window = SwingUtilities.windowForComponent((Component) view);
+			if (window instanceof JFrame) {
+				frame = (JFrame) window;
+				frame.setLocation(new Point(390, 80));
+				frame.setResizable(false);
+				frame.setVisible(false);
+			}
+		});
 	}
-	
+
 	public void ver() {
 		frame.setVisible(true);
 	}
-	
+
 	public void ocultar() {
 		frame.setVisible(false);
 	}

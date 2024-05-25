@@ -21,39 +21,63 @@ public class Config {
 				size: 25px, 25px;
 				fill-mode:gradient-diagonal1 ;
 				fill-color: rgb(106, 226, 246), rgb(156, 255, 255);
-				
+
 				text-offset: 0px, 20px;
-				
+
 				text-background-color: rgb(86, 206, 226);
 				text-background-mode: rounded-box;
 				text-padding: 2px, 4px;
-				
+
 				stroke-color: rgb(86, 206, 226);
 				stroke-width: 3px;
 				stroke-mode: plain;
 			}
-			
+
 			node:clicked {
 				fill-color: rgb(66, 186, 206);
 			}
-			
+
 			node.clique {
 				fill-color: #5ce56c;
 				stroke-color: #5ce56c;
 				stroke-width: 3px;
 				stroke-mode: plain;
 			}
-			
+
+			node.primera {
+				fill-color: #5ce56c;
+				stroke-color: #5ce56c;
+				stroke-width: 3px;
+				stroke-mode: plain;
+			}
+
+			node.segunda {
+				fill-color: #fff;
+				stroke-color: #fff;
+				stroke-width: 3px;
+				stroke-mode: plain;
+			}
+
 			edge{
 				fill-color: rgb(66, 186, 206);
 				size: 2px;
 			}
-			
+
 			edge.clique{
 				fill-color: #5ce56c;
 				size: 4px;
 			}
-			
+
+			edge.primera{
+				fill-color: #5ce56c;
+				size: 4px;
+			}
+
+			edge.segunda{
+				fill-color: #fff;
+				size: 4px;
+			}
+
 			sprite {
 				text-color: #111;
 				text-size: 14px;
@@ -62,5 +86,5 @@ public class Config {
 				text-offset: 0px, -3px;
 			}
 			""";
-	
+
 }

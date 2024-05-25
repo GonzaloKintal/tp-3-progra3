@@ -114,7 +114,7 @@ public class Presenter {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Solucion solucion = Aplicacion.calcularClique(_grafo);
-				_visualizadorGrafo.resaltarVerticesClique(solucion.obtener());
+				_visualizadorGrafo.resaltarVerticesClique(solucion.obtener(), "primera");
 				actualizarInfoClique(solucion.toString());
 			}
 		});
