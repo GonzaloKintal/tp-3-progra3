@@ -25,11 +25,15 @@ public class Solver {
 		Vertice mejorOpcion = ordenarVertices().get(0);
 		solucion.agregar(mejorOpcion);
 
+		long inicio = System.nanoTime();
 		for (Vertice verticeVecino: ordenarVecinosPorPeso(mejorOpcion.obtenerVecinos())) {
 			if (vecinoDeTodos(verticeVecino, solucion.obtener())) {
 				solucion.agregar(verticeVecino);
 			}
 		}
+		long fin = System.nanoTime();
+		long tiempoEjecucionMs = (fin - inicio) / 1000; // Convertir nanosegundos a milisegundos
+	    solucion.setTiempoEjecucion(tiempoEjecucionMs);
 		
 		return solucion;
 	}

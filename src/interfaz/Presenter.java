@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -126,8 +127,8 @@ public class Presenter {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Solucion> soluciones = Aplicacion.calcularVariasCliques(_grafo);
-				_visualizadorGrafo.resaltarTodasLasCliques(soluciones);
+				HashSet<Solucion> soluciones = Aplicacion.calcularVariasCliques(_grafo);
+				_visualizadorGrafo.resaltarTodasLasCliques(new ArrayList<>(soluciones));
 //				actualizarInfoClique();
 			}
 		});

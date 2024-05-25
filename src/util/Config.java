@@ -4,7 +4,7 @@ import java.awt.Color;
 
 public class Config {
 	public static int WIDTH_BOTON = 230;
-	public static int HEIGHT_BOTON = 25;
+	public static int HEIGHT_BOTON = 30;
 	public static Color COLOR_PANEL = new Color(200, 241, 254);
 	public static Color COLOR_BOTON = new Color(23, 90, 115);
 	public static Color COLOR_BOTON_SALIR = new Color(179, 0, 0);

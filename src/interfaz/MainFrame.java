@@ -213,7 +213,7 @@ public class MainFrame {
 	}
 
 	private void crearBotonReiniciar() {
-		JButton boton = new BotonPredeterminado("Reiniciar grafo", 28, 245);
+		JButton boton = new BotonPredeterminado("Reiniciar grafo", 28, 325);
 		listaBotones.put(NombreBotones.REINICIAR_GRAFO, boton);
 	}
 	
@@ -223,7 +223,7 @@ public class MainFrame {
 	}
 	
 	private void crearBotonGenerarVariasCliques() {
-		JButton boton = new BotonPredeterminado("Generar varias cliques", 28, 325);
+		JButton boton = new BotonPredeterminado("Generar varias cliques", 28, 245);
 		listaBotones.put(NombreBotones.GENERAR_VARIAS_CLIQUES, boton);
 	}
 

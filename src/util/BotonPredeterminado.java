@@ -20,7 +20,7 @@ public class BotonPredeterminado extends JButton {
 	}
 	
 	private void propiedasPorDefecto(int x, int y) {
-		this.setFont(new Font("Arial", Font.BOLD, 14));
+		this.setFont(new Font("Roboto", Font.BOLD, 15));
 		this.setBorder(null);
 		this.setBackground(Config.COLOR_BOTON);
 		this.setForeground(Color.WHITE);
