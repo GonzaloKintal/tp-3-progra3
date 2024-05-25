@@ -9,7 +9,6 @@ public class GeneradorPrefijado implements Generador {
 
 	@Override
 	public double nextDouble(int max) {
-		// TODO Auto-generated method stub
 		return 1;
 	}
 	

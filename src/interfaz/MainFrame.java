@@ -109,7 +109,7 @@ public class MainFrame {
 	private void crearFrame() {
 		frame = new JFrame();
 		frame.setTitle("Clique máxima");
-		frame.setBounds(100, 80, 300, 600);
+		frame.setBounds(100, 80, 300, 650);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setIconImage(new ImageIcon(getClass().getResource("/icono.png")).getImage());
 	}
@@ -169,7 +169,7 @@ public class MainFrame {
 	}
 
 	private void crearBotonAgregarVertice() {
-		JButton boton = new BotonPredeterminado("Agregar Vertice");
+		JButton boton = new BotonPredeterminado("Agregar vertice");
 		boton.setBounds(90, 50, 150, 25);
 		listaBotones.put(NombreBotones.AGREGAR_VERTICE, boton);
 		panelInteractivo.add(boton);
@@ -177,58 +177,58 @@ public class MainFrame {
 
 	private void crearLabelsVertices() {
 		JLabel labelVerticeOrigen = new JLabel("Vértice 1");
-		labelVerticeOrigen.setBounds(40, 81, 60, 60);
+		labelVerticeOrigen.setBounds(40, 76, 60, 60);
 		panelInteractivo.add(labelVerticeOrigen);
 
 		JLabel labelVerticeDestino = new JLabel("Vértice 2");
-		labelVerticeDestino.setBounds(150, 81, 60, 60);
+		labelVerticeDestino.setBounds(150, 76, 60, 60);
 		panelInteractivo.add(labelVerticeDestino);
 	}
 
 	private void crearInputsVerticesParaAgregarArista() {
 		JTextField inputVerticeOrigen = new JTextField();
-		inputVerticeOrigen.setBounds(98, 100, 35, 23);
+		inputVerticeOrigen.setBounds(98, 95, 35, 23);
 		panelInteractivo.add(inputVerticeOrigen);
 		listaInputs.put(NombreInputs.VERTICE1, inputVerticeOrigen);
 
 		JTextField inputVerticeDestino = new JTextField();
-		inputVerticeDestino.setBounds(208, 100, 35, 23);
+		inputVerticeDestino.setBounds(208, 95, 35, 23);
 		panelInteractivo.add(inputVerticeDestino);
 		listaInputs.put(NombreInputs.VERTICE2, inputVerticeDestino);
 	}
 
 	private void crearBotonAgregarArista() {
-		JButton boton = new BotonPredeterminado("Agregar Arista", 28, 130);
+		JButton boton = new BotonPredeterminado("Agregar arista", 28, 125);
 		listaBotones.put(NombreBotones.AGREGAR_ARISTA, boton);
 	}
 
 	private void crearBotonGenerarGrafoRandom() {
-		JButton boton = new BotonPredeterminado("Generar Grafo Random", 28, 170);
+		JButton boton = new BotonPredeterminado("Generar grafo random", 28, 165);
 		listaBotones.put(NombreBotones.GENERAR_GRAFO_RANDOM, boton);
 	}
 
 	private void crearBotonDameCliqueMaxima() {
-		JButton boton = new BotonPredeterminado("Dame clique máxima", 28, 210);
+		JButton boton = new BotonPredeterminado("Dame clique máxima", 28, 205);
 		listaBotones.put(NombreBotones.DAME_CLIQUE_MAXIMA, boton);
 	}
 
 	private void crearBotonReiniciar() {
-		JButton boton = new BotonPredeterminado("Reiniciar Grafo", 28, 250);
+		JButton boton = new BotonPredeterminado("Reiniciar grafo", 28, 245);
 		listaBotones.put(NombreBotones.REINICIAR_GRAFO, boton);
 	}
 	
 	private void crearBotonAristaRandom() {
-		JButton boton = new BotonPredeterminado("Crear Arista random", 28, 290);
+		JButton boton = new BotonPredeterminado("Crear arista random", 28, 285);
 		listaBotones.put(NombreBotones.GENERAR_ARISTA_RANDOM, boton);
 	}
 	
 	private void crearBotonGenerarVariasCliques() {
-		JButton boton = new BotonPredeterminado("Generar Varias Cliques", 28, 330);
+		JButton boton = new BotonPredeterminado("Generar varias cliques", 28, 325);
 		listaBotones.put(NombreBotones.GENERAR_VARIAS_CLIQUES, boton);
 	}
 
 	private void crearBotonSalir() {
-		JButton boton = new BotonPredeterminado("Salir", 28, 520);
+		JButton boton = new BotonPredeterminado("Salir", 28, 575);
 		boton.setBackground(Config.COLOR_BOTON_SALIR);
 		listaBotones.put(NombreBotones.SALIR, boton);
 		escucharBotonSalir();
@@ -257,7 +257,7 @@ public class MainFrame {
 
 	private void crearScrollPane() {
 		scrollPane = new JScrollPane(infoJList);
-		scrollPane.setBounds(30, 300, 230, 200);
+		scrollPane.setBounds(30, 365, 230, 200);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBorder(null);
 		scrollPane.getVerticalScrollBar().setBackground(Config.COLOR_BOTON);

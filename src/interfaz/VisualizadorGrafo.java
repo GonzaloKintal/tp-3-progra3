@@ -34,7 +34,7 @@ public class VisualizadorGrafo {
 		_vistaGrafo = new SingleGraph("Grafo");
 		asignarAtributosVisor();
 		Viewer viewer = _vistaGrafo.display();
-//		moverVista(viewer);
+		moverVista(viewer);
 		cambiarIconoVentana(viewer, "/icono.png");
 	}
 
@@ -124,8 +124,8 @@ public class VisualizadorGrafo {
 			if (window instanceof JFrame) {
 				frame = (JFrame) window;
 				frame.setLocation(new Point(390, 80));
+				frame.setSize(800, 650);
 				frame.setResizable(false);
-				frame.setVisible(false);
 			}
 		});
 	}
