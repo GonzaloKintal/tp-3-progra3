@@ -3,6 +3,7 @@ package interfaz;
 
 import static logica.GeneradorGrafoRandom.agregarAristaRandom;
 import static logica.GeneradorGrafoRandom.generarGrafoRandom;
+import static logica.Solucion.obtenerInfo;
 import static util.EsNumero.esNumero;
 
 import java.awt.event.ActionEvent;
@@ -128,8 +129,11 @@ public class Presenter {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<Solucion> soluciones = Aplicacion.calcularVariasCliques(_grafo);
 				_visualizadorGrafo.resaltarTodasLasCliques(soluciones);
-//				actualizarInfoClique();
+				actualizarInfoClique(obtenerInfo(soluciones));
 			}
+
+	
+
 		});
 	}
 
@@ -195,5 +199,6 @@ public class Presenter {
 	public void ocultar() {
 		_visualizadorGrafo.ocultar();
 	}
-
+	
+	
 }

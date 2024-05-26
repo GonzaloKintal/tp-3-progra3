@@ -42,7 +42,7 @@ public class Grafo{
 		}
 
 		if (indiceVertice >= tamano()) {
-			throw new IllegalArgumentException("El índice " + indiceVertice +  " está excedido.");
+			throw new IllegalArgumentException("El índice " + (indiceVertice+1) +  " está excedido.");
 		}
 	}
 
