@@ -144,7 +144,7 @@ public class MainFrame {
 
 	private void crearPanelInteractivo() {
 		_panelInteractivo = new JPanel();
-		_panelInteractivo.setBounds(0, 0, 400, 500);
+		_panelInteractivo.setBounds(0, 0, 300, 500);
 		_panelInteractivo.setBackground(Config.COLOR_PANEL);
 		_panelInteractivo.setLayout(null);
 	}
@@ -165,9 +165,11 @@ public class MainFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (_switchVisualizarGrafo.isSelected()) {
-					_panelGrafo.setVisible(true);
-				} else {
 					_panelGrafo.setVisible(false);
+					_frame.setBounds(100, 80,300,650);
+				} else {
+					_frame.setBounds(100, 80,800,650);
+					_panelGrafo.setVisible(true);
 				}
 			}
 		});
