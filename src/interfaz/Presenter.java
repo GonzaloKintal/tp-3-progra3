@@ -3,8 +3,8 @@ package interfaz;
 
 import static logica.GeneradorGrafoRandom.agregarAristaRandom;
 import static logica.GeneradorGrafoRandom.generarGrafoRandom;
-import static logica.Solucion.obtenerInfo;
-import static util.EsNumero.esNumero;
+
+import static util.Auxiliares.parsearInputText;
 
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -26,35 +26,36 @@ import util.NombreInputs;
 
 public class Presenter {
 
-	private HashMap<NombreBotones, JButton> _botones;
-	private HashMap<NombreInputs, JTextField> _inputs;
 	private Grafo _grafo;
-	private VisualizadorGrafo _visualizadorGrafo;
 	private ArrayList<Observador> _observadores;
 
 	public Presenter() {
 		this._grafo = new Grafo();
-		this._botones=new HashMap<>();
-		this._inputs=new HashMap<>();
-		this._visualizadorGrafo = new VisualizadorGrafo();
-		this._observadores= new ArrayList<>();
+		this._observadores = new ArrayList<>();
 		GeneradorGrafoRandom.setGenerador(new GeneradorRandom());
 	}
 
-	public Grafo getGrafo() {
-		return _grafo;
+	public void inyectarListeners(HashMap<NombreBotones, JButton> botones, HashMap<NombreInputs, JTextField> inputs) {
+		agregarVerticeListener(botones.get(NombreBotones.AGREGAR_VERTICE), inputs.get(NombreInputs.PESO_VERTICE));
+		agregarAristaListener(botones.get(NombreBotones.AGREGAR_ARISTA), inputs.get(NombreInputs.VERTICE1),
+				inputs.get(NombreInputs.VERTICE2));
+		generarGrafoRandomListener(botones.get(NombreBotones.GENERAR_GRAFO_RANDOM));
+		agregarAristaRandomListener(botones.get(NombreBotones.GENERAR_ARISTA_RANDOM));
+		generarCliqueMaximaListener(botones.get(NombreBotones.DAME_CLIQUE_MAXIMA));
+		generarVariasCliquesListener(botones.get(NombreBotones.GENERAR_VARIAS_CLIQUES));
+		reiniciarListener(botones.get(NombreBotones.REINICIAR_GRAFO));
+		botonSalirListener(botones.get(NombreBotones.SALIR));
 	}
 
-	public void agregarVerticeListener() {
-		_botones.get(NombreBotones.AGREGAR_VERTICE).addActionListener(new ActionListener() {
+	private void agregarVerticeListener(JButton boton, JTextField input) {
+		boton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					_grafo.agregarVertice(parsearInputText(NombreInputs.PESO_VERTICE));
-					_inputs.get(NombreInputs.PESO_VERTICE).setText(null);
-					_visualizadorGrafo.actualizar(_grafo);
-					notificar(obtenerInformacionGrafo());
+					_grafo.agregarVertice(parsearInputText(input.getText()));
+					input.setText(null);
+					notificarOberservers(_grafo);
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -62,21 +63,20 @@ public class Presenter {
 		});
 	}
 
-	public void agregarAristaListener() {
-		_botones.get(NombreBotones.AGREGAR_ARISTA).addActionListener(new ActionListener() {
+	private void agregarAristaListener(JButton boton, JTextField inputVertice1, JTextField inputVertice2) {
+		boton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					int verticeOrigen = parsearInputText(NombreInputs.VERTICE1) - 1;
-					int verticeDestino = parsearInputText(NombreInputs.VERTICE2) - 1;
+					int verticeOrigen = parsearInputText(inputVertice1.getText()) - 1;
+					int verticeDestino = parsearInputText(inputVertice2.getText()) - 1;
 
 					_grafo.agregarArista(verticeOrigen, verticeDestino);
 
-					_inputs.get(NombreInputs.VERTICE1).setText(null);
-					_inputs.get(NombreInputs.VERTICE2).setText(null);
-					_visualizadorGrafo.actualizar(_grafo);
-					notificar(obtenerInformacionGrafo());
+					inputVertice1.setText(null);
+					inputVertice2.setText(null);
+					notificarOberservers(_grafo);
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -84,142 +84,83 @@ public class Presenter {
 		});
 	}
 
-	public void agregarGenerarRandomListener() {
-		_botones.get(NombreBotones.GENERAR_GRAFO_RANDOM).addActionListener(new ActionListener() {
+	private void generarGrafoRandomListener(JButton boton) {
+		boton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				_grafo = generarGrafoRandom(10);
-				_visualizadorGrafo.actualizar(_grafo);
-				notificar(obtenerInformacionGrafo());
+				notificarOberservers(_grafo);
 			}
 		});
 	}
 
-	public void agregarAristaRandomListener() {
-		_botones.get(NombreBotones.GENERAR_ARISTA_RANDOM).addActionListener(new ActionListener() {
+	private void agregarAristaRandomListener(JButton boton) {
+		boton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					agregarAristaRandom(_grafo);
-					_visualizadorGrafo.actualizar(_grafo);
-					notificar(obtenerInformacionGrafo());
+					notificarOberservers(_grafo);
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
-				
 			}
 		});
 	}
 
-	public void agregarDameCliqueMaximaListener() {
-		_botones.get(NombreBotones.DAME_CLIQUE_MAXIMA).addActionListener(new ActionListener() {
+	private void generarCliqueMaximaListener(JButton boton) {
+		boton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Solucion solucion = Aplicacion.calcularClique(_grafo);
-				_visualizadorGrafo.resaltarVerticesClique(solucion.obtener(), "primera");
-				notificar(solucion.toString());
+				notificarOberservers(solucion);
 			}
 		});
 	}
-	
-	public void agregarGenerarVariasCliquesListener() {
-		_botones.get(NombreBotones.GENERAR_VARIAS_CLIQUES).addActionListener(new ActionListener() {
+
+	private void generarVariasCliquesListener(JButton boton) {
+		boton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<Solucion> soluciones = Aplicacion.calcularVariasCliques(_grafo);
-				_visualizadorGrafo.resaltarTodasLasCliques(soluciones);
-				notificar(obtenerInfo(soluciones));
+				notificarOberservers(soluciones);
 			}
-
-	
-
 		});
 	}
 
-	public void reiniciarListener() {
-		_botones.get(NombreBotones.REINICIAR_GRAFO).addActionListener(new ActionListener() {
+	private void reiniciarListener(JButton boton) {
+		boton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				_grafo = new Grafo();
-				_visualizadorGrafo.actualizar(_grafo);
-				notificar("");
+				notificarOberservers(_grafo);
 			}
 		});
-
 	}
-	private void botonSalirListener() {
-		_botones.get(NombreBotones.SALIR).addActionListener(new ActionListener() {
+
+	private void botonSalirListener(JButton boton) {
+		boton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				for (Window window : Window.getWindows()) {
-	                window.dispose();
-	            }
+					window.dispose();
+				}
 			}
 		});
 	}
 
-	public String obtenerInformacionGrafo() {
-		return _grafo.toString();
-	}
-
-
-	public void escucharComponentes() {
-		agregarVerticeListener();
-		agregarAristaListener();
-		agregarGenerarRandomListener();
-		agregarDameCliqueMaximaListener();
-		reiniciarListener();
-		agregarAristaRandomListener();
-		agregarGenerarVariasCliquesListener();
-		botonSalirListener();
-		_visualizadorGrafo.actualizar(_grafo);
-	}
-
-	public int parsearInputText(NombreInputs nombre) {
-		String valor = _inputs.get(nombre).getText();
-		if (!esNumero(valor)) {
-			throw new IllegalArgumentException("El valor ingresado debe ser un numero");
-		}
-
-		return Integer.parseInt(valor);
-	}
-
-	public void ver() {
-		_visualizadorGrafo.ver();
-	}
-
-	public void ocultar() {
-		_visualizadorGrafo.ocultar();
-	}
-	
 	public void registrarObservador(Observador observador) {
 		_observadores.add(observador);
 	}
 
-	public void notificar(Object dato) {
-		for (Observador observador:_observadores) {
+	private void notificarOberservers(Object dato) {
+		for (Observador observador : _observadores) {
 			observador.actualizar(dato);
 		}
-		
-	}
-
-	public void agregarInput(NombreInputs nombre, JTextField input) {
-		_inputs.put(nombre, input);
-	}
-
-	public void agregarBoton(NombreBotones nombre, JButton boton) {
-		_botones.put(nombre, boton);
-		
-	}
-
-	public HashMap<NombreBotones, JButton> getBotones() {
-		return _botones;
-	}
-	
-	
+	};
 }

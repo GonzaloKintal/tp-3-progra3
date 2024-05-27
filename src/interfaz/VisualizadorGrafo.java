@@ -24,10 +24,10 @@ import logica.Solucion;
 import logica.Vertice;
 import util.Config;
 
-public class VisualizadorGrafo {
+public class VisualizadorGrafo implements Observador {
 
-	private JFrame _frame;
 	private Graph _vistaGrafo;
+	private JFrame _frame;
 
 	public VisualizadorGrafo() {
 		System.setProperty("org.graphstream.ui", "swing");
@@ -48,7 +48,20 @@ public class VisualizadorGrafo {
 		_vistaGrafo.setAttribute("ui.stylesheet", Config.ESTILOS_GRAPHSTREAM);
 	}
 
-	public void actualizar(Grafo grafo) {
+	@SuppressWarnings("unchecked")
+	@Override
+	public void actualizar(Object dato) {
+		if (dato.getClass() == Grafo.class) {
+			dibujarGrafo((Grafo) dato);
+		} else if (dato.getClass() == Solucion.class) {
+			Solucion solucion = (Solucion) dato;
+			resaltarVerticesClique(solucion.obtener(), "primera");
+		} else {
+			resaltarTodasLasCliques((ArrayList<Solucion>) dato);
+		}
+	}
+
+	private void dibujarGrafo(Grafo grafo) {
 		asignarAtributosVisor();
 		SpriteManager spriteManager = new SpriteManager(_vistaGrafo);
 
@@ -74,7 +87,6 @@ public class VisualizadorGrafo {
 				}
 			}
 		}
-
 	}
 
 	public void resaltarVerticesClique(Set<Vertice> vertices, String clase) {
@@ -116,7 +128,7 @@ public class VisualizadorGrafo {
 
 		return null;
 	}
-
+	
 	private void moverVista(Viewer viewer) {
 		SwingUtilities.invokeLater(() -> {
 			View view = viewer.getDefaultView();
@@ -153,5 +165,4 @@ public class VisualizadorGrafo {
 			}
 		});
 	}
-
 }

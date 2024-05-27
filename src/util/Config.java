@@ -5,6 +5,9 @@ import java.awt.Color;
 public class Config {
 	public static int WIDTH_BOTON = 230;
 	public static int HEIGHT_BOTON = 30;
+	public static int HEIGHT_FRAME = 650;
+	public static int WIDTH_FRAME = 300;
+	public static int WIDTH_PANEL_INTERACTIVO = 300;
 	public static Color COLOR_PANEL = new Color(200, 241, 254);
 	public static Color COLOR_BOTON = new Color(23, 90, 115);
 	public static Color COLOR_BOTON_SALIR = new Color(179, 0, 0);
@@ -12,6 +15,7 @@ public class Config {
 	public static String ESTILOS_GRAPHSTREAM = """
 			graph {
 				fill-color: rgb(200, 241, 254);
+				padding: 80px;
 			}
 
 			node{
@@ -87,5 +91,4 @@ public class Config {
 				text-offset: 0px, -3px;
 			}
 			""";
-
 }
