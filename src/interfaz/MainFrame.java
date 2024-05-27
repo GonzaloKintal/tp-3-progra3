@@ -1,8 +1,6 @@
 package interfaz;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Image;
@@ -16,13 +14,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
-import org.graphstream.ui.view.View;
-import org.graphstream.ui.view.Viewer;
 
 import util.BotonPredeterminado;
 import util.Config;
@@ -32,9 +27,7 @@ import util.NombreInputs;
 public class MainFrame {
 
 	private JFrame _frame;
-	private JSplitPane _splitPane; 
 	private JPanel _panelInteractivo;
-	private JPanel _panelGrafo;
 
 	private HashMap<NombreBotones, JButton> _botones;
 	private HashMap<NombreInputs, JTextField> _inputs;
@@ -73,9 +66,6 @@ public class MainFrame {
 		crearFrame();
 
 		crearPanelInteractivo();
-		crearGrafo();
-
-		dividirPantalla();
 		
 		crearSwitchVisualizarGrafo();
 		crearImagenOjo();
@@ -116,30 +106,9 @@ public class MainFrame {
 	private void crearFrame() {
 		_frame = new JFrame();
 		_frame.setTitle("Clique máxima");
-		_frame.setBounds(100, 80, 800, 650);
+		_frame.setBounds(100, 80, Config.WIDTH_FRAME, Config.HEIGHT_FRAME);
 		_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		_frame.setIconImage(new ImageIcon(getClass().getResource("/icono.png")).getImage());
-	}
-	
-	private void dividirPantalla() {
-		_splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, _panelInteractivo, _panelGrafo);
-	    _panelInteractivo.setLayout(null);
-	    _splitPane.setResizeWeight(0);
-	    _splitPane.setDividerSize(0);
-	    _splitPane.setDividerLocation(300);
-	    _frame.add(_splitPane);
-	  }
-	
-	private void crearGrafo() {
-		Viewer viewer = new Viewer(_visualizadorGrafo.getGrafo(),
-                Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
-		viewer.enableAutoLayout();
-		View view = viewer.addDefaultView(false);
-		
-		_panelGrafo = new JPanel();
-		_panelGrafo.setBounds(0, 0, 400, 500);
-		_panelGrafo.setLayout(new BorderLayout());
-		_panelGrafo.add((Component) view, BorderLayout.CENTER);
 	}
 
 	private void crearPanelInteractivo() {
@@ -147,6 +116,7 @@ public class MainFrame {
 		_panelInteractivo.setBounds(0, 0, 300, 500);
 		_panelInteractivo.setBackground(Config.COLOR_PANEL);
 		_panelInteractivo.setLayout(null);
+		_frame.add(_panelInteractivo);
 	}
 
 	private void crearSwitchVisualizarGrafo() {
@@ -165,11 +135,9 @@ public class MainFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (_switchVisualizarGrafo.isSelected()) {
-					_panelGrafo.setVisible(false);
-					_frame.setBounds(100, 80, Config.WIDTH_PANEL_INTERACTIVO, Config.HEIGHT_FRAME);
+					_visualizadorGrafo.ver();
 				} else {
-					_frame.setBounds(100, 80, Config.WIDTH_FRAME, Config.HEIGHT_FRAME);
-					_panelGrafo.setVisible(true);
+					_visualizadorGrafo.ocultar();
 				}
 			}
 		});
