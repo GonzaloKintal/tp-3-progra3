@@ -2,6 +2,8 @@ package interfaz;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.swing.JList;
 
@@ -18,8 +20,16 @@ public class PanelEstadisticas extends JList<String> implements Observador {
 
 	@Override
 	public void actualizar(Object dato) {
-		String[] infoString = ((String) dato.toString()).split("\n");
-		setListData(infoString);
+		String[] informacion = {};
+		
+		if(dato.getClass() == ArrayList.class) {
+			informacion = ((String) dato.toString()).split("\n");
+		}else if(dato.getClass() == HashSet.class){
+			informacion = ((String) dato.toString()).split("\n");
+		}else {
+			informacion = ((String) dato.toString()).split("\n");
+		}
+		
+		setListData(informacion);
 	}
-
 }

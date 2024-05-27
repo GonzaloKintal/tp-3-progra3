@@ -3,7 +3,7 @@ package interfaz;
 
 import static logica.GeneradorGrafoRandom.agregarAristaRandom;
 import static logica.GeneradorGrafoRandom.generarGrafoRandom;
-import static logica.Solucion.obtenerInfo;
+
 import static util.EsNumero.esNumero;
 
 import java.awt.Window;
@@ -37,7 +37,8 @@ public class Presenter {
 
 	public void inyectarListeners(HashMap<NombreBotones, JButton> botones, HashMap<NombreInputs, JTextField> inputs) {
 		agregarVerticeListener(botones.get(NombreBotones.AGREGAR_VERTICE), inputs.get(NombreInputs.PESO_VERTICE));
-		agregarAristaListener(botones.get(NombreBotones.AGREGAR_ARISTA), inputs.get(NombreInputs.VERTICE1), inputs.get(NombreInputs.VERTICE2));
+		agregarAristaListener(botones.get(NombreBotones.AGREGAR_ARISTA), inputs.get(NombreInputs.VERTICE1),
+				inputs.get(NombreInputs.VERTICE2));
 		generarGrafoRandomListener(botones.get(NombreBotones.GENERAR_GRAFO_RANDOM));
 		agregarAristaRandomListener(botones.get(NombreBotones.GENERAR_ARISTA_RANDOM));
 		generarCliqueMaximaListener(botones.get(NombreBotones.DAME_CLIQUE_MAXIMA));
@@ -54,7 +55,7 @@ public class Presenter {
 				try {
 					_grafo.agregarVertice(parsearInputText(input.getText()));
 					input.setText(null);
-					notificarOberservers();
+					notificarOberservers(_grafo);
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -75,7 +76,7 @@ public class Presenter {
 
 					inputVertice1.setText(null);
 					inputVertice2.setText(null);
-					notificarOberservers();
+					notificarOberservers(_grafo);
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -89,7 +90,7 @@ public class Presenter {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				_grafo = generarGrafoRandom(10);
-				notificarOberservers();
+				notificarOberservers(_grafo);
 			}
 		});
 	}
@@ -101,7 +102,7 @@ public class Presenter {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					agregarAristaRandom(_grafo);
-					notificarOberservers();
+					notificarOberservers(_grafo);
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -115,9 +116,7 @@ public class Presenter {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Solucion solucion = Aplicacion.calcularClique(_grafo);
-				notificarOberservers();
-//				_visualizadorGrafo.resaltarVerticesClique(solucion.obtener(), "primera");
-//				notificar(solucion.toString());
+				notificarOberservers(solucion.obtener());
 			}
 		});
 	}
@@ -128,9 +127,7 @@ public class Presenter {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<Solucion> soluciones = Aplicacion.calcularVariasCliques(_grafo);
-				notificarOberservers();
-//				_visualizadorGrafo.resaltarTodasLasCliques(soluciones);
-//				notificar(obtenerInfo(soluciones));
+				notificarOberservers(soluciones);
 			}
 		});
 	}
@@ -140,12 +137,9 @@ public class Presenter {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				_grafo = new Grafo();
-				notificarOberservers();
-//				_visualizadorGrafo.actualizar(_grafo);
-//				notificar("");
+				notificarOberservers(_grafo);
 			}
 		});
-
 	}
 
 	private void botonSalirListener(JButton boton) {
@@ -160,10 +154,6 @@ public class Presenter {
 		});
 	}
 
-	private String obtenerInformacionGrafo() {
-		return _grafo.toString();
-	}
-
 	private int parsearInputText(String valor) {
 		if (!esNumero(valor)) {
 			throw new IllegalArgumentException("El valor ingresado debe ser un numero");
@@ -175,10 +165,10 @@ public class Presenter {
 	public void registrarObservador(Observador observador) {
 		_observadores.add(observador);
 	}
-	
-	private void notificarOberservers() {
+
+	private void notificarOberservers(Object dato) {
 		for (Observador observador : _observadores) {
-			observador.actualizar(_grafo);
+			observador.actualizar(dato);
 		}
 	};
 }

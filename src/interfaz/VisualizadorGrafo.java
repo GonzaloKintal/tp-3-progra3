@@ -1,6 +1,7 @@
 package interfaz;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.graphstream.graph.Edge;
@@ -22,7 +23,6 @@ public class VisualizadorGrafo implements Observador {
 	public VisualizadorGrafo() {
 		System.setProperty("org.graphstream.ui", "swing");
 		_vistaGrafo = new SingleGraph("Grafo");
-//		_vistaGrafo.display();
 		asignarAtributosVisor();
 	}
 
@@ -36,25 +36,34 @@ public class VisualizadorGrafo implements Observador {
 		_vistaGrafo.setAttribute("ui.stylesheet", Config.ESTILOS_GRAPHSTREAM);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void actualizar(Object dato) {
-		Grafo grafo = (Grafo) dato;
-		
+		if(dato.getClass() == Grafo.class) {
+			dibujarGrafo((Grafo)dato);
+		}else if (dato.getClass() == HashSet.class) {
+			resaltarVerticesClique((Set<Vertice>) dato, "primera");
+		}else {
+			resaltarTodasLasCliques((ArrayList<Solucion>) dato);
+		}
+	}
+	
+	private void dibujarGrafo(Grafo grafo) {
 		asignarAtributosVisor();
 		SpriteManager spriteManager = new SpriteManager(_vistaGrafo);
-
+		
 		// Dibuja vertice con dos textos
 		for (Vertice vertice : grafo.getVertices()) {
 			String id = String.valueOf(vertice.getID());
-
+			
 			Node node = _vistaGrafo.addNode(id);
 			node.setAttribute("ui.label", vertice.getText());
-
+			
 			Sprite aSprite = spriteManager.addSprite(id);
 			aSprite.attachToNode(id);
 			aSprite.setAttribute("ui.label", id);
 		}
-
+		
 		// Dibuja aristas
 		for (Vertice vertice : grafo.getVertices()) {
 			for (Vertice vecino : vertice.getVecinos()) {
@@ -65,7 +74,6 @@ public class VisualizadorGrafo implements Observador {
 				}
 			}
 		}
-
 	}
 
 	public void resaltarVerticesClique(Set<Vertice> vertices, String clase) {
