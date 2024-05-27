@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,8 +30,11 @@ public class MainFrame implements Observador {
 	private JFrame _frame;
 	private JPanel _panelInteractivo;
 
+	private HashMap<NombreBotones, JButton> _botones;
+	private HashMap<NombreInputs, JTextField> _inputs;
+
 	private JToggleButton _switchVisualizarGrafo;
-	
+
 	private Presenter _presenter;
 
 	private JList<String> _infoJList;
@@ -50,6 +54,8 @@ public class MainFrame implements Observador {
 	}
 
 	public MainFrame() {
+		_botones = new HashMap<>();
+		_inputs = new HashMap<>();
 		_presenter = new Presenter();
 		initialize();
 	}
@@ -79,23 +85,30 @@ public class MainFrame implements Observador {
 		crearBotonReiniciar();
 
 		crearBotonSalir();
-		
+
 		crearBotonAristaRandom();
-		
+
 		crearBotonGenerarVariasCliques();
 
 		agregarBotonesAlPanel();
+		agregarInputsAlPanel();
 
 		crearJList();
 		crearScrollPane();
-		
-		_presenter.escucharComponentes();
+
+		_presenter.inyectarListeners(_botones, _inputs);
 		_presenter.registrarObservador(this);
 	}
 
 	private void agregarBotonesAlPanel() {
-		_presenter.getBotones().values().stream().forEach(boton -> {
+		_botones.values().stream().forEach(boton -> {
 			_panelInteractivo.add(boton);
+		});
+	}
+
+	private void agregarInputsAlPanel() {
+		_inputs.values().stream().forEach(input -> {
+			_panelInteractivo.add(input);
 		});
 	}
 
@@ -149,23 +162,21 @@ public class MainFrame implements Observador {
 	}
 
 	private void crearLabelPeso() {
-		JLabel labelPeso = new JLabel("Peso");
-		labelPeso.setBounds(45, 30, 40, 25);
-		_panelInteractivo.add(labelPeso);
+		JLabel label = new JLabel("Peso");
+		label.setBounds(45, 30, 40, 25);
+		_panelInteractivo.add(label);
 	}
 
 	private void crearInputPesoVertice() {
-		JTextField inputPesoVertice = new JTextField();
-		inputPesoVertice.setBounds(40, 51, 40, 25);
-		_panelInteractivo.add(inputPesoVertice);
-		_presenter.agregarInput(NombreInputs.PESO_VERTICE, inputPesoVertice);
+		JTextField input = new JTextField();
+		input.setBounds(40, 51, 40, 25);
+		_inputs.put(NombreInputs.PESO_VERTICE, input);
 	}
 
 	private void crearBotonAgregarVertice() {
 		JButton boton = new BotonPredeterminado("Agregar vertice");
 		boton.setBounds(90, 50, 150, 25);
-		_presenter.agregarBoton(NombreBotones.AGREGAR_VERTICE, boton);
-		_panelInteractivo.add(boton);
+		_botones.put(NombreBotones.AGREGAR_VERTICE, boton);
 	}
 
 	private void crearLabelsVertices() {
@@ -181,57 +192,53 @@ public class MainFrame implements Observador {
 	private void crearInputsVerticesParaAgregarArista() {
 		JTextField inputVerticeOrigen = new JTextField();
 		inputVerticeOrigen.setBounds(98, 95, 35, 23);
-		_panelInteractivo.add(inputVerticeOrigen);
-		_presenter.agregarInput(NombreInputs.VERTICE1, inputVerticeOrigen);
+		_inputs.put(NombreInputs.VERTICE1, inputVerticeOrigen);
 
 		JTextField inputVerticeDestino = new JTextField();
 		inputVerticeDestino.setBounds(208, 95, 35, 23);
-		_panelInteractivo.add(inputVerticeDestino);
-		_presenter.agregarInput(NombreInputs.VERTICE2, inputVerticeDestino);
+		_inputs.put(NombreInputs.VERTICE2, inputVerticeDestino);
 	}
 
 	private void crearBotonAgregarArista() {
 		JButton boton = new BotonPredeterminado("Agregar arista", 28, 125);
-		_presenter.agregarBoton(NombreBotones.AGREGAR_ARISTA, boton);
+		_botones.put(NombreBotones.AGREGAR_ARISTA, boton);
 	}
 
 	private void crearBotonGenerarGrafoRandom() {
 		JButton boton = new BotonPredeterminado("Generar grafo random", 28, 165);
-		_presenter.agregarBoton(NombreBotones.GENERAR_GRAFO_RANDOM, boton);
+		_botones.put(NombreBotones.GENERAR_GRAFO_RANDOM, boton);
 	}
 
 	private void crearBotonDameCliqueMaxima() {
 		JButton boton = new BotonPredeterminado("Dame clique máxima", 28, 205);
-		_presenter.agregarBoton(NombreBotones.DAME_CLIQUE_MAXIMA, boton);
+		_botones.put(NombreBotones.DAME_CLIQUE_MAXIMA, boton);
 	}
 
 	private void crearBotonReiniciar() {
 		JButton boton = new BotonPredeterminado("Reiniciar grafo", 28, 325);
-		_presenter.agregarBoton(NombreBotones.REINICIAR_GRAFO, boton);
+		_botones.put(NombreBotones.REINICIAR_GRAFO, boton);
 	}
-	
+
 	private void crearBotonAristaRandom() {
 		JButton boton = new BotonPredeterminado("Crear arista random", 28, 285);
-		_presenter.agregarBoton(NombreBotones.GENERAR_ARISTA_RANDOM, boton);
+		_botones.put(NombreBotones.GENERAR_ARISTA_RANDOM, boton);
 	}
-	
+
 	private void crearBotonGenerarVariasCliques() {
 		JButton boton = new BotonPredeterminado("Generar varias cliques", 28, 245);
-		_presenter.agregarBoton(NombreBotones.GENERAR_VARIAS_CLIQUES, boton);
+		_botones.put(NombreBotones.GENERAR_VARIAS_CLIQUES, boton);
 	}
 
 	private void crearBotonSalir() {
 		JButton boton = new BotonPredeterminado("Salir", 28, 575);
 		boton.setBackground(Config.COLOR_BOTON_SALIR);
-		_presenter.agregarBoton(NombreBotones.SALIR, boton);
+		_botones.put(NombreBotones.SALIR, boton);
 	}
-
-	
 
 	private void crearJList() {
 		_infoJList = new JList<String>();
 		_infoJList.setBackground(Color.WHITE);
-        _infoJList.setForeground(Color.BLACK);
+		_infoJList.setForeground(Color.BLACK);
 		_infoJList.setBounds(0, 0, 200, 200);
 		_infoJList.setFont(new Font("Roboto", Font.BOLD, 14));
 		_panelInteractivo.add(_infoJList);
@@ -243,30 +250,26 @@ public class MainFrame implements Observador {
 		_scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		_scrollPane.setBorder(null);
 		_scrollPane.getVerticalScrollBar().setBackground(Config.COLOR_BOTON);
-	    _scrollPane.getVerticalScrollBar().setCursor(new Cursor(Cursor.HAND_CURSOR));
-	    _scrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());;
+		_scrollPane.getVerticalScrollBar().setCursor(new Cursor(Cursor.HAND_CURSOR));
+		_scrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
 		_panelInteractivo.add(_scrollPane);
 	}
-	
-	
+
 	// Clase interna para modificar el scroll
 	private class CustomScrollBarUI extends BasicScrollBarUI {
-	    @Override
-	    protected void configureScrollBarColors() {
-	        thumbColor = new Color(86, 206, 226);
-	        trackColor = Config.COLOR_BOTON;
-	        thumbDarkShadowColor = Config.COLOR_BOTON;
-	        thumbLightShadowColor = Config.COLOR_BOTON;
-	    }
+		@Override
+		protected void configureScrollBarColors() {
+			thumbColor = new Color(86, 206, 226);
+			trackColor = Config.COLOR_BOTON;
+			thumbDarkShadowColor = Config.COLOR_BOTON;
+			thumbLightShadowColor = Config.COLOR_BOTON;
+		}
 	}
-
 
 	@Override
 	public void actualizar(Object dato) {
 		String[] infoString = ((String) dato).split("\n");
 		_infoJList.setListData(infoString);
-		
-	}
-	
-}
 
+	}
+}
