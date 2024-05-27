@@ -25,18 +25,23 @@ public class PanelEstadisticas extends JList<String> implements Observador {
 	public void actualizar(Object dato) {
 		String[] informacion = {};
 		
-		if(dato.getClass() == ArrayList.class) {
+		if (dato.getClass() == ArrayList.class) {
 			String info = Solucion.obtenerInfo((ArrayList<Solucion>) dato);
 			informacion = info.split("\n");
 			
-		}else if(dato.getClass() == Solucion.class){
+		} else if (dato.getClass() == Solucion.class){
 			Solucion solucion =  (Solucion) dato;
 			informacion = (solucion.toString()).split("\n");
 			
-		}else if(dato.getClass() == Grafo.class){
-			informacion = ((String) dato.toString()).split("\n");
+		} else if (dato.getClass() == Grafo.class){
+			if (!((Grafo) dato).esVacio()) {
+				informacion = ((String) dato.toString()).split("\n");
+			} else {
+				informacion = "".split("\n");;
+			}
 		}
 		
 		setListData(informacion);
 	}
+	
 }

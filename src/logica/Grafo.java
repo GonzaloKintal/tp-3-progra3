@@ -67,7 +67,7 @@ public class Grafo{
             informacion.append(vertice.getID()).append(" - Peso: ").append(vertice.getPeso()).append("\n");
         }
         
-        informacion.append("\n\n\n\n");
+        informacion.append("\n");
         
         informacion.append("Aristas:\n");
         for (Vertice vertice : this.getVertices()) {
@@ -88,6 +88,10 @@ public class Grafo{
 			}
 		}
 		return true;
+	}
+
+	public boolean esVacio() {
+		return this.tamano() == 0;
 	}
 	
 	

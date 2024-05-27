@@ -76,5 +76,24 @@ public class VerticeTest {
 		
 		assertEquals(esperado, vertice.obtenerVecinos());
 	}
+	
+	
+	@Test
+	public void getIDVecinosTest() {
+		String esperado = "{ 2  3 }";
+		
+		Vertice vertice = new Vertice(5);
+		
+		Vertice v1 = new Vertice(10);
+		v1.setID(2);
+		vertice.agregarVecino(v1);
+		
+		Vertice v2 = new Vertice(10);
+		v2.setID(3);
+		vertice.agregarVecino(v2);
+		
+		System.out.println(vertice.getIDVecinos());
+		assertEquals(esperado, vertice.getIDVecinos());
+	}
 
 }

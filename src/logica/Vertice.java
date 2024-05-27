@@ -113,7 +113,7 @@ public class Vertice {
 	}
 
 	// Metodo usado en el toString.
-	private String getIdVecinos() {
+	String getIDVecinos() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
 
@@ -129,7 +129,7 @@ public class Vertice {
 
 	@Override
 	public String toString() {
-		return "\nVertice [_peso=" + _peso + ", _ID=" + _ID + ", vecinosID= " + getIdVecinos() + ", _pesoVecinos="
+		return "\nVertice [_peso=" + _peso + ", _ID=" + _ID + ", vecinosID= " + getIDVecinos() + ", _pesoVecinos="
 				+ _pesoVecinos + "]";
 	}
 
