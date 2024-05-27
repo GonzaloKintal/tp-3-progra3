@@ -12,25 +12,24 @@ public class Config {
 	public static String ESTILOS_GRAPHSTREAM = """
 			graph {
 				fill-color: rgb(200, 241, 254);
+				padding: 80px;
 			}
 
 			node{
 				text-color: #111;
 				text-size: 14px;
 				text-style: bold-italic;
-				size: 25px, 25px;
-				fill-mode:gradient-diagonal1 ;
+				size: 25px;
+				fill-mode: gradient-diagonal1;
 				fill-color: rgb(106, 226, 246), rgb(156, 255, 255);
-
 				text-offset: 0px, 20px;
-
 				text-background-color: rgb(86, 206, 226);
 				text-background-mode: rounded-box;
 				text-padding: 2px, 4px;
-
 				stroke-color: rgb(86, 206, 226);
 				stroke-width: 3px;
 				stroke-mode: plain;
+				size-mode: dyn-size;
 			}
 
 			node:clicked {
@@ -51,7 +50,7 @@ public class Config {
 				fill-color: #f485f0;
 				stroke-color: #f485f0;
 			}
-			
+
 			node.tercera {
 				fill-color: red;
 				stroke-color: red;
@@ -74,7 +73,7 @@ public class Config {
 			edge.segunda{
 				fill-color: #f485f0;
 			}
-			
+
 			edge.tercera{
 				fill-color: red;
 			}
@@ -87,5 +86,4 @@ public class Config {
 				text-offset: 0px, -3px;
 			}
 			""";
-
 }
