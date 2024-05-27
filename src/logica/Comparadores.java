@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 public class Comparadores {
 	
-	public static Comparator<Vertice> porPesoDelVecindario = (uno, otro) -> -uno.obtenerVecinos().size() + otro.obtenerVecinos().size();
+	public static Comparator<Vertice> porPesoDelVecindario = (uno, otro) -> -uno.getPesoTotalVecindario() + otro.getPesoTotalVecindario();
 
 	public static Comparator<Vertice> porCantidadDeVecinos = (uno, otro) -> -uno.obtenerVecinos().size() + otro.obtenerVecinos().size();
 

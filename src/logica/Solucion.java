@@ -45,7 +45,6 @@ public class Solucion {
 	@Override
 	public String toString() {
 		StringBuilder ret = new StringBuilder();
-		ret.append("Clique máxima:");
 		ret.append("\n");
 		ret.append("Peso: ");
 		ret.append(_peso);
@@ -90,11 +89,11 @@ public class Solucion {
 		StringBuilder ret= new StringBuilder();
 		int opcion=1;
 		for(Solucion solucion:soluciones) {
-			ret.append("Opcion ");
+			ret.append("Clique ");
 			ret.append(opcion++);
 			ret.append("\n");
 			ret.append(solucion.toString());
-			ret.append("\n\n\n");
+			ret.append("\n\n\n\n\n");
 		}
 		return ret.toString();
 	}

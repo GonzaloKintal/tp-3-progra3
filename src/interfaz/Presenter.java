@@ -30,16 +30,15 @@ public class Presenter {
 	private HashMap<NombreInputs, JTextField> _inputs;
 	private Grafo _grafo;
 	private VisualizadorGrafo _visualizadorGrafo;
-	private ArrayList<Observador> observadores;
+	private ArrayList<Observador> _observadores;
 
 	public Presenter() {
 		this._grafo = new Grafo();
 		this._botones=new HashMap<>();
 		this._inputs=new HashMap<>();
 		this._visualizadorGrafo = new VisualizadorGrafo();
-		this.observadores= new ArrayList<>();
+		this._observadores= new ArrayList<>();
 		GeneradorGrafoRandom.setGenerador(new GeneradorRandom());
-		
 	}
 
 	public Grafo getGrafo() {
@@ -147,7 +146,7 @@ public class Presenter {
 			public void actionPerformed(ActionEvent e) {
 				_grafo = new Grafo();
 				_visualizadorGrafo.actualizar(_grafo);
-				notificar(obtenerInformacionGrafo());
+				notificar("");
 			}
 		});
 
@@ -199,11 +198,11 @@ public class Presenter {
 	}
 	
 	public void registrarObservador(Observador observador) {
-		observadores.add(observador);
+		_observadores.add(observador);
 	}
 
 	public void notificar(Object dato) {
-		for (Observador observador:observadores) {
+		for (Observador observador:_observadores) {
 			observador.actualizar(dato);
 		}
 		
