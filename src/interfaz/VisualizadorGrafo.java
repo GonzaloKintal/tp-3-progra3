@@ -1,14 +1,7 @@
 package interfaz;
 
-import java.awt.Component;
-import java.awt.Point;
-import java.awt.Window;
 import java.util.ArrayList;
 import java.util.Set;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
@@ -16,26 +9,21 @@ import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.spriteManager.Sprite;
 import org.graphstream.ui.spriteManager.SpriteManager;
-import org.graphstream.ui.view.View;
-import org.graphstream.ui.view.Viewer;
 
 import logica.Grafo;
 import logica.Solucion;
 import logica.Vertice;
 import util.Config;
 
-public class VisualizadorGrafo {
+public class VisualizadorGrafo implements Observador {
 
-	private JFrame _frame;
 	private Graph _vistaGrafo;
 
 	public VisualizadorGrafo() {
 		System.setProperty("org.graphstream.ui", "swing");
 		_vistaGrafo = new SingleGraph("Grafo");
+//		_vistaGrafo.display();
 		asignarAtributosVisor();
-		Viewer viewer = _vistaGrafo.display();
-		moverVista(viewer);
-		cambiarIconoVentana(viewer, "/icono.png");
 	}
 
 	private void asignarAtributosVisor() {
@@ -48,7 +36,10 @@ public class VisualizadorGrafo {
 		_vistaGrafo.setAttribute("ui.stylesheet", Config.ESTILOS_GRAPHSTREAM);
 	}
 
-	public void actualizar(Grafo grafo) {
+	@Override
+	public void actualizar(Object dato) {
+		Grafo grafo = (Grafo) dato;
+		
 		asignarAtributosVisor();
 		SpriteManager spriteManager = new SpriteManager(_vistaGrafo);
 
@@ -116,42 +107,8 @@ public class VisualizadorGrafo {
 
 		return null;
 	}
-
-	private void moverVista(Viewer viewer) {
-		SwingUtilities.invokeLater(() -> {
-			View view = viewer.getDefaultView();
-			Window window = SwingUtilities.windowForComponent((Component) view);
-			if (window instanceof JFrame) {
-				_frame = (JFrame) window;
-				_frame.setLocation(new Point(390, 80));
-				_frame.setSize(800, 650);
-				_frame.setResizable(false);
-				_frame.setVisible(false);
-			}
-		});
+	
+	public Graph getGrafo() {
+		return this._vistaGrafo;
 	}
-
-	public void ver() {
-		_frame.setVisible(true);
-	}
-
-	public void ocultar() {
-		_frame.setVisible(false);
-	}
-
-	private void cambiarIconoVentana(Viewer viewer, String iconPath) {
-		SwingUtilities.invokeLater(() -> {
-			View view = viewer.getDefaultView();
-			JFrame frame = (JFrame) SwingUtilities.windowForComponent((Component) view);
-			if (frame != null) {
-				ImageIcon icon = new ImageIcon(getClass().getResource(iconPath));
-				if (icon.getImageLoadStatus() == java.awt.MediaTracker.COMPLETE) {
-					frame.setIconImage(icon.getImage());
-				} else {
-					System.err.println("No se pudo cargar el ícono: " + iconPath);
-				}
-			}
-		});
-	}
-
 }

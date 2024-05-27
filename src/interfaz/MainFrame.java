@@ -1,9 +1,10 @@
 package interfaz;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,31 +14,37 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.plaf.basic.BasicScrollBarUI;
+
+import org.graphstream.ui.view.View;
+import org.graphstream.ui.view.Viewer;
 
 import util.BotonPredeterminado;
 import util.Config;
 import util.NombreBotones;
 import util.NombreInputs;
 
-public class MainFrame implements Observador {
+public class MainFrame {
 
 	private JFrame _frame;
+	private JSplitPane _splitPane; 
 	private JPanel _panelInteractivo;
+	private JPanel _panelGrafo;
 
 	private HashMap<NombreBotones, JButton> _botones;
 	private HashMap<NombreInputs, JTextField> _inputs;
 
 	private JToggleButton _switchVisualizarGrafo;
+	private VisualizadorGrafo _visualizadorGrafo;
 
 	private Presenter _presenter;
 
-	private JList<String> _infoJList;
+	private PanelEstadisticas _estadisticas;
 	private JScrollPane _scrollPane;
 
 	public static void main(String[] args) {
@@ -57,6 +64,7 @@ public class MainFrame implements Observador {
 		_botones = new HashMap<>();
 		_inputs = new HashMap<>();
 		_presenter = new Presenter();
+		_visualizadorGrafo = new VisualizadorGrafo();
 		initialize();
 	}
 
@@ -65,7 +73,10 @@ public class MainFrame implements Observador {
 		crearFrame();
 
 		crearPanelInteractivo();
+		crearGrafo();
 
+		dividirPantalla();
+		
 		crearSwitchVisualizarGrafo();
 		crearImagenOjo();
 		escucharSwitchVisualizarGrafo();
@@ -93,39 +104,49 @@ public class MainFrame implements Observador {
 		agregarBotonesAlPanel();
 		agregarInputsAlPanel();
 
-		crearJList();
+		crearPanelEstadisticas();
 		crearScrollPane();
 
 		_presenter.inyectarListeners(_botones, _inputs);
-		_presenter.registrarObservador(this);
+		_presenter.registrarObservador(_estadisticas);
+		_presenter.registrarObservador(_visualizadorGrafo);
 	}
 
-	private void agregarBotonesAlPanel() {
-		_botones.values().stream().forEach(boton -> {
-			_panelInteractivo.add(boton);
-		});
-	}
-
-	private void agregarInputsAlPanel() {
-		_inputs.values().stream().forEach(input -> {
-			_panelInteractivo.add(input);
-		});
-	}
 
 	private void crearFrame() {
 		_frame = new JFrame();
 		_frame.setTitle("Clique máxima");
-		_frame.setBounds(100, 80, 300, 650);
+		_frame.setBounds(100, 80, 800, 650);
 		_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		_frame.setIconImage(new ImageIcon(getClass().getResource("/icono.png")).getImage());
+	}
+	
+	private void dividirPantalla() {
+		_splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, _panelInteractivo, _panelGrafo);
+	    _panelInteractivo.setLayout(null);
+	    _splitPane.setResizeWeight(0);
+	    _splitPane.setDividerSize(0);
+	    _splitPane.setDividerLocation(300);
+	    _frame.add(_splitPane);
+	  }
+	
+	private void crearGrafo() {
+		Viewer viewer = new Viewer(_visualizadorGrafo.getGrafo(),
+                Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
+		viewer.enableAutoLayout();
+		View view = viewer.addDefaultView(false);
+		
+		_panelGrafo = new JPanel();
+		_panelGrafo.setBounds(0, 0, 400, 500);
+		_panelGrafo.setLayout(new BorderLayout());
+		_panelGrafo.add((Component) view, BorderLayout.CENTER);
 	}
 
 	private void crearPanelInteractivo() {
 		_panelInteractivo = new JPanel();
-		_panelInteractivo.setBounds(0, 20, 300, 500);
+		_panelInteractivo.setBounds(0, 0, 400, 500);
 		_panelInteractivo.setBackground(Config.COLOR_PANEL);
 		_panelInteractivo.setLayout(null);
-		_frame.getContentPane().add(_panelInteractivo);
 	}
 
 	private void crearSwitchVisualizarGrafo() {
@@ -144,9 +165,9 @@ public class MainFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (_switchVisualizarGrafo.isSelected()) {
-					_presenter.ver();
+					_panelGrafo.setVisible(true);
 				} else {
-					_presenter.ocultar();
+					_panelGrafo.setVisible(false);
 				}
 			}
 		});
@@ -234,18 +255,27 @@ public class MainFrame implements Observador {
 		boton.setBackground(Config.COLOR_BOTON_SALIR);
 		_botones.put(NombreBotones.SALIR, boton);
 	}
+	
 
-	private void crearJList() {
-		_infoJList = new JList<String>();
-		_infoJList.setBackground(Color.WHITE);
-		_infoJList.setForeground(Color.BLACK);
-		_infoJList.setBounds(0, 0, 200, 200);
-		_infoJList.setFont(new Font("Roboto", Font.BOLD, 14));
-		_panelInteractivo.add(_infoJList);
+	private void agregarBotonesAlPanel() {
+		_botones.values().stream().forEach(boton -> {
+			_panelInteractivo.add(boton);
+		});
+	}
+
+	private void agregarInputsAlPanel() {
+		_inputs.values().stream().forEach(input -> {
+			_panelInteractivo.add(input);
+		});
+	}
+
+	private void crearPanelEstadisticas() {
+		_estadisticas = new PanelEstadisticas();
+		_panelInteractivo.add(_estadisticas);
 	}
 
 	private void crearScrollPane() {
-		_scrollPane = new JScrollPane(_infoJList);
+		_scrollPane = new JScrollPane(_estadisticas);
 		_scrollPane.setBounds(30, 365, 230, 200);
 		_scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		_scrollPane.setBorder(null);
@@ -264,12 +294,5 @@ public class MainFrame implements Observador {
 			thumbDarkShadowColor = Config.COLOR_BOTON;
 			thumbLightShadowColor = Config.COLOR_BOTON;
 		}
-	}
-
-	@Override
-	public void actualizar(Object dato) {
-		String[] infoString = ((String) dato).split("\n");
-		_infoJList.setListData(infoString);
-
 	}
 }

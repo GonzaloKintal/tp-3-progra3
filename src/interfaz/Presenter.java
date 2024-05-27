@@ -27,12 +27,10 @@ import util.NombreInputs;
 public class Presenter {
 
 	private Grafo _grafo;
-	private VisualizadorGrafo _visualizadorGrafo;
 	private ArrayList<Observador> _observadores;
 
 	public Presenter() {
 		this._grafo = new Grafo();
-		this._visualizadorGrafo = new VisualizadorGrafo();
 		this._observadores = new ArrayList<>();
 		GeneradorGrafoRandom.setGenerador(new GeneradorRandom());
 	}
@@ -56,8 +54,7 @@ public class Presenter {
 				try {
 					_grafo.agregarVertice(parsearInputText(input.getText()));
 					input.setText(null);
-					_visualizadorGrafo.actualizar(_grafo);
-					notificar(obtenerInformacionGrafo());
+					notificarOberservers();
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -78,8 +75,7 @@ public class Presenter {
 
 					inputVertice1.setText(null);
 					inputVertice2.setText(null);
-					_visualizadorGrafo.actualizar(_grafo);
-					notificar(obtenerInformacionGrafo());
+					notificarOberservers();
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -93,8 +89,7 @@ public class Presenter {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				_grafo = generarGrafoRandom(10);
-				_visualizadorGrafo.actualizar(_grafo);
-				notificar(obtenerInformacionGrafo());
+				notificarOberservers();
 			}
 		});
 	}
@@ -106,8 +101,7 @@ public class Presenter {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					agregarAristaRandom(_grafo);
-					_visualizadorGrafo.actualizar(_grafo);
-					notificar(obtenerInformacionGrafo());
+					notificarOberservers();
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -121,8 +115,9 @@ public class Presenter {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Solucion solucion = Aplicacion.calcularClique(_grafo);
-				_visualizadorGrafo.resaltarVerticesClique(solucion.obtener(), "primera");
-				notificar(solucion.toString());
+				notificarOberservers();
+//				_visualizadorGrafo.resaltarVerticesClique(solucion.obtener(), "primera");
+//				notificar(solucion.toString());
 			}
 		});
 	}
@@ -133,8 +128,9 @@ public class Presenter {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<Solucion> soluciones = Aplicacion.calcularVariasCliques(_grafo);
-				_visualizadorGrafo.resaltarTodasLasCliques(soluciones);
-				notificar(obtenerInfo(soluciones));
+				notificarOberservers();
+//				_visualizadorGrafo.resaltarTodasLasCliques(soluciones);
+//				notificar(obtenerInfo(soluciones));
 			}
 		});
 	}
@@ -144,8 +140,9 @@ public class Presenter {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				_grafo = new Grafo();
-				_visualizadorGrafo.actualizar(_grafo);
-				notificar("");
+				notificarOberservers();
+//				_visualizadorGrafo.actualizar(_grafo);
+//				notificar("");
 			}
 		});
 
@@ -175,21 +172,13 @@ public class Presenter {
 		return Integer.parseInt(valor);
 	}
 
-	public void ver() {
-		_visualizadorGrafo.ver();
-	}
-
-	public void ocultar() {
-		_visualizadorGrafo.ocultar();
-	}
-
 	public void registrarObservador(Observador observador) {
 		_observadores.add(observador);
 	}
-
-	private void notificar(Object dato) {
+	
+	private void notificarOberservers() {
 		for (Observador observador : _observadores) {
-			observador.actualizar(dato);
+			observador.actualizar(_grafo);
 		}
-	}
+	};
 }
