@@ -6,13 +6,13 @@ import static logica.GeneradorGrafoRandom.generarGrafoRandom;
 import static logica.Solucion.obtenerInfo;
 import static util.EsNumero.esNumero;
 
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JButton;
-import javax.swing.JList;
 import javax.swing.JTextField;
 
 import logica.Aplicacion;
@@ -30,12 +30,16 @@ public class Presenter {
 	private HashMap<NombreInputs, JTextField> _inputs;
 	private Grafo _grafo;
 	private VisualizadorGrafo _visualizadorGrafo;
-	private JList<String> _info;
+	private ArrayList<Observador> observadores;
 
 	public Presenter() {
 		this._grafo = new Grafo();
+		this._botones=new HashMap<>();
+		this._inputs=new HashMap<>();
 		this._visualizadorGrafo = new VisualizadorGrafo();
+		this.observadores= new ArrayList<>();
 		GeneradorGrafoRandom.setGenerador(new GeneradorRandom());
+		
 	}
 
 	public Grafo getGrafo() {
@@ -51,7 +55,7 @@ public class Presenter {
 					_grafo.agregarVertice(parsearInputText(NombreInputs.PESO_VERTICE));
 					_inputs.get(NombreInputs.PESO_VERTICE).setText(null);
 					_visualizadorGrafo.actualizar(_grafo);
-					actualizarInfo();
+					notificar(obtenerInformacionGrafo());
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -73,7 +77,7 @@ public class Presenter {
 					_inputs.get(NombreInputs.VERTICE1).setText(null);
 					_inputs.get(NombreInputs.VERTICE2).setText(null);
 					_visualizadorGrafo.actualizar(_grafo);
-					actualizarInfo();
+					notificar(obtenerInformacionGrafo());
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -88,7 +92,7 @@ public class Presenter {
 			public void actionPerformed(ActionEvent e) {
 				_grafo = generarGrafoRandom(10);
 				_visualizadorGrafo.actualizar(_grafo);
-				actualizarInfo();
+				notificar(obtenerInformacionGrafo());
 			}
 		});
 	}
@@ -101,7 +105,7 @@ public class Presenter {
 				try {
 					agregarAristaRandom(_grafo);
 					_visualizadorGrafo.actualizar(_grafo);
-					actualizarInfo();
+					notificar(obtenerInformacionGrafo());
 				} catch (Exception e2) {
 					new MensajeWarning(e2);
 				}
@@ -117,7 +121,7 @@ public class Presenter {
 			public void actionPerformed(ActionEvent e) {
 				Solucion solucion = Aplicacion.calcularClique(_grafo);
 				_visualizadorGrafo.resaltarVerticesClique(solucion.obtener(), "primera");
-				actualizarInfoClique(solucion.toString());
+				notificar(solucion.toString());
 			}
 		});
 	}
@@ -129,7 +133,7 @@ public class Presenter {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<Solucion> soluciones = Aplicacion.calcularVariasCliques(_grafo);
 				_visualizadorGrafo.resaltarTodasLasCliques(soluciones);
-				actualizarInfoClique(obtenerInfo(soluciones));
+				notificar(obtenerInfo(soluciones));
 			}
 
 	
@@ -143,31 +147,29 @@ public class Presenter {
 			public void actionPerformed(ActionEvent e) {
 				_grafo = new Grafo();
 				_visualizadorGrafo.actualizar(_grafo);
-				actualizarInfo();
+				notificar(obtenerInformacionGrafo());
 			}
 		});
 
+	}
+	private void botonSalirListener() {
+		_botones.get(NombreBotones.SALIR).addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for (Window window : Window.getWindows()) {
+	                window.dispose();
+	            }
+			}
+		});
 	}
 
 	public String obtenerInformacionGrafo() {
 		return _grafo.toString();
 	}
 
-	public void actualizarInfo() {
-		String informacion = obtenerInformacionGrafo();
-		String[] infoString = informacion.split("\n");
-		_info.setListData(infoString);
-	}
 
-	public void actualizarInfoClique(String info) {
-		String[] infoString = info.split("\n");
-		_info.setListData(infoString);
-	}
-
-	public void setComponentes(HashMap<NombreBotones, JButton> listaBotones, HashMap<NombreInputs, JTextField> inputs) {
-		this._botones = listaBotones;
-		this._inputs = inputs;
-
+	public void escucharComponentes() {
 		agregarVerticeListener();
 		agregarAristaListener();
 		agregarGenerarRandomListener();
@@ -175,12 +177,8 @@ public class Presenter {
 		reiniciarListener();
 		agregarAristaRandomListener();
 		agregarGenerarVariasCliquesListener();
+		botonSalirListener();
 		_visualizadorGrafo.actualizar(_grafo);
-	}
-
-	public void setearList(JList<String> info) {
-		_info = info;
-		actualizarInfo();
 	}
 
 	public int parsearInputText(NombreInputs nombre) {
@@ -198,6 +196,30 @@ public class Presenter {
 
 	public void ocultar() {
 		_visualizadorGrafo.ocultar();
+	}
+	
+	public void registrarObservador(Observador observador) {
+		observadores.add(observador);
+	}
+
+	public void notificar(Object dato) {
+		for (Observador observador:observadores) {
+			observador.actualizar(dato);
+		}
+		
+	}
+
+	public void agregarInput(NombreInputs nombre, JTextField input) {
+		_inputs.put(nombre, input);
+	}
+
+	public void agregarBoton(NombreBotones nombre, JButton boton) {
+		_botones.put(nombre, boton);
+		
+	}
+
+	public HashMap<NombreBotones, JButton> getBotones() {
+		return _botones;
 	}
 	
 	

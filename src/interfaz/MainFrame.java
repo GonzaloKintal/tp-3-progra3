@@ -5,10 +5,8 @@ import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,15 +24,13 @@ import util.Config;
 import util.NombreBotones;
 import util.NombreInputs;
 
-public class MainFrame {
+public class MainFrame implements Observador{
 
 	private JFrame frame;
 	private JPanel panelInteractivo;
 
 	private JToggleButton switchVisualizarGrafo;
-
-	private HashMap<NombreBotones, JButton> listaBotones;
-	private HashMap<NombreInputs, JTextField> listaInputs;
+	
 	private Presenter presenter;
 
 	private JList<String> infoJList;
@@ -55,8 +51,6 @@ public class MainFrame {
 
 	public MainFrame() {
 		presenter = new Presenter();
-		listaBotones = new HashMap<>();
-		listaInputs = new HashMap<>();
 		initialize();
 	}
 
@@ -95,12 +89,12 @@ public class MainFrame {
 		crearJList();
 		crearScrollPane();
 		
-		presenter.setComponentes(listaBotones, listaInputs);
-		presenter.setearList(infoJList);
+		presenter.escucharComponentes();
+		presenter.registrarObservador(this);
 	}
 
 	private void agregarBotonesAlPanel() {
-		listaBotones.values().stream().forEach(boton -> {
+		presenter.getBotones().values().stream().forEach(boton -> {
 			panelInteractivo.add(boton);
 		});
 	}
@@ -164,13 +158,13 @@ public class MainFrame {
 		JTextField inputPesoVertice = new JTextField();
 		inputPesoVertice.setBounds(40, 51, 40, 25);
 		panelInteractivo.add(inputPesoVertice);
-		listaInputs.put(NombreInputs.PESO_VERTICE, inputPesoVertice);
+		presenter.agregarInput(NombreInputs.PESO_VERTICE, inputPesoVertice);
 	}
 
 	private void crearBotonAgregarVertice() {
 		JButton boton = new BotonPredeterminado("Agregar vertice");
 		boton.setBounds(90, 50, 150, 25);
-		listaBotones.put(NombreBotones.AGREGAR_VERTICE, boton);
+		presenter.agregarBoton(NombreBotones.AGREGAR_VERTICE, boton);
 		panelInteractivo.add(boton);
 	}
 
@@ -188,62 +182,51 @@ public class MainFrame {
 		JTextField inputVerticeOrigen = new JTextField();
 		inputVerticeOrigen.setBounds(98, 95, 35, 23);
 		panelInteractivo.add(inputVerticeOrigen);
-		listaInputs.put(NombreInputs.VERTICE1, inputVerticeOrigen);
+		presenter.agregarInput(NombreInputs.VERTICE1, inputVerticeOrigen);
 
 		JTextField inputVerticeDestino = new JTextField();
 		inputVerticeDestino.setBounds(208, 95, 35, 23);
 		panelInteractivo.add(inputVerticeDestino);
-		listaInputs.put(NombreInputs.VERTICE2, inputVerticeDestino);
+		presenter.agregarInput(NombreInputs.VERTICE2, inputVerticeDestino);
 	}
 
 	private void crearBotonAgregarArista() {
 		JButton boton = new BotonPredeterminado("Agregar arista", 28, 125);
-		listaBotones.put(NombreBotones.AGREGAR_ARISTA, boton);
+		presenter.agregarBoton(NombreBotones.AGREGAR_ARISTA, boton);
 	}
 
 	private void crearBotonGenerarGrafoRandom() {
 		JButton boton = new BotonPredeterminado("Generar grafo random", 28, 165);
-		listaBotones.put(NombreBotones.GENERAR_GRAFO_RANDOM, boton);
+		presenter.agregarBoton(NombreBotones.GENERAR_GRAFO_RANDOM, boton);
 	}
 
 	private void crearBotonDameCliqueMaxima() {
 		JButton boton = new BotonPredeterminado("Dame clique máxima", 28, 205);
-		listaBotones.put(NombreBotones.DAME_CLIQUE_MAXIMA, boton);
+		presenter.agregarBoton(NombreBotones.DAME_CLIQUE_MAXIMA, boton);
 	}
 
 	private void crearBotonReiniciar() {
 		JButton boton = new BotonPredeterminado("Reiniciar grafo", 28, 325);
-		listaBotones.put(NombreBotones.REINICIAR_GRAFO, boton);
+		presenter.agregarBoton(NombreBotones.REINICIAR_GRAFO, boton);
 	}
 	
 	private void crearBotonAristaRandom() {
 		JButton boton = new BotonPredeterminado("Crear arista random", 28, 285);
-		listaBotones.put(NombreBotones.GENERAR_ARISTA_RANDOM, boton);
+		presenter.agregarBoton(NombreBotones.GENERAR_ARISTA_RANDOM, boton);
 	}
 	
 	private void crearBotonGenerarVariasCliques() {
 		JButton boton = new BotonPredeterminado("Generar varias cliques", 28, 245);
-		listaBotones.put(NombreBotones.GENERAR_VARIAS_CLIQUES, boton);
+		presenter.agregarBoton(NombreBotones.GENERAR_VARIAS_CLIQUES, boton);
 	}
 
 	private void crearBotonSalir() {
 		JButton boton = new BotonPredeterminado("Salir", 28, 575);
 		boton.setBackground(Config.COLOR_BOTON_SALIR);
-		listaBotones.put(NombreBotones.SALIR, boton);
-		escucharBotonSalir();
+		presenter.agregarBoton(NombreBotones.SALIR, boton);
 	}
 
-	private void escucharBotonSalir() {
-		listaBotones.get(NombreBotones.SALIR).addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				for (Window window : Window.getWindows()) {
-	                window.dispose();
-	            }
-			}
-		});
-	}
+	
 
 	private void crearJList() {
 		infoJList = new JList<String>();
@@ -275,6 +258,14 @@ public class MainFrame {
 	        thumbDarkShadowColor = Config.COLOR_BOTON;
 	        thumbLightShadowColor = Config.COLOR_BOTON;
 	    }
+	}
+
+
+	@Override
+	public void actualizar(Object dato) {
+		String[] infoString = ((String) dato).split("\n");
+		infoJList.setListData(infoString);
+		
 	}
 	
 }
