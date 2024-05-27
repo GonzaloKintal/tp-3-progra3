@@ -4,7 +4,7 @@ package interfaz;
 import static logica.GeneradorGrafoRandom.agregarAristaRandom;
 import static logica.GeneradorGrafoRandom.generarGrafoRandom;
 
-import static util.EsNumero.esNumero;
+import static util.Auxiliares.parsearInputText;
 
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -116,7 +116,7 @@ public class Presenter {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Solucion solucion = Aplicacion.calcularClique(_grafo);
-				notificarOberservers(solucion.obtener());
+				notificarOberservers(solucion);
 			}
 		});
 	}
@@ -152,14 +152,6 @@ public class Presenter {
 				}
 			}
 		});
-	}
-
-	private int parsearInputText(String valor) {
-		if (!esNumero(valor)) {
-			throw new IllegalArgumentException("El valor ingresado debe ser un numero");
-		}
-
-		return Integer.parseInt(valor);
 	}
 
 	public void registrarObservador(Observador observador) {

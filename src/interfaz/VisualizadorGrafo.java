@@ -1,7 +1,6 @@
 package interfaz;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Set;
 
 import org.graphstream.graph.Edge;
@@ -39,31 +38,32 @@ public class VisualizadorGrafo implements Observador {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void actualizar(Object dato) {
-		if(dato.getClass() == Grafo.class) {
-			dibujarGrafo((Grafo)dato);
-		}else if (dato.getClass() == HashSet.class) {
-			resaltarVerticesClique((Set<Vertice>) dato, "primera");
-		}else {
+		if (dato.getClass() == Grafo.class) {
+			dibujarGrafo((Grafo) dato);
+		} else if (dato.getClass() == Solucion.class) {
+			Solucion solucion = (Solucion) dato;
+			resaltarVerticesClique(solucion.obtener(), "primera");
+		} else {
 			resaltarTodasLasCliques((ArrayList<Solucion>) dato);
 		}
 	}
-	
+
 	private void dibujarGrafo(Grafo grafo) {
 		asignarAtributosVisor();
 		SpriteManager spriteManager = new SpriteManager(_vistaGrafo);
-		
+
 		// Dibuja vertice con dos textos
 		for (Vertice vertice : grafo.getVertices()) {
 			String id = String.valueOf(vertice.getID());
-			
+
 			Node node = _vistaGrafo.addNode(id);
 			node.setAttribute("ui.label", vertice.getText());
-			
+
 			Sprite aSprite = spriteManager.addSprite(id);
 			aSprite.attachToNode(id);
-			aSprite.setAttribute("ui.label", id);
+			aSprite.setAttribute("ui.label", "HOla");
 		}
-		
+
 		// Dibuja aristas
 		for (Vertice vertice : grafo.getVertices()) {
 			for (Vertice vecino : vertice.getVecinos()) {
@@ -115,7 +115,7 @@ public class VisualizadorGrafo implements Observador {
 
 		return null;
 	}
-	
+
 	public Graph getGrafo() {
 		return this._vistaGrafo;
 	}

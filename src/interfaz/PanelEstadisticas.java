@@ -3,9 +3,11 @@ package interfaz;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import javax.swing.JList;
+
+import logica.Grafo;
+import logica.Solucion;
 
 public class PanelEstadisticas extends JList<String> implements Observador {
 
@@ -18,15 +20,20 @@ public class PanelEstadisticas extends JList<String> implements Observador {
 		setFont(new Font("Roboto", Font.BOLD, 14));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void actualizar(Object dato) {
 		String[] informacion = {};
 		
 		if(dato.getClass() == ArrayList.class) {
-			informacion = ((String) dato.toString()).split("\n");
-		}else if(dato.getClass() == HashSet.class){
-			informacion = ((String) dato.toString()).split("\n");
-		}else {
+			String info = Solucion.obtenerInfo((ArrayList<Solucion>) dato);
+			informacion = info.split("\n");
+			
+		}else if(dato.getClass() == Solucion.class){
+			Solucion solucion =  (Solucion) dato;
+			informacion = (solucion.toString()).split("\n");
+			
+		}else if(dato.getClass() == Grafo.class){
 			informacion = ((String) dato.toString()).split("\n");
 		}
 		

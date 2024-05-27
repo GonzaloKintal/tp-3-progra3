@@ -5,6 +5,9 @@ import java.awt.Color;
 public class Config {
 	public static int WIDTH_BOTON = 230;
 	public static int HEIGHT_BOTON = 30;
+	public static int HEIGHT_FRAME = 650;
+	public static int WIDTH_FRAME = 800;
+	public static int WIDTH_PANEL_INTERACTIVO = 300;
 	public static Color COLOR_PANEL = new Color(200, 241, 254);
 	public static Color COLOR_BOTON = new Color(23, 90, 115);
 	public static Color COLOR_BOTON_SALIR = new Color(179, 0, 0);
@@ -82,7 +85,6 @@ public class Config {
 				text-color: #111;
 				text-size: 14px;
 				text-style: bold-italic;
-				size: 0px, 0px;
 				text-offset: 0px, -3px;
 			}
 			""";

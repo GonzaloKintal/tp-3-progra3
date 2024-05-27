@@ -166,9 +166,9 @@ public class MainFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (_switchVisualizarGrafo.isSelected()) {
 					_panelGrafo.setVisible(false);
-					_frame.setBounds(100, 80,300,650);
+					_frame.setBounds(100, 80, Config.WIDTH_PANEL_INTERACTIVO, Config.HEIGHT_FRAME);
 				} else {
-					_frame.setBounds(100, 80,800,650);
+					_frame.setBounds(100, 80, Config.WIDTH_FRAME, Config.HEIGHT_FRAME);
 					_panelGrafo.setVisible(true);
 				}
 			}
