@@ -19,9 +19,9 @@ import org.graphstream.ui.spriteManager.SpriteManager;
 import org.graphstream.ui.view.View;
 import org.graphstream.ui.view.Viewer;
 
-import logica.Grafo;
+import grafo.Grafo;
+import grafo.Vertice;
 import logica.Solucion;
-import logica.Vertice;
 import util.Config;
 
 public class VisualizadorGrafo implements Observador {

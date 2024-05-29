@@ -1,4 +1,6 @@
-package logica;
+package generadores;
+
+import grafo.Grafo;
 
 public class GeneradorGrafoRandom {
 

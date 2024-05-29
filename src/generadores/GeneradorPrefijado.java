@@ -1,4 +1,4 @@
-package logica;
+package generadores;
 
 public class GeneradorPrefijado implements Generador {
 

@@ -1,5 +1,7 @@
 package logica;
 
+import grafo.Grafo;
+
 public class InstanciasGrafo {
 
 	public Solucion mejorSolucionGrafo1 = new Solucion();

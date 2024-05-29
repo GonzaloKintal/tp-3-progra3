@@ -1,8 +1,7 @@
 
 package interfaz;
 
-import static logica.GeneradorGrafoRandom.agregarAristaRandom;
-
+import static generadores.GeneradorGrafoRandom.agregarAristaRandom;
 import static util.Auxiliares.parsearInputText;
 
 import java.awt.Window;
@@ -14,10 +13,10 @@ import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
+import generadores.GeneradorGrafoRandom;
+import generadores.GeneradorRandom;
+import grafo.Grafo;
 import logica.Aplicacion;
-import logica.GeneradorGrafoRandom;
-import logica.GeneradorRandom;
-import logica.Grafo;
 import logica.Solucion;
 import util.MensajeWarning;
 import util.NombreBotones;

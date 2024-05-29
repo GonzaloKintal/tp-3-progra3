@@ -1,4 +1,4 @@
-package logica;
+package generadores;
 
 import java.util.Random;
 

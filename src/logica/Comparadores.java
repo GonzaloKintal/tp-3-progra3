@@ -2,6 +2,8 @@ package logica;
 
 import java.util.Comparator;
 
+import grafo.Vertice;
+
 public class Comparadores {
 	
 	public static Comparator<Vertice> porPesoDelVecindario = (uno, otro) -> -uno.getPesoTotalVecindario() + otro.getPesoTotalVecindario();

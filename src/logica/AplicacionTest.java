@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import grafo.Vertice;
+
 public class AplicacionTest {
 
 	private InstanciasGrafo grafos = new InstanciasGrafo();

@@ -1,4 +1,4 @@
-package logica;
+package generadores;
 
 public interface Generador {
 

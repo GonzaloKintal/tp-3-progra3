@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import grafo.Grafo;
+
 public class SolverPorVerticeMasPesadoTest {
 
 	@Test

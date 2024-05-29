@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import grafo.Vertice;
+
 public class Solucion {
 
 	private Set<Vertice> _vertices;

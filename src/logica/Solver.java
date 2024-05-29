@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Set;
 
+import grafo.Grafo;
+import grafo.Vertice;
+
 public class Solver {
 
 	private Grafo _grafo;

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.JList;
 
-import logica.Grafo;
+import grafo.Grafo;
 import logica.Solucion;
 
 public class PanelEstadisticas extends JList<String> implements Observador {
