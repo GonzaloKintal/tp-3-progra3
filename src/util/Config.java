@@ -60,6 +60,16 @@ public class Config {
 				fill-color: red;
 				stroke-color: red;
 			}
+			
+			node.cuarta {
+				fill-color: yellow;
+				stroke-color: yellow;
+			}
+			
+			node.quinta {
+				fill-color: orange;
+				stroke-color: orange;
+			}
 
 			edge{
 				fill-color: rgb(66, 186, 206);
@@ -81,6 +91,14 @@ public class Config {
 			
 			edge.tercera{
 				fill-color: red;
+			}
+			
+			edge.cuarta{
+				fill-color: yellow;
+			}
+			
+			edge.quinta{
+				fill-color: orange;
 			}
 
 			sprite {
