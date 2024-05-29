@@ -2,7 +2,6 @@
 package interfaz;
 
 import static logica.GeneradorGrafoRandom.agregarAristaRandom;
-import static logica.GeneradorGrafoRandom.generarGrafoRandom;
 
 import static util.Auxiliares.parsearInputText;
 
@@ -89,7 +88,8 @@ public class Presenter {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				_grafo = generarGrafoRandom(10);
+				GeneradorGrafoRandom generadorGrafoRandom = new GeneradorGrafoRandom();
+				_grafo = generadorGrafoRandom.generarGrafoRandom(10);
 				notificarOberservers(_grafo);
 			}
 		});
@@ -159,8 +159,6 @@ public class Presenter {
 	}
 
 	private void notificarOberservers(Object dato) {
-		for (Observador observador : _observadores) {
-			observador.actualizar(dato);
-		}
+		_observadores.stream().forEach(obs -> obs.actualizar(dato));
 	};
 }

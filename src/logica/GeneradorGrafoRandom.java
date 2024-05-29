@@ -4,24 +4,26 @@ public class GeneradorGrafoRandom {
 
 	private static Generador rd;
 	
+	private int pesoMaximoPosible = 50;
+	private double probabilidadArista = 0.7;
+	
+	
 	public static void setGenerador(Generador generador) {
 		rd = generador;
 	}
 	
-	public static Grafo generarGrafoRandom(int cantidadVertices) {
+	public Grafo generarGrafoRandom(int cantidadVertices) {
 		Grafo grafo = new Grafo();
-		int PESO_MAXIMO_POSIBLE = 50; 
-		double PROBABILIDAD_ARISTA = 0.7;
 
 		// Creacion vertices
 		for (int i = 0; i < cantidadVertices; i++) {
-			grafo.agregarVertice(rd.nextInt(PESO_MAXIMO_POSIBLE));
+			grafo.agregarVertice(rd.nextInt(pesoMaximoPosible));
 		}
 
 		// Asignacion aristas
 		for (int i = 0; i < grafo.tamano(); i++) {
 			for (int j = i + 1; j < grafo.tamano(); j++) {
-				if (rd.nextDouble(1) > PROBABILIDAD_ARISTA) {
+				if (rd.nextDouble(1) > probabilidadArista) {
 					grafo.agregarArista(i, j);
 				}
 			}
