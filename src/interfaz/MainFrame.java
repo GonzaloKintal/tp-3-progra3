@@ -18,8 +18,6 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
-
-import util.BotonPredeterminado;
 import util.Config;
 import util.NombreBotones;
 import util.NombreInputs;
