@@ -58,29 +58,29 @@ public class Presenter {
 					_grafo.agregarVertice(parsearInputText(input.getText()));
 					input.setText(null);
 					notificarOberservers(_grafo);
-				} catch (Exception e2) {
-					new MensajeWarning(e2);
+				} catch (Exception error) {
+					new MensajeWarning(error);
 				}
 			}
 		});
 	}
 
-	private void agregarAristaListener(JButton boton, JTextField inputVertice1, JTextField inputVertice2) {
+	private void agregarAristaListener(JButton boton, JTextField inputVertice1, JTextField inputVerticerror) {
 		boton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					int verticeOrigen = parsearInputText(inputVertice1.getText()) - 1;
-					int verticeDestino = parsearInputText(inputVertice2.getText()) - 1;
+					int verticeDestino = parsearInputText(inputVerticerror.getText()) - 1;
 
 					_grafo.agregarArista(verticeOrigen, verticeDestino);
 
 					inputVertice1.setText(null);
-					inputVertice2.setText(null);
+					inputVerticerror.setText(null);
 					notificarOberservers(_grafo);
-				} catch (Exception e2) {
-					new MensajeWarning(e2);
+				} catch (Exception error) {
+					new MensajeWarning(error);
 				}
 			}
 		});
@@ -105,8 +105,8 @@ public class Presenter {
 				try {
 					agregarAristaRandom(_grafo);
 					notificarOberservers(_grafo);
-				} catch (Exception e2) {
-					new MensajeWarning(e2);
+				} catch (Exception error) {
+					new MensajeWarning(error);
 				}
 			}
 		});
