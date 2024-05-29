@@ -27,11 +27,15 @@ public class Presenter {
 
 	private Grafo _grafo;
 	private ArrayList<Observador> _observadores;
+	private GeneradorGrafoRandom _generadorGrafoRandom; 
+	
+	private int _cantidadVertices = 10;
 
 	public Presenter() {
 		this._grafo = new Grafo();
 		this._observadores = new ArrayList<>();
 		GeneradorGrafoRandom.setGenerador(new GeneradorRandom());
+		this._generadorGrafoRandom = new GeneradorGrafoRandom();
 	}
 
 	public void inyectarListeners(HashMap<NombreBotones, JButton> botones, HashMap<NombreInputs, JTextField> inputs) {
@@ -88,8 +92,7 @@ public class Presenter {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GeneradorGrafoRandom generadorGrafoRandom = new GeneradorGrafoRandom();
-				_grafo = generadorGrafoRandom.generarGrafoRandom(10);
+				_grafo = _generadorGrafoRandom.generarGrafoRandom(_cantidadVertices);
 				notificarOberservers(_grafo);
 			}
 		});
@@ -161,4 +164,5 @@ public class Presenter {
 	private void notificarOberservers(Object dato) {
 		_observadores.stream().forEach(obs -> obs.actualizar(dato));
 	};
+	
 }
