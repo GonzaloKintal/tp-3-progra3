@@ -14,7 +14,7 @@ public class GeneradorGrafoRandom {
 		rd = generador;
 	}
 	
-	public Grafo generarGrafoRandom(int cantidadVertices) {
+	public Grafo generar(int cantidadVertices) {
 		Grafo grafo = new Grafo();
 
 		// Creacion vertices

@@ -11,6 +11,7 @@ public class Config {
 	public static Color COLOR_PANEL = new Color(200, 241, 254);
 	public static Color COLOR_BOTON = new Color(23, 90, 115);
 	public static Color COLOR_BOTON_SALIR = new Color(179, 0, 0);
+	public static Color COLOR_BOTON_REINICIAR = new Color(150, 226, 246);
 	public static String[] CLASES_CSS = { "primera", "segunda", "tercera", "cuarta", "quinta" };
 	public static String ESTILOS_GRAPHSTREAM = """
 			graph {

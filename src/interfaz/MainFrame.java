@@ -194,27 +194,29 @@ public class MainFrame {
 	}
 
 	private void crearBotonGenerarGrafoRandom() {
-		JButton boton = new BotonPredeterminado("Generar grafo random", 28, 165);
+		JButton boton = new BotonPredeterminado("Generar grafo random", 28, 205);
 		_botones.put(NombreBotones.GENERAR_GRAFO_RANDOM, boton);
 	}
 
 	private void crearBotonDameCliqueMaxima() {
-		JButton boton = new BotonPredeterminado("Dame clique máxima", 28, 205);
+		JButton boton = new BotonPredeterminado("Dame clique máxima", 28, 245);
 		_botones.put(NombreBotones.DAME_CLIQUE_MAXIMA, boton);
 	}
 
 	private void crearBotonReiniciar() {
 		JButton boton = new BotonPredeterminado("Reiniciar grafo", 28, 325);
+		boton.setBackground(Config.COLOR_BOTON_REINICIAR);
+		boton.setForeground(Color.black);
 		_botones.put(NombreBotones.REINICIAR_GRAFO, boton);
 	}
 
 	private void crearBotonAristaRandom() {
-		JButton boton = new BotonPredeterminado("Crear arista random", 28, 285);
+		JButton boton = new BotonPredeterminado("Crear arista random", 28, 165);
 		_botones.put(NombreBotones.GENERAR_ARISTA_RANDOM, boton);
 	}
 
 	private void crearBotonGenerarVariasCliques() {
-		JButton boton = new BotonPredeterminado("Generar varias cliques", 28, 245);
+		JButton boton = new BotonPredeterminado("Generar varias cliques", 28, 285);
 		_botones.put(NombreBotones.GENERAR_VARIAS_CLIQUES, boton);
 	}
 

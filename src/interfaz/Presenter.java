@@ -91,7 +91,7 @@ public class Presenter {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				_grafo = _generadorGrafoRandom.generarGrafoRandom(_cantidadVertices);
+				_grafo = _generadorGrafoRandom.generar(_cantidadVertices);
 				notificarOberservers(_grafo);
 			}
 		});
