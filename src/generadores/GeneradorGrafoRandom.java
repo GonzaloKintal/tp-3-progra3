@@ -15,6 +15,10 @@ public class GeneradorGrafoRandom {
 	}
 	
 	public Grafo generar(int cantidadVertices) {
+		if(cantidadVertices < 0) {
+			throw new IllegalArgumentException("La cantidad de vertices para generar un grafo random deber ser positiva");
+		}
+		
 		Grafo grafo = new Grafo();
 
 		// Creacion vertices
@@ -35,26 +39,26 @@ public class GeneradorGrafoRandom {
 	
 	public static void agregarAristaRandom(Grafo grafo) {
 		if(grafo.tamano() == 0) {
-			throw new RuntimeException("Asegurese de agregar vertices antes de agregar aristas random");
+			throw new IllegalArgumentException("Asegurese de agregar vertices antes de agregar aristas random");
 		}
 		
 		if (grafo.estaCompleto()) {
-			throw new RuntimeException("El grafo ya esta completo, no se pueden añadir mas aristas");
+			throw new IllegalArgumentException("El grafo ya esta completo, no se pueden añadir mas aristas");
 		}
 		
 		boolean flag = true;
-		int a = 0;
-		int b = 0;
+		int vertice1 = 0;
+		int vertice2 = 0;
 		
 		while (flag) {
-			a = rd.nextInt(grafo.tamano());
-			b = rd.nextInt(grafo.tamano());
+			vertice1 = rd.nextInt(grafo.tamano());
+			vertice2 = rd.nextInt(grafo.tamano());
 
-			if (!grafo.existeArista(a, b) && a != b) {
+			if (!grafo.existeArista(vertice1, vertice2) && vertice1 != vertice2) {
 				flag = false;
 			}
 		}
 		
-		grafo.agregarArista(a, b);
+		grafo.agregarArista(vertice1, vertice2);
 	}
 }

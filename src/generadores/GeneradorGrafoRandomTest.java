@@ -9,6 +9,41 @@ import static generadores.GeneradorGrafoRandom.agregarAristaRandom;
 
 public class GeneradorGrafoRandomTest {
 	
+	@Test (expected = IllegalArgumentException.class)
+	public void generarGrafoCantidadNegativa() {
+		GeneradorGrafoRandom generador = new GeneradorGrafoRandom();
+		generador.generar(-1);
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void agregarAristaGrafoVacioTest() {
+		GeneradorGrafoRandom.agregarAristaRandom(new Grafo());
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void agregarAristaGrafoCompletoTest() {
+		Grafo grafo = new Grafo();
+		grafo.agregarVertice(0);
+		grafo.agregarVertice(0);
+		grafo.agregarVertice(0);
+		
+		grafo.agregarArista(0, 1);
+		grafo.agregarArista(0, 2);
+		
+		grafo.agregarArista(1, 2);
+		
+		GeneradorGrafoRandom.agregarAristaRandom(grafo);
+	}
+	
+	@Test
+	public void generarGrafoVacioTest() {
+		GeneradorGrafoRandom generador = new GeneradorGrafoRandom();
+		Grafo grafo1 = generador.generar(0);
+		Grafo grafo2 = new Grafo();
+		
+		assertEquals(grafo1.tamano(), grafo2.tamano());
+	}
+	
 	@SuppressWarnings("static-access")
 	@Test
 	public void generarTest() {
