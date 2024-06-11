@@ -6,13 +6,9 @@ public class GeneradorGrafoRandom {
 
 	private static Generador rd;
 	
-	private int pesoMaximoPosible = 50;
+	private int _pesoMaximoPosible = 50;
 	private double probabilidadArista = 0.7;
-	
-	
-	public static void setGenerador(Generador generador) {
-		rd = generador;
-	}
+
 	
 	public Grafo generar(int cantidadVertices) {
 		if(cantidadVertices < 0) {
@@ -23,7 +19,7 @@ public class GeneradorGrafoRandom {
 
 		// Creacion vertices
 		for (int i = 0; i < cantidadVertices; i++) {
-			grafo.agregarVertice(rd.nextInt(pesoMaximoPosible));
+			grafo.agregarVertice(rd.nextInt(_pesoMaximoPosible));
 		}
 
 		// Asignacion aristas
@@ -60,5 +56,14 @@ public class GeneradorGrafoRandom {
 		}
 		
 		grafo.agregarArista(vertice1, vertice2);
+	}
+	
+	
+	public static void setGenerador(Generador generador) {
+		rd = generador;
+	}
+	
+	public void setPesoMaximo(int peso) {
+		_pesoMaximoPosible = peso;
 	}
 }
